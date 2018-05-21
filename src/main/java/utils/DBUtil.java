@@ -17,11 +17,11 @@ import java.util.List;
 public class DBUtil {
     private static DataSource dataSource = new ComboPooledDataSource();
 
-    public DataSource getDateSource() {
+    public static DataSource getDateSource() {
         return dataSource;
     }
 
-    public Connection getConn() {
+    public static Connection getConn() {
         Connection conn = null;
         try {
             conn = getDateSource().getConnection();
@@ -31,7 +31,7 @@ public class DBUtil {
         return conn;
     }
 
-    public int executeUpdate(String sql, Object... params) {
+    public static int executeUpdate(String sql, Object... params) {
         int num = 0;
         Connection conn = getConn();
         QueryRunner runner = new QueryRunner();
@@ -43,7 +43,7 @@ public class DBUtil {
         return num;
     }
 
-    public int getCoount(String sql, Class clazz, Object... params) {
+    public static int getCoount(String sql, Class clazz, Object... params) {
         int num = 0;
         Connection conn = getConn();
         QueryRunner runner = new QueryRunner();
@@ -56,7 +56,7 @@ public class DBUtil {
         return num;
     }
 
-    public <T> T getObject(String sql, Class clazz, Object... params) {
+    public static <T> T getObject(String sql, Class clazz, Object... params) {
         Connection conn = getConn();
         QueryRunner runner = new QueryRunner();
         try {
@@ -67,7 +67,7 @@ public class DBUtil {
         return null;
     }
 
-    public List getObjects(String sql, Class clazz, Object... params) {
+    public static List getObjects(String sql, Class clazz, Object... params) {
         Connection conn = getConn();
         QueryRunner runner = new QueryRunner();
         try {

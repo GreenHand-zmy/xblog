@@ -71,4 +71,15 @@ public class Comment {
     public void setToId(Long toId) {
         this.toId = toId;
     }
+
+    public Comment() {
+    }
+
+    public Comment(Long authorId, String content, Date created, Integer status, Long toId) {
+        this.authorId = authorId;
+        this.content = content;
+        this.created = created;
+        this.status = status;
+        this.toId = toId;
+    }
 }
