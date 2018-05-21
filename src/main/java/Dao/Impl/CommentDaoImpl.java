@@ -1,7 +1,7 @@
 package Dao.Impl;
 
 import Dao.CommentDao;
-import Dao.DBUtil;
+import utils.DBUtil;
 import bean.Comment;
 
 import java.util.Date;

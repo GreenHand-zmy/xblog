@@ -3,7 +3,7 @@ package bean;
 /**
  * Created by Fang on 2018/5/21.
  */
-public class Channels {
+public class Channel {
     //栏目标号
     private int id;
 
