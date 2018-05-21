@@ -28,7 +28,7 @@ public class User {
     //用户性别
     private String gender;
     //用户个性签名
-    private String singnature;
+    private String signature;
     //用户最后一次登录
     private Date lastLogin;
 
@@ -112,12 +112,12 @@ public class User {
         this.gender = gender;
     }
 
-    public String getSingnature() {
-        return singnature;
+    public String getSignature() {
+        return signature;
     }
 
-    public void setSingnature(String singnature) {
-        this.singnature = singnature;
+    public void setSignature(String singnature) {
+        this.signature = singnature;
     }
 
     public Date getLastLogin() {
@@ -126,5 +126,23 @@ public class User {
 
     public void setLastLogin(Date lastLogin) {
         this.lastLogin = lastLogin;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", created=" + created +
+                ", mobile='" + mobile + '\'' +
+                ", password='" + password + '\'' +
+                ", status=" + status +
+                ", username='" + username + '\'' +
+                ", name='" + name + '\'' +
+                ", avatar='" + avatar + '\'' +
+                ", updated=" + updated +
+                ", gender='" + gender + '\'' +
+                ", signature='" + signature + '\'' +
+                ", lastLogin=" + lastLogin +
+                '}';
     }
 }
