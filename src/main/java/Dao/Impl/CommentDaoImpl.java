@@ -9,41 +9,41 @@ import java.util.List;
 /**
  * Created by lfy on 2018/5/21.
  */
-public class CommentDaoImpl extends DBUtil implements CommentDao {
-    DBUtil db=new DBUtil();
+public class CommentDaoImpl implements CommentDao {
+
     @Override
     public Comment getCommentById(long id) {
-        String sql="SELECT * FROM mto_comments WHERE id=?";
-        return db.getObject(sql,Comment.class,id);
+        String sql = "SELECT * FROM mto_comments WHERE id=?";
+        return DBUtil.getObject(sql, Comment.class, id);
     }
 
     @Override
     public List<Comment> getComments(long toid) {
-        String sql="SELECT * FROM mto_comments WHERE to_id=?";
-        return db.getObjects(sql,Comment.class,toid);
+        String sql = "SELECT * FROM mto_comments WHERE to_id=?";
+        return DBUtil.getObjects(sql, Comment.class, toid);
     }
 
     @Override
     public List<Comment> getCommentsByAuthor(long authorId) {
-        String sql="SELECT * FROM mto_comments WHERE author_id=?";
-        return db.getObjects(sql,Comment.class,authorId);
+        String sql = "SELECT * FROM mto_comments WHERE author_id=?";
+        return DBUtil.getObjects(sql, Comment.class, authorId);
     }
 
     @Override
     public int delComment(long id) {
-        String sql="DELETE FROM mto_comments WHERE id=?";
-        return db.executeUpdate(sql,id);
+        String sql = "DELETE FROM mto_comments WHERE id=?";
+        return DBUtil.executeUpdate(sql, id);
     }
 
     @Override
     public int addComment(Comment comment) {
-        String sql="INSERT INTO mto_comments (author_id,content,created,status,to_id) VALUES(?,?,?,?,?)";
-        return db.executeUpdate(sql,comment.getAuthorId(),comment.getContent(),comment.getCreated(),comment.getStatus(),comment.getToId());
+        String sql = "INSERT INTO mto_comments (author_id,content,created,status,to_id) VALUES(?,?,?,?,?)";
+        return DBUtil.executeUpdate(sql, comment.getAuthorId(), comment.getContent(), comment.getCreated(), comment.getStatus(), comment.getToId());
     }
 
     @Override
     public int getCount(long toid) {
-        String sql="SELECT COUNT(*) FROM mto_comments WHERE to_id=?";
-        return db.getCount(sql,null,toid);
+        String sql = "SELECT COUNT(*) FROM mto_comments WHERE to_id=?";
+        return DBUtil.getCount(sql, null, toid);
     }
 }
