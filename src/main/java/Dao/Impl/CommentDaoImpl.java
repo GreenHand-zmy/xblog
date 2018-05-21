@@ -4,7 +4,6 @@ import Dao.CommentDao;
 import utils.DBUtil;
 import bean.Comment;
 
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -45,6 +44,6 @@ public class CommentDaoImpl extends DBUtil implements CommentDao {
     @Override
     public int getCount(long toid) {
         String sql="SELECT COUNT(*) FROM mto_comments WHERE to_id=?";
-        return db.getCoount(sql,null,toid);
+        return db.getCount(sql,null,toid);
     }
 }

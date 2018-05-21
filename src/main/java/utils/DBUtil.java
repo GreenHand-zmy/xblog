@@ -43,7 +43,7 @@ public class DBUtil {
         return num;
     }
 
-    public static int getCoount(String sql, Class clazz, Object... params) {
+    public static int getCount(String sql, Class clazz, Object... params) {
         int num = 0;
         Connection conn = getConn();
         QueryRunner runner = new QueryRunner();
