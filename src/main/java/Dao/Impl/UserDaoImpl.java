@@ -1,6 +1,6 @@
 package Dao.Impl;
 
-import Dao.DBUtil;
+import utils.DBUtil;
 import Dao.UserDao;
 import bean.User;
 
