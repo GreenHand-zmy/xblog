@@ -2,17 +2,21 @@ package Dao.Impl;
 
 import Dao.ChannelDao;
 import bean.Channel;
+import constant.TableNameConstant;
+import utils.DBUtil;
 
 import java.util.List;
 
 /**
  * Created by zmy on 2018/5/21.
  */
-public class ChannelDaoImpl implements ChannelDao{
+public class ChannelDaoImpl implements ChannelDao {
 
     @Override
     public int save(Channel channel) {
-        return 0;
+        return DBUtil.executeUpdate("insert into " + TableNameConstant.CHANNEL_TABLE +
+                        "(`key`,`name`,`status`) values(?,?,?)",
+                channel.getKey(), channel.getName(), channel.getStatus());
     }
 
     @Override
