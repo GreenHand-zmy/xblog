@@ -7,19 +7,45 @@ import java.util.Date;
  * Created by lfy on 2018/5/21.
  */
 public class Posts {
-    private long id;//博客编号
-    private long authorId;//作者
-    private int comments;//评论数
-    private Date created;//创建时间
-    private String editor;//编辑器
-    private int favors;//喜欢数
-    private int featured;//推荐状态
-    private int channelId;//频道编号
-    private int status;//文章状态
-    private String summary;//摘要
-    private String tags;//标签
-    private String title;//标题
-    private int views;//阅读数
+    //博客编号
+    private long id;
+
+    //作者
+    private long authorId;
+
+    //评论数
+    private int comments;
+
+    //创建时间
+    private Date created;
+
+    //编辑器
+    private String editor;
+
+    //喜欢数
+    private int favors;
+
+    //推荐状态
+    private int featured;
+
+    //频道编号
+    private int channelId;
+
+    //文章状态
+    private int status;
+
+    //摘要
+    private String summary;
+
+    //标签
+    private String tags;
+
+    //标题
+    private String title;
+
+    //阅读数
+    private int views;
+
     public long getId() {
         return id;
     }
