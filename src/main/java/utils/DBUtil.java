@@ -14,7 +14,7 @@ import java.util.List;
 /**
  * Created by ZH on 2018/5/21.
  */
-public class DBUtil {
+public final class DBUtil {
     private static DataSource dataSource = new ComboPooledDataSource();
 
     public static DataSource getDateSource() {
