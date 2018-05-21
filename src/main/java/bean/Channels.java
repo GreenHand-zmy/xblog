@@ -3,7 +3,7 @@ package bean;
 /**
  * Created by Fang on 2018/5/21.
  */
-public class mto_channels {
+public class Channels {
     /**
      * 编号
      */
