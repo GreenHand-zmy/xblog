@@ -5,7 +5,7 @@ package bean;
  */
 public class Channel {
     //栏目标号
-    private int id;
+    private Long id;
 
     //栏目名称
     private String name;
@@ -16,11 +16,14 @@ public class Channel {
     //状态
     private int status;
 
-    public int getId() {
+    public Channel() {
+    }
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -46,5 +49,15 @@ public class Channel {
 
     public void setStatus(int status) {
         this.status = status;
+    }
+
+    @Override
+    public String toString() {
+        return "Channel{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", key='" + key + '\'' +
+                ", status=" + status +
+                '}';
     }
 }

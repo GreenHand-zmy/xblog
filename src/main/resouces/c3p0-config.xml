@@ -19,7 +19,7 @@
     <property name="user">root</property>
     <property name="password">123456</property>
     <property name="driverClass">com.mysql.jdbc.Driver</property>
-    <property name="jdbcUrl">jdbc:mysql://192.168.21.103:3306/xblog</property>
+    <property name="jdbcUrl">jdbc:mysql://localhost:3306/xblog</property>
  
     <property name="initialPoolSize">10</property>
     <property name="maxIdleTime">60</property>
