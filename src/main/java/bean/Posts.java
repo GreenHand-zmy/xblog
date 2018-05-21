@@ -20,7 +20,6 @@ public class Posts {
     private String tags;//标签
     private String title;//标题
     private int views;//阅读数
-
     public long getId() {
         return id;
     }
