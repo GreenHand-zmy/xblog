@@ -39,6 +39,12 @@ public class CommentDaoImpl extends DBUtil implements CommentDao {
     @Override
     public int addComment(Comment comment) {
         String sql="INSERT INTO mto_comments (author_id,content,created,status,to_id) VALUES(?,?,?,?,?)";
-        return db.executeUpdate(sql,comment.getAuthorId(),comment.getContent(),new Date(),comment.getStatus(),comment.getToId());
+        return db.executeUpdate(sql,comment.getAuthorId(),comment.getContent(),comment.getCreated(),comment.getStatus(),comment.getToId());
+    }
+
+    @Override
+    public int getCount(long toid) {
+        String sql="SELECT COUNT(*) FROM mto_comments WHERE to_id=?";
+        return db.getCoount(sql,null,toid);
     }
 }
