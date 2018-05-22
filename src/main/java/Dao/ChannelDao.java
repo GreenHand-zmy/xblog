@@ -38,4 +38,7 @@ public interface ChannelDao {
      * @return 所有频道
      */
     List<Channel> findAll();
+
+    //查询频道是否存在
+    int isExits(String name);
 }
