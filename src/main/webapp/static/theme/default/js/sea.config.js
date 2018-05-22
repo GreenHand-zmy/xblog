@@ -32,9 +32,9 @@ seajs.config({
 
     // 路径配置
     paths: {
-        'vendors': _base_path + '/dist/vendors',
-        'dist': _base_path + '/dist',
-        'default': _base_path + '/theme/default'
+        'vendors': _base_path + '/static/dist/vendors',
+        'dist': _base_path + '/static/dist',
+        'default': _base_path + '/static/theme/default'
     },
 
     // 变量配置
