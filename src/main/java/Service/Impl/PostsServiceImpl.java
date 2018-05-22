@@ -64,6 +64,13 @@ public class PostsServiceImpl implements PostsService {
     }
 
     @Override
+    public List<Posts> getChannelPosts(Long channel) {
+        List<Posts> list = pd.getChannelPosts(channel);
+        check(list != null, "无查询结果");
+        return list;
+    }
+
+    @Override
     public List<Posts> getAllPosts() {
         List<Posts> list = pd.getAllPosts();
         check(list != null, "无查询结果");
