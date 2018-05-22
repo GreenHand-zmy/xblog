@@ -20,7 +20,7 @@
                         <h3 class="panel-title">请登录</h3>
                     </div>
                     <div class="panel-body">
-                        <form method="POST" action="login" accept-charset="UTF-8">
+                        <form method="POST" action="/UserServlet?op=login" accept-charset="UTF-8">
                             <div class="form-group ">
                                 <label class="control-label" for="username">账号</label>
                                 <input class="form-control" name="username" type="text" required>

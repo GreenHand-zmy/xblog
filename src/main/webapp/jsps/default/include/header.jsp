@@ -91,13 +91,16 @@
                     </li>
 
 
-                    <li>
-                        <a href="${ctx}/post/editing" class="plus"><i class="icon icon-note"></i> 写文章</a>
-                    </li>
+
+                    <c:choose>
+                    <c:when test="${sessionScope.user!=null}">
                     <li class="dropdown">
+                        <li>
+                            <a href="${ctx}/post/editing" class="plus"><i class="icon icon-note"></i> 写文章</a>
+                        </li>
                         <a href="#" class="user dropdown-toggle" data-toggle="dropdown">
                             <img class="img-circle" src="${ctx}${profile.avatar}?t=${now}">
-                            <span>${profile.name}</span>
+                            <span>${sessionScope.user.username}</span>
                         </a>
                         <ul class="dropdown-menu" role="menu">
                             <li>
@@ -112,12 +115,13 @@
                             <li><a href="${ctx}/logout">退出</a></li>
                         </ul>
                     </li>
+                    </c:when>
+                        <c:otherwise>
+                    <li><a href="/UserServlet?op=toLogin" class="btn btn-default btn-sm signup">登录</a></li>
 
-                    <li><a href="${ctx}/jsps/default/auth/login.jsp" class="btn btn-default btn-sm signup">登录</a></li>
-
-                    <li><a href="${ctx}/jsps/default/auth/register.jsp" class="btn btn-primary btn-sm signup">注册</a></li>
-
-
+                    <li><a href="/UserServlet?op=toRegister" class="btn btn-primary btn-sm signup">注册</a></li>
+                    </c:otherwise>
+                    </c:choose>
                 </ul>
             </div>
         </nav>

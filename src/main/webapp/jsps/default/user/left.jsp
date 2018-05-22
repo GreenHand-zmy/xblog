@@ -33,10 +33,10 @@
                 <a href="${base}/user"><i class="icon icon-layers"></i> 动态</a>
             </li>
             <li class="list-group-item">
-                <a href="${base}/user?method=posts"><i class="icon icon-list"></i> 我的文章</a>
+                <a href="/UserServlet?op=post"><i class="icon icon-list"></i> 我的文章</a>
             </li>
             <li class="list-group-item">
-                <a href="${base}/user?method=comments"><i class="icon icon-speech"></i> 我的评论</a>
+                <a href="/UserServlet?op=comment"><i class="icon icon-speech"></i> 我的评论</a>
             </li>
         </ul>
 
