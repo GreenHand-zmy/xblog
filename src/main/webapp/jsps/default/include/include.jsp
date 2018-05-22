@@ -21,7 +21,16 @@
 <script type="text/javascript" src="${ctx}/static/theme/default/js/utils.js"></script>
 
 <script src="${ctx}/static/dist/vendors/pace/pace.min.js"></script>
+<script type="text/javascript">
+    var _base_path = '${ctx}';
 
+    window.app = {
+        base: '${ctx}',
+        <%--LOGIN_TOKEN: '${profile.id}'--%>
+    };
+
+    //window.UEDITOR_HOME_URL = '${ctx}/dist/vendors/ueditor/';
+</script>
 <script type="text/javascript" src="${ctx}/static/theme/default/js/sea.js"></script>
 <script type="text/javascript" src="${ctx}/static/theme/default/js/sea.config.js"></script>
 
