@@ -14,6 +14,7 @@ public interface PostDao {
     public List<Posts> getPostTitle(String title);//根据文章标题模糊查询
     public List<Posts> getPostAuthorId(Long authorId);//根据作者标号查询
     public List<Posts> getAllPosts();//查询所有
+    public List<Posts> getChannelPosts(Long channel);//根据频道id查询所有文章
     public int isExits(Long id);//查询id是否存在
     public Posts getPost(Long id);//根据id查询
 }
