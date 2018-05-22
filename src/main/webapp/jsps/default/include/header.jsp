@@ -75,7 +75,7 @@
 
                         <c:forEach var="channel" items="${channelList}">
                             <li>
-                                <a href="${ctx}/channel/${channel}" nav="${channel.name}">${channel.name}</a>
+                                <a href="${ctx}/channelServlet?id=${channel.id}" nav="${channel.name}">${channel.name}</a>
                                 <%--<a href="" nav="">1</a>--%>
                             </li>
                         </c:forEach>
