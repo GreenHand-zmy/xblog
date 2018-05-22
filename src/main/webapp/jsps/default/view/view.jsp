@@ -9,6 +9,7 @@
     <%@include file="../include/include.jsp" %>
 </head>
 <!-- header -->
+
 <%@include file="../include/header.jsp" %>
 <!-- content -->
 <div class="wrap">
@@ -19,26 +20,26 @@
                 <ul class="list-group about-user">
                     <li class="list-group-item user-card">
                         <div class="ava">
-                            <a href="${base}/users/${user.id}">
-                            <@showAva user.avatar "img-circle"/>
+                            <a href="#">
+                                <%--<@showAva user.avatar "img-circle"/>--%>
                             </a>
                         </div>
                         <div class="user-info">
-                            <div class="nk mb10">${user.name}</div>
+                            <div class="nk mb10">小豆丁</div>
                             <div class="mb6">
-                                <a class="btn btn-success btn-xs" href="javascript:void(0);" data-id="${user.id}"
+                                <a class="btn btn-success btn-xs" href="javascript:void(0);" data-id=""
                                    rel="follow">+ 关注</a>
                             </div>
                         </div>
                     </li>
                     <li class="list-group-item">
                 <span>
-                <%--<#if user.signature?? && (user.signature?length > 0) >
-                ${user.signature}
-                <#else>
-                    什么都没留下
-                </#if>--%>
-				</span>
+                    <%--<#if user.signature?? && (user.signature?length > 0) >
+                    ${user.signature}
+                    <#else>
+                        什么都没留下
+                    </#if>--%>
+                </span>
                     </li>
                 </ul>
             </div>
@@ -50,32 +51,31 @@
 
                     <div class="panel-body">
                         <ul class="list-group">
-                            <#list results.content as row>
-                                <li class="list-group-item" el="loop-${row.id}">
-                                    <a href="${base}/view/${row.id}" class="remove-padding-left">${row.title}</a>
-                                    <span class="meta">
-								${row.favors} 点赞
+                            <%--<#list results.content as row>--%>
+                            <li class="list-group-item">
+                                <a href="#" class="remove-padding-left"></a>
+                                <span class="meta">
+								${0} 点赞
 								<span> ⋅ </span>
-                                ${row.comments} 回复
+                                ${0} 回复
 								<span> ⋅ </span>
-								<span class="timeago">${timeAgo(row.created)}</span>
+								<span class="timeago">${0}</span>
       						</span>
-                                </li>
-                            </#list>
+                            </li>
+                            <%--</#list>--%>
 
-                            <#if results.content?size == 0>
-                                <li class="list-group-item ">
-                                    <div class="infos">
-                                        <div class="media-heading">该目录下还没有内容!</div>
-                                    </div>
-                                </li>
-                            </#if>
+                            <%--<#if results.content?size == 0>--%>
+                            <li class="list-group-item ">
+                                <div class="infos">
+                                    <div class="media-heading">该目录下还没有内容!</div>
+                                </div>
+                            </li>
+                            <%--</#if>--%>
                         </ul>
                     </div>
                     <div class="panel-footer">
-                        <@pager request.requestURI!"", results, 5/>
+                        <%--<@pager request.requestURI!"", results, 5/>--%>
                     </div>
-                </@author_contents>
                 </div>
             </div>
         </div>
