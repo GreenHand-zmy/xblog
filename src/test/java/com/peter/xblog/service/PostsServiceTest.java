@@ -1,6 +1,8 @@
-package Dao;
+package com.peter.xblog.service;
 
-import Dao.Impl.PostDaoImpl;
+
+import Service.Impl.PostsServiceImpl;
+import Service.PostsService;
 import bean.Posts;
 import org.junit.Test;
 
@@ -8,15 +10,15 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * Created by Fang on 2018/5/21.
+ * Created by Fang on 2018/5/22.
  */
-public class PostsDaoTest {
-    PostDao pd = new PostDaoImpl();
+public class PostsServiceTest {
+    PostsService pd = new PostsServiceImpl();
 
     @Test
     public void testAdd() {
         Date date = new Date();
-        Posts post = new Posts(2L, 3, date, "4", 5, 1, 1, 1, "1", "1", "1", 1);
+        Posts post = new Posts(2L, 3, date, "4", 5, 1, 1, 1, "1", "1", "1", 1,1);
         int num = pd.addPost(post);
         System.out.println(num);
     }
