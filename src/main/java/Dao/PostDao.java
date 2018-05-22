@@ -18,4 +18,6 @@ public interface PostDao {
     public int isExits(Long id);//查询id是否存在
     public Posts getPost(Long id);//根据id查询
     public List<Posts> findNewPostsLimit(int LIMIT);//根据时间查询前LIMIT条
+    public List<Posts> findNewPostsLimit2(int LIMIT);//根据点赞查询前LIMIT条
+    public List<Posts> findNewPostsLimit3(int LIMIT);//根据评论数查询前LIMIT条
 }

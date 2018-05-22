@@ -22,6 +22,7 @@ import java.util.List;
 @WebServlet("/PostsServlet")
 public class PostsServlet extends HttpServlet{
     PostsService ps=new PostsServiceImpl();
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         super.doPost(req, resp);
@@ -36,8 +37,17 @@ public class PostsServlet extends HttpServlet{
         long authorId=Integer.parseInt(req.getParameter("authorId"));
         String op=req.getParameter("op");
         List<Posts> postsList =new ArrayList<Posts>();
+        int LIMIT = 5;
         if("selectAuthorId".equals(op)){
             postsList=ps.getPostAuthorId(authorId);
+        }else if("selectAll".equals(op)){
+            postsList=ps.getAllPosts();
+        }else if("selectByTime".equals(op)){
+            postsList=ps.findNewPostsLimit(LIMIT);
+        }else if("selectByFavors".equals(op)){
+            postsList=ps.findNewPostsLimit2(LIMIT);
+        }else if("selectByComments".equals(op)){
+            postsList=ps.findNewPostsLimit3(LIMIT);
         }
         req.setAttribute("postsList",postsList);
         req.getRequestDispatcher("").forward(req,resp);

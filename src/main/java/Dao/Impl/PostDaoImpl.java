@@ -73,4 +73,14 @@ public class PostDaoImpl  implements PostDao {
         String sql ="SELECT * FROM mto_posts ORDER BY created DESC LIMIT ?";
         return DBUtil.getObjects(sql, Posts.class, LIMIT);
     }//根据时间查询前LIMIT条
+    @Override
+    public List<Posts> findNewPostsLimit2(int LIMIT) {
+        String sql ="SELECT * FROM mto_posts ORDER BY favors DESC LIMIT ?";
+        return DBUtil.getObjects(sql, Posts.class, LIMIT);
+    }//根据点赞查询前LIMIT条
+    @Override
+    public List<Posts> findNewPostsLimit3(int LIMIT) {
+        String sql ="SELECT * FROM mto_posts ORDER BY comments DESC LIMIT ?";
+        return DBUtil.getObjects(sql, Posts.class, LIMIT);
+    }//根据评论查询前LIMIT条
 }
