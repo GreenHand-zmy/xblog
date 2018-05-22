@@ -43,6 +43,6 @@ public class UserDaoImpl implements UserDao {
     @Override
     public int isExits(String username) {
         String sql = "select count(*) from mto_users where username=?";
-        return DBUtil.getCoount(sql, User.class, username);
+        return DBUtil.getCount(sql, User.class, username);
     }
 }

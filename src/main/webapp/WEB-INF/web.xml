@@ -4,4 +4,17 @@
          id="WebApp_ID" version="3.1">
 
     <display-name>Archetype Created Web Application</display-name>
+    <!-- 初始化jsp设置-->
+    <jsp-config>
+        <jsp-property-group>
+            <!-- 拦截所有jsp文件 -->
+            <url-pattern>*.jsp</url-pattern>
+            <!-- 允许使用el表达式 -->
+            <el-ignored>false</el-ignored>
+            <!-- 不允许在页面中使用java脚本 -->
+            <scripting-invalid>true</scripting-invalid>
+            <!-- 给所有的jsp页面导入要依赖的库，taglib.jsp就是一个全局的标签文件 -->
+            <include-prelude>jsps/taglib.jsp</include-prelude>
+        </jsp-property-group>
+    </jsp-config>
 </web-app>

@@ -14,7 +14,7 @@ import java.util.List;
 /**
  * Created by ZH on 2018/5/21.
  */
-public class DBUtil {
+public final class DBUtil {
     private static DataSource dataSource = new ComboPooledDataSource();
 
     public static DataSource getDateSource() {
@@ -43,7 +43,19 @@ public class DBUtil {
         return num;
     }
 
-    public static int getCoount(String sql, Class clazz, Object... params) {
+    public static Long executeInsert(String sql, Object... params) {
+        Long num = null;
+        Connection conn = getConn();
+        QueryRunner runner = new QueryRunner();
+        try {
+            num = runner.insert(conn, sql, new ScalarHandler<>(), params);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return num;
+    }
+
+    public static int getCount(String sql, Class clazz, Object... params) {
         int num = 0;
         Connection conn = getConn();
         QueryRunner runner = new QueryRunner();
@@ -56,22 +68,22 @@ public class DBUtil {
         return num;
     }
 
-    public static <T> T getObject(String sql, Class clazz, Object... params) {
+    public static <T> T getObject(String sql, Class<T> clazz, Object... params) {
         Connection conn = getConn();
         QueryRunner runner = new QueryRunner();
         try {
-            return (T) runner.query(conn, sql, new BeanHandler<Class>(clazz), params);
+            return runner.query(conn, sql, new BeanHandler<>(clazz), params);
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return null;
     }
 
-    public static List getObjects(String sql, Class clazz, Object... params) {
+    public static <T> List<T> getObjects(String sql, Class<T> clazz, Object... params) {
         Connection conn = getConn();
         QueryRunner runner = new QueryRunner();
         try {
-            return runner.query(conn, sql, new BeanListHandler<Class>(clazz), params);
+            return runner.query(conn, sql, new BeanListHandler<>(clazz), params);
         } catch (SQLException e) {
             e.printStackTrace();
         }

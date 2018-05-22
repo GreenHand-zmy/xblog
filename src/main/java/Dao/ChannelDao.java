@@ -14,7 +14,7 @@ public interface ChannelDao {
      * @param channel 目标频道
      * @return sql语句影响行数
      */
-    int save(Channel channel);
+    Long save(Channel channel);
 
     /**
      * 向数据库更新一个频道
