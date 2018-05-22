@@ -2,6 +2,7 @@ package Dao.Impl;
 
 import Dao.PostDao;
 import bean.Posts;
+import bean.User;
 import utils.DBUtil;
 
 import java.util.List;
@@ -14,12 +15,12 @@ public class PostDaoImpl extends DBUtil implements PostDao {
      DBUtil db =new DBUtil();
     @Override
     public int addPost(Posts post) {
-        String sql="insert into mto_posts (author_id,comments,created,editor,favors,featured,channel_id,status,summary,tags,title,views) " +
-                "values(?,?,?,?,?,?,?,?,?,?,?,?)";
+        String sql="insert into mto_posts (author_id,comments,created,editor,favors,featured,channel_id,status,summary,tags,title,views,weight) " +
+                "values(?,?,?,?,?,?,?,?,?,?,?,?,?)";
         return super.executeUpdate(sql,post.getAuthorId(),post.getComments(),
                 post.getCreated(), post.getEditor(),post.getFavors(),post.getFeatured(),
                 post.getChannelId(), post.getStatus(),post.getSummary(),post.getTags(),post.getTitle(),
-                post.getViews());
+                post.getViews(),post.getWeight());
     }//添加文章
 
     @Override
@@ -52,4 +53,13 @@ public class PostDaoImpl extends DBUtil implements PostDao {
         String sql="select * from mto_posts";
         return db.getObjects(sql,Posts.class);
     }//查询所有
+    @Override
+    public int isExits(Long id) {
+        String sql = "select count(*) from mto_posts where id=?";
+        return DBUtil.getCoount(sql, Posts.class, id);
+    }//查询id是否存在
+    public Posts getPost(Long id) {
+        String sql = "select * from mto_posts where id=?";
+        return DBUtil.getObject(sql, Posts.class, id);
+    }//根据id查询
 }
