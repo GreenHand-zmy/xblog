@@ -70,7 +70,7 @@
                 <ul class="nav navbar-nav">
                    <c:if test="${sessionScope.user!=null}">
 						<li data="user">
-                    <a href="${ctx}/user" nav="user">我的主页</a>
+                    <a href="/UserServlet?op=toMyPage">我的主页</a>
                 </li>
                     </c:if>
                     <c:forEach var="channel" items="${channelList}">

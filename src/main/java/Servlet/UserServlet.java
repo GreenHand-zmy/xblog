@@ -53,6 +53,8 @@ public class UserServlet extends HttpServlet {
             resp.sendRedirect("jsps/default/auth/login.jsp");
         }else if("toRegister".equals(op)){
             resp.sendRedirect("jsps/default/auth/register.jsp");
+        }else if("toMyPage".equals(op)){
+            resp.sendRedirect("jsps/default/user/method_feeds.jsp");
         }
     }
 }
