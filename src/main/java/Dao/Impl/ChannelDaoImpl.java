@@ -50,4 +50,10 @@ public class ChannelDaoImpl implements ChannelDao {
 
         return DBUtil.getObjects(sql, Channel.class);
     }
+
+    @Override
+    public int isExits(String name) {
+        String sql="select count(*) from mto_channels where name=? ";
+        return DBUtil.getCount(sql,Channel.class,name);
+    }
 }
