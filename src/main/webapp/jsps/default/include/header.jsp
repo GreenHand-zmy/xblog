@@ -68,17 +68,17 @@
             </div>
             <div class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
-
+                   <c:if test="${sessionScope.user!=null}">
 						<li data="user">
-							<a href="${ctx}/user" nav="user">我的主页</a>
-						</li>
-
-                        <c:forEach var="channel" items="${channelList}">
-                            <li>
-                                <a href="${ctx}/channelServlet?id=${channel.id}" nav="${channel.name}">${channel.name}</a>
+                    <a href="${ctx}/user" nav="user">我的主页</a>
+                </li>
+                    </c:if>
+                    <c:forEach var="channel" items="${channelList}">
+                        <li>
+                            <a href="${ctx}/channelServlet?id=${channel.id}" nav="${channel.name}">${channel.name}</a>
                                 <%--<a href="" nav="">1</a>--%>
-                            </li>
-                        </c:forEach>
+                        </li>
+                    </c:forEach>
                 </ul>
                 <ul class="navbar-button list-inline" id="header_user">
                     <li view="search" class="hidden-xs hidden-sm">
