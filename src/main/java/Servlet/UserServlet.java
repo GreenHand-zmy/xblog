@@ -40,9 +40,8 @@ public class UserServlet extends HttpServlet {
             int num=us.isTrue(username,password);
             if(num>0){
                 User user=us.getUser1(username);
-
                 req.getSession().setAttribute("user",user);
-                resp.sendRedirect("jsps/default/index.jsp");
+                resp.sendRedirect("index");
             }else{
                 resp.sendRedirect("jsps/default/auth/login.jsp");
             }
