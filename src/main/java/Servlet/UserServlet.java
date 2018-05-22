@@ -1,0 +1,47 @@
+package Servlet;
+
+import Dao.UserDao;
+import Service.Impl.UserServiceImpl;
+import Service.UserService;
+import bean.User;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+
+/**
+ * Created by ZH on 2018/5/22.
+ */
+@WebServlet(value = "/UserServlet")
+public class UserServlet extends HttpServlet {
+    @Override
+    protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String op=req.getParameter("op");
+        UserService us=new UserServiceImpl();
+        if("register".equals(op)){
+            String username=req.getParameter("username");
+            String name=req.getParameter("name");
+            String password=req.getParameter("password");
+            User user=new User();
+            user.setPassword(password);
+            user.setName(name);
+            user.setUsername(username);
+            us.addUser(user);
+            resp.sendRedirect("jsps/default/auth/login.jsp");
+        }else if("login".equals(op)){
+            String username=req.getParameter("username");
+            String password=req.getParameter("password");
+            int num=us.isTrue(username,password);
+            if(num>0){
+                User user=us.getUser1(username);
+                req.getSession().setAttribute("user",user);
+                resp.sendRedirect("jsps/default/index.jsp");
+            }else{
+                resp.sendRedirect("jsps/default/auth/login.jsp");
+            }
+        }
+    }
+}

@@ -22,7 +22,7 @@ public class UserServiceImpl implements UserService {
         check(user.getUsername()!=null,"用户名不能为空");
         int num1 = ud.isExits(user.getUsername());
         check(num1==0,"用户名已存在");
-        check(user.getName()!=null,"真实姓名不能为空");
+        check(user.getName()!=null,"昵称不能为空");
         int num=ud.addUser(user);
         return num;
     }
@@ -54,9 +54,22 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User getUser1(String username) {
+        User user=ud.getUser1(username);
+        check(user!=null,"该用户不存在");
+        return user;
+    }
+
+    @Override
     public List<User> getAll() {
         List<User> list=ud.getAll();
         check(list!=null,"无查询结果");
         return list;
+    }
+
+    @Override
+    public int isTrue(String username, String password) {
+        int num=ud.isTrue(username,password);
+        return num;
     }
 }

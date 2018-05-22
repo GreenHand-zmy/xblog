@@ -22,14 +22,10 @@
                     <div class="panel-body">
                         <div id="message">
                         </div>
-                        <form method="POST" action="register" accept-charset="UTF-8">
+                        <form method="POST" action="/xblogServlet?op=register" accept-charset="UTF-8">
                             <div class="form-group ">
                                 <label class="control-label" for="username">用户名</label>
                                 <input class="form-control" name="username" type="text" data-required data-conditional="username" data-description="username" data-describedby="message">
-                            </div>
-                            <div class="form-group ">
-                                <label class="control-label" for="email">邮箱</label>
-                                <input class="form-control" name="email" type="text" data-required data-conditional="email" data-description="email" data-describedby="message">
                             </div>
                             <div class="form-group ">
                                 <label class="control-label" for="name">昵称</label>
@@ -81,9 +77,6 @@
             description : {
                 confirm : {
                     conditional : '<div class="alert alert-danger">两次输入的密码不一致</div>'
-                },
-                email : {
-                    conditional : '<div class="alert alert-danger">邮箱格式不合法</div>'
                 },
                 username : {
                     conditional : '<div class="alert alert-danger">只能是字母/字母+数字的组合,不少于5位</div>'

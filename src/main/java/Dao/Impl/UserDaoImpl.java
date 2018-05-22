@@ -35,6 +35,12 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
+    public User getUser1(String username) {
+        String sql = "select * from mto_users where username=?";
+        return DBUtil.getObject(sql, User.class, username);
+    }
+
+    @Override
     public List<User> getAll() {
         String sql = "select * from mto_users";
         return DBUtil.getObjects(sql, User.class);
@@ -44,5 +50,11 @@ public class UserDaoImpl implements UserDao {
     public int isExits(String username) {
         String sql = "select count(*) from mto_users where username=?";
         return DBUtil.getCount(sql, User.class, username);
+    }
+
+    @Override
+    public int isTrue(String username, String password) {
+        String sql="select count(*) from mto_users where username=? and password=?";
+        return DBUtil.getCount(sql,User.class,username,password);
     }
 }

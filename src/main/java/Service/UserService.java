@@ -16,5 +16,9 @@ public interface UserService {
 
     User getUser(int id);
 
+    User getUser1(String username);
+
     List<User> getAll();
+
+    int isTrue(String username,String password);
 }
