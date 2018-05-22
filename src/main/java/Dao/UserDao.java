@@ -16,8 +16,12 @@ public interface UserDao {
     int updateUser(User user);
     //根据ID查询用户
     User getUser(int id);
+    //根据用户名查询用户
+    User getUser1(String username);
     //查询所有用户
     List<User> getAll();
     //查询用户名是否存在
     int isExits(String username);
+    //判断登录
+    int isTrue(String username,String password);
 }
