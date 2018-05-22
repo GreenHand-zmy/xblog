@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 @WebServlet("/index")
@@ -20,7 +22,7 @@ public class IndexServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         List<Channel> channelList = channelService.findAll();
 
-        req.setAttribute("channelList", channelList);
+        req.getSession().setAttribute("channelList", channelList);
         req.getRequestDispatcher("jsps/default/index.jsp").forward(req, resp);
     }
 }

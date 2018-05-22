@@ -82,11 +82,11 @@
                 </div>
             </div>
             <div class="col-xs-12 col-md-3 side-right">
-                <%@include file="include/right.jsp" %>
+                <jsp:include page="include/right.jsp"/>
             </div>
         </div>
     </div>
 </div>
 <!-- footer -->
-<%@include file="include/footer.jsp" %>
+<jsp:include page="include/footer.jsp"/>
 </html>
