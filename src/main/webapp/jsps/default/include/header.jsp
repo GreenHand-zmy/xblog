@@ -73,11 +73,12 @@
 							<a href="${ctx}/user" nav="user">我的主页</a>
 						</li>
 
-
-						<li>
-							<a href="${ctx}/channel/${row.id}" nav="${row.name}">${row.name}</a>
-						</li>
-
+                        <c:forEach var="channel" items="${channelList}">
+                            <li>
+                                <a href="${ctx}/channel/${channel}" nav="${channel.name}">${channel.name}</a>
+                                <%--<a href="" nav="">1</a>--%>
+                            </li>
+                        </c:forEach>
                 </ul>
                 <ul class="navbar-button list-inline" id="header_user">
                     <li view="search" class="hidden-xs hidden-sm">

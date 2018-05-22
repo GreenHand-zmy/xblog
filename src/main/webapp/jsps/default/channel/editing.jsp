@@ -83,11 +83,11 @@
         </div>
     </div>
 </div>
+<!-- footer -->
+<%@include file="../include/footer.jsp" %>
 <script type="text/javascript">
     seajs.use('post', function (post) {
         post.init();
     });
 </script>
-<!-- footer -->
-<%@include file="../include/footer.jsp" %>
 </html>
