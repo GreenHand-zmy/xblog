@@ -49,6 +49,10 @@ public class UserServlet extends HttpServlet {
             resp.sendRedirect("jsps/default/user/method_posts.jsp");
         }else if("comment".equals(op)){
             resp.sendRedirect("jsps/default/user/method_comments.jsp");
+        }else if("toLogin".equals(op)){
+            resp.sendRedirect("jsps/default/auth/login.jsp");
+        }else if("toRegister".equals(op)){
+            resp.sendRedirect("jsps/default/auth/register.jsp");
         }
     }
 }

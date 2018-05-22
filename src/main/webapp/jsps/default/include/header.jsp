@@ -117,9 +117,9 @@
                     </li>
                     </c:when>
                         <c:otherwise>
-                    <li><a href="${ctx}/jsps/default/auth/login.jsp" class="btn btn-default btn-sm signup">登录</a></li>
+                    <li><a href="/UserServlet?op=toLogin" class="btn btn-default btn-sm signup">登录</a></li>
 
-                    <li><a href="${ctx}/jsps/default/auth/register.jsp" class="btn btn-primary btn-sm signup">注册</a></li>
+                    <li><a href="/UserServlet?op=toRegister" class="btn btn-primary btn-sm signup">注册</a></li>
                     </c:otherwise>
                     </c:choose>
                 </ul>
