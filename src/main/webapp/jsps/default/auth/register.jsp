@@ -22,7 +22,7 @@
                     <div class="panel-body">
                         <div id="message">
                         </div>
-                        <form method="POST" action="/xblogServlet?op=register" accept-charset="UTF-8">
+                        <form method="POST" action="/UserServlet?op=register" accept-charset="UTF-8">
                             <div class="form-group ">
                                 <label class="control-label" for="username">用户名</label>
                                 <input class="form-control" name="username" type="text" data-required data-conditional="username" data-description="username" data-describedby="message">

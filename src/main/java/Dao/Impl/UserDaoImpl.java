@@ -57,4 +57,10 @@ public class UserDaoImpl implements UserDao {
         String sql="select count(*) from mto_users where username=? and password=?";
         return DBUtil.getCount(sql,User.class,username,password);
     }
+
+    @Override
+    public List<User> getNewUsers(int Limit) {
+        String sql="select * from mto_users order by created desc Limit ?";
+        return DBUtil.getObjects(sql,User.class,Limit);
+    }
 }

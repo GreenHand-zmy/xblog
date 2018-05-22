@@ -1,6 +1,7 @@
 package Dao;
 
 import bean.User;
+import com.sun.org.apache.xalan.internal.utils.XMLSecurityManager;
 
 import java.util.List;
 
@@ -24,4 +25,6 @@ public interface UserDao {
     int isExits(String username);
     //判断登录
     int isTrue(String username,String password);
+    //查询热门用户
+    List<User> getNewUsers(int Limit);
 }

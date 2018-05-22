@@ -72,4 +72,10 @@ public class UserServiceImpl implements UserService {
         int num=ud.isTrue(username,password);
         return num;
     }
+
+    @Override
+    public List<User> getNewUsers(int Limit) {
+        List<User> list=ud.getNewUsers(Limit);
+        return list;
+    }
 }

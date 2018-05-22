@@ -21,4 +21,6 @@ public interface UserService {
     List<User> getAll();
 
     int isTrue(String username,String password);
+
+    List<User> getNewUsers(int Limit);
 }

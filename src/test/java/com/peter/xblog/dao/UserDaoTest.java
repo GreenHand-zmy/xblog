@@ -16,9 +16,9 @@ public class UserDaoTest {
    @Test
      public void addUser(){
        User user =new User();
-       user.setPassword("123");
-       user.setUsername("久");
-       user.setName("zh");
+       user.setPassword("1234");
+       user.setUsername("久123");
+       user.setName("zh5");
        int num=ud.addUser(user);
        System.out.println(num);
    }

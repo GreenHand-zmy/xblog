@@ -17,7 +17,7 @@ public class UserServiceTest {
     public void addUser() {
         User user = new User();
         user.setPassword("123");
-        user.setUsername("久2");
+        user.setUsername("久23");
         user.setName("zh");
         int num = us.addUser(user);
         System.out.println(num);
@@ -52,6 +52,14 @@ public class UserServiceTest {
     public void getAll() {
         List<User> list = us.getAll();
         for (User user : list) {
+            System.out.println(user);
+        }
+    }
+
+    @Test
+    public void getNewUsers(){
+        List<User> list=us.getNewUsers(2);
+        for(User user : list){
             System.out.println(user);
         }
     }

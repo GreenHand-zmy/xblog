@@ -1,7 +1,9 @@
 package Servlet;
 
 import Dao.UserDao;
+import Service.Impl.PostsServiceImpl;
 import Service.Impl.UserServiceImpl;
+import Service.PostsService;
 import Service.UserService;
 import bean.User;
 
@@ -21,6 +23,7 @@ public class UserServlet extends HttpServlet {
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String op=req.getParameter("op");
         UserService us=new UserServiceImpl();
+        PostsService ps= new PostsServiceImpl();
         if("register".equals(op)){
             String username=req.getParameter("username");
             String name=req.getParameter("name");
@@ -37,11 +40,16 @@ public class UserServlet extends HttpServlet {
             int num=us.isTrue(username,password);
             if(num>0){
                 User user=us.getUser1(username);
+
                 req.getSession().setAttribute("user",user);
                 resp.sendRedirect("jsps/default/index.jsp");
             }else{
                 resp.sendRedirect("jsps/default/auth/login.jsp");
             }
+        }else if("post".equals(op)){
+            resp.sendRedirect("jsps/default/user/method_posts.jsp");
+        }else if("comment".equals(op)){
+            resp.sendRedirect("jsps/default/user/method_comments.jsp");
         }
     }
 }
