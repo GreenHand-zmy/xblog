@@ -67,4 +67,10 @@ public class PostDaoImpl  implements PostDao {
         String sql = "select * from mto_posts where id=?";
         return DBUtil.getObject(sql, Posts.class, id);
     }//根据id查询
+
+    @Override
+    public List<Posts> findNewPostsLimit(int LIMIT) {
+        String sql ="SELECT * FROM mto_posts ORDER BY created DESC LIMIT ?";
+        return DBUtil.getObjects(sql, Posts.class, LIMIT);
+    }//根据时间查询前LIMIT条
 }
