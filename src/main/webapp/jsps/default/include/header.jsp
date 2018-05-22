@@ -1,3 +1,4 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!-- Login dialog BEGIN -->
 <div id="login_alert" class="modal fade" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document" style="width: 450px;">
@@ -7,7 +8,7 @@
                 <h4 class="modal-title">请登录</h4>
             </div>
             <div class="modal-body">
-                <form method="POST" action="${base}/login" accept-charset="UTF-8">
+                <form method="POST" action="${ctx}/login" accept-charset="UTF-8">
                     <div class="form-group ">
                         <label class="control-label" for="username">账号</label>
                         <input class="form-control" id="ajax_login_username" name="username" type="text" required>
@@ -23,12 +24,12 @@
                     <hr>
                     <fieldset class="form-group">
                         <div class="alert alert-info">
-                            使用以下方法注册或者登录（<a class="forget-password" href="${base}/forgot/apply">忘记密码？</a>）
+                            使用以下方法注册或者登录（<a class="forget-password" href="${ctx}/forgot/apply">忘记密码？</a>）
                         </div>
-                        <a class="btn btn-default btn-block" href="${base}/oauth/callback/call_weibo">
+                        <a class="btn btn-default btn-block" href="${ctx}/oauth/callback/call_weibo">
                             <i class="fa fa-weibo"></i> 微博帐号登录
                         </a>
-                        <a class="btn btn-default btn-block" href="${base}/oauth/callback/call_qq">
+                        <a class="btn btn-default btn-block" href="${ctx}/oauth/callback/call_qq">
                             <i class="fa fa-qq"></i> QQ帐号登录
                         </a>
                     </fieldset>
@@ -61,26 +62,26 @@
                 <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="${base}/">
-                    <img src="${base}/theme/default/images/logo.png"/>
+                <a class="navbar-brand" href="${ctx}/">
+                    <img src="${ctx}/static/theme/default/images/logo.png"/>
                 </a>
             </div>
             <div class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
-					<#if profile??>
+
 						<li data="user">
-							<a href="${base}/user" nav="user">我的主页</a>
+							<a href="${ctx}/user" nav="user">我的主页</a>
 						</li>
-					</#if>
-					<#list channels as row>
+
+
 						<li>
-							<a href="${base}/channel/${row.id}" nav="${row.name}">${row.name}</a>
+							<a href="${ctx}/channel/${row.id}" nav="${row.name}">${row.name}</a>
 						</li>
-					</#list>
+
                 </ul>
                 <ul class="navbar-button list-inline" id="header_user">
                     <li view="search" class="hidden-xs hidden-sm">
-                        <form method="GET" action="${base}/search" accept-charset="UTF-8" class="navbar-form navbar-left">
+                        <form method="GET" action="${ctx}/search" accept-charset="UTF-8" class="navbar-form navbar-left">
                             <div class="form-group">
                                 <input class="form-control search-input mac-style" placeholder="搜索" name="kw" type="text" value="${kw}">
                                 <button class="search-btn" type="submit"><i class="fa fa-search"></i></button>
@@ -88,33 +89,33 @@
                         </form>
                     </li>
 
-				<#if profile??>
+
                     <li>
-                        <a href="${base}/post/editing" class="plus"><i class="icon icon-note"></i> 写文章</a>
+                        <a href="${ctx}/post/editing" class="plus"><i class="icon icon-note"></i> 写文章</a>
                     </li>
                     <li class="dropdown">
                         <a href="#" class="user dropdown-toggle" data-toggle="dropdown">
-                            <img class="img-circle" src="${base}${profile.avatar}?t=${.now}">
+                            <img class="img-circle" src="${ctx}${profile.avatar}?t=${now}">
                             <span>${profile.name}</span>
                         </a>
                         <ul class="dropdown-menu" role="menu">
                             <li>
-                                <a href="${base}/user">我的主页</a>
+                                <a href="${ctx}/user">我的主页</a>
                             </li>
                             <li>
-                                <a href="${base}/user/profile">编辑资料</a>
+                                <a href="${ctx}/user/profile">编辑资料</a>
                             </li>
-                            <@shiro.hasPermission name="admin">
-                                <li><a href="${base}/admin">后台管理</a></li>
-                            </@shiro.hasPermission>
-                            <li><a href="${base}/logout">退出</a></li>
+
+                                <li><a href="${ctx}/admin">后台管理</a></li>
+
+                            <li><a href="${ctx}/logout">退出</a></li>
                         </ul>
                     </li>
-				<#else>
-                    <li><a href="${base}/login" class="btn btn-default btn-sm signup">登录</a></li>
 
-                    <li><a href="${base}/register" class="btn btn-primary btn-sm signup">注册</a></li>
-				</#if>
+                    <li><a href="${ctx}/jsps/default/auth/login.jsp" class="btn btn-default btn-sm signup">登录</a></li>
+
+                    <li><a href="${ctx}/jsps/default/auth/register.jsp" class="btn btn-primary btn-sm signup">注册</a></li>
+
 
                 </ul>
             </div>

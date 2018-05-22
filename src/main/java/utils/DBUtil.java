@@ -33,10 +33,9 @@ public final class DBUtil {
 
     public static int executeUpdate(String sql, Object... params) {
         int num = 0;
-        Connection conn = getConn();
-        QueryRunner runner = new QueryRunner();
+        QueryRunner runner = new QueryRunner(dataSource);
         try {
-            num = runner.update(conn, sql, params);
+            num = runner.update(sql, params);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -45,10 +44,9 @@ public final class DBUtil {
 
     public static Long executeInsert(String sql, Object... params) {
         Long num = null;
-        Connection conn = getConn();
-        QueryRunner runner = new QueryRunner();
+        QueryRunner runner = new QueryRunner(dataSource);
         try {
-            num = runner.insert(conn, sql, new ScalarHandler<>(), params);
+            num = runner.insert(sql, new ScalarHandler<>(), params);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -57,10 +55,9 @@ public final class DBUtil {
 
     public static int getCount(String sql, Class clazz, Object... params) {
         int num = 0;
-        Connection conn = getConn();
-        QueryRunner runner = new QueryRunner();
+        QueryRunner runner = new QueryRunner(dataSource);
         try {
-            Object obj = runner.query(conn, sql, new ScalarHandler(), params);
+            Object obj = runner.query(sql, new ScalarHandler(), params);
             num = Integer.parseInt(obj.toString());
         } catch (SQLException e) {
             e.printStackTrace();
@@ -69,10 +66,9 @@ public final class DBUtil {
     }
 
     public static <T> T getObject(String sql, Class<T> clazz, Object... params) {
-        Connection conn = getConn();
-        QueryRunner runner = new QueryRunner();
+        QueryRunner runner = new QueryRunner(dataSource);
         try {
-            return runner.query(conn, sql, new BeanHandler<>(clazz), params);
+            return runner.query(sql, new BeanHandler<>(clazz), params);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -80,10 +76,9 @@ public final class DBUtil {
     }
 
     public static <T> List<T> getObjects(String sql, Class<T> clazz, Object... params) {
-        Connection conn = getConn();
-        QueryRunner runner = new QueryRunner();
+        QueryRunner runner = new QueryRunner(dataSource);
         try {
-            return runner.query(conn, sql, new BeanListHandler<>(clazz), params);
+            return runner.query(sql, new BeanListHandler<>(clazz), params);
         } catch (SQLException e) {
             e.printStackTrace();
         }
