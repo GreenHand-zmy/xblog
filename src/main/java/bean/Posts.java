@@ -20,11 +20,11 @@ public class Posts {
     private String tags;//标签
     private String title;//标题
     private int views;//阅读数
-
+    private int weight;//置顶
     public Posts() {
     }
 
-    public Posts(long authorId, int comments, Date created, String editor, int favors, int featured, int channelId, int status, String summary, String tags, String title, int views) {
+    public Posts(long authorId, int comments, Date created, String editor, int favors, int featured, int channelId, int status, String summary, String tags, String title, int views , int weight) {
         this.authorId = authorId;
         this.comments = comments;
         this.created = created;
@@ -37,6 +37,7 @@ public class Posts {
         this.tags = tags;
         this.title = title;
         this.views = views;
+        this.weight = weight;
     }
 
     public Posts(long id, int channelId, String tags, String title) {
@@ -150,6 +151,10 @@ public class Posts {
         this.views = views;
     }
 
+    public int getWeight() {return weight;}
+
+    public void setWeight(int weight) {this.weight = weight;}
+
     @Override
     public String toString() {
         return "Posts{" +
@@ -165,7 +170,8 @@ public class Posts {
                 ", summary='" + summary + '\'' +
                 ", tags='" + tags + '\'' +
                 ", title='" + title + '\'' +
-                ", views=" + views +
-                '}';
+                ", views=" + views + '\'' +
+                ", weight="+ weight +
+        '}';
     }
 }
