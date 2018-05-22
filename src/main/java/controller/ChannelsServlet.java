@@ -12,6 +12,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+
+
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -31,6 +36,29 @@ public class ChannelsServlet extends HttpServlet{
       PrintWriter out=resp.getWriter();
       long id=Integer.parseInt(req.getParameter("id"));
       List<Posts> postsList=ps.getChannelPosts(id);
+      String op=req.getParameter("op");
+      if("sortByDate".equals(op)){
+          Collections.sort(postsList, new Comparator<Posts>() {
+              @Override
+              public int compare(Posts o1, Posts o2) {
+                  return o1.getCreated().compareTo(o2.getCreated());
+              }
+          });
+      }else if ("sortByFavors".equals(op)){
+          Collections.sort(postsList, new Comparator<Posts>() {
+              @Override
+              public int compare(Posts o1, Posts o2) {
+                  return o1.getFavors()-o2.getFavors();
+              }
+          });
+      }else if("sortByComments".equals(op)){
+          Collections.sort(postsList, new Comparator<Posts>() {
+              @Override
+              public int compare(Posts o1, Posts o2) {
+                  return o1.getComments()-o2.getComments();
+              }
+          });
+        }
       req.setAttribute("postsList",postsList);
       req.getRequestDispatcher("").forward(req,resp);
     }
