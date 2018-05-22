@@ -16,7 +16,7 @@ public class PostsDaoTest {
     @Test
     public void testAdd() {
         Date date = new Date();
-        Posts post = new Posts(2L, 3, date, "4", 5, 1, 1, 1, "1", "1", "1", 1);
+        Posts post = new Posts(2L, 3, date, "4", 5, 1, 1, 1, "1", "1", "1", 1,1);
         int num = pd.addPost(post);
         System.out.println(num);
     }
