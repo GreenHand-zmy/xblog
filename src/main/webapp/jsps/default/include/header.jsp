@@ -4,7 +4,8 @@
     <div class="modal-dialog" role="document" style="width: 450px;">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button>
                 <h4 class="modal-title">请登录</h4>
             </div>
             <div class="modal-body">
@@ -37,23 +38,26 @@
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
+</div>
+<!-- /.modal -->
 <!-- Login dialog END -->
 
 <!-- Fixed navbar -->
 <header class="site-header headroom">
     <!--[if lt IE 9]>
-	<div class="alert alert-danger alert-dismissible fade in" role="alert" style="margin-bottom:0">
-		<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
-		<strong>您正在使用低版本浏览器，</strong> 在本页面的显示效果可能有差异。
-		建议您升级到
-		<a href="http://www.google.cn/intl/zh-CN/chrome/" target="_blank">Chrome</a>
-		或以下浏览器：
-		<a href="www.mozilla.org/en-US/firefox/‎" target="_blank">Firefox</a> /
-		<a href="http://www.apple.com.cn/safari/" target="_blank">Safari</a> /
-		<a href="http://www.opera.com/" target="_blank">Opera</a> /
-		<a href="http://windows.microsoft.com/en-us/internet-explorer/download-ie" target="_blank">Internet Explorer 9+</a>
-	</div>
+    <div class="alert alert-danger alert-dismissible fade in" role="alert" style="margin-bottom:0">
+        <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span><span class="sr-only">Close</span>
+        </button>
+        <strong>您正在使用低版本浏览器，</strong> 在本页面的显示效果可能有差异。
+        建议您升级到
+        <a href="http://www.google.cn/intl/zh-CN/chrome/" target="_blank">Chrome</a>
+        或以下浏览器：
+        <a href="www.mozilla.org/en-US/firefox/‎" target="_blank">Firefox</a> /
+        <a href="http://www.apple.com.cn/safari/" target="_blank">Safari</a> /
+        <a href="http://www.opera.com/" target="_blank">Opera</a> /
+        <a href="http://windows.microsoft.com/en-us/internet-explorer/download-ie" target="_blank">Internet Explorer
+            9+</a>
+    </div>
     <![endif]-->
 
     <div class="container">
@@ -68,59 +72,47 @@
             </div>
             <div class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
-                   <c:if test="${sessionScope.user!=null}">
-						<li data="user">
-                    <a href="/UserServlet?op=toMyPage">我的主页</a>
-                </li>
+                    <c:if test="${sessionScope.user!=null}">
+                        <li data="user">
+                            <a href="${ctx}/UserServlet?op=toMyPage" nav="user">我的主页</a>
+                        </li>
                     </c:if>
                     <c:forEach var="channel" items="${channelList}">
                         <li>
-                            <a href="${ctx}/channelServlet?id=${channel.id}" nav="${channel.name}">${channel.name}</a>
-                                <%--<a href="" nav="">1</a>--%>
+                            <a href="${ctx}/channelServlet?id=${channel.id}"
+                               nav="${channel.name}">${channel.name}</a>
                         </li>
                     </c:forEach>
                 </ul>
                 <ul class="navbar-button list-inline" id="header_user">
-                    <li view="search" class="hidden-xs hidden-sm">
-                        <form method="GET" action="${ctx}/search" accept-charset="UTF-8" class="navbar-form navbar-left">
-                            <div class="form-group">
-                                <input class="form-control search-input mac-style" placeholder="搜索" name="kw" type="text" value="${kw}">
-                                <button class="search-btn" type="submit"><i class="fa fa-search"></i></button>
-                            </div>
-                        </form>
-                    </li>
-
-
-
                     <c:choose>
-                    <c:when test="${sessionScope.user!=null}">
-                    <li class="dropdown">
-                        <li>
-                            <a href="${ctx}/post/editing" class="plus"><i class="icon icon-note"></i> 写文章</a>
-                        </li>
-                        <a href="#" class="user dropdown-toggle" data-toggle="dropdown">
-                            <img class="img-circle" src="${ctx}${profile.avatar}?t=${now}">
-                            <span>${sessionScope.user.username}</span>
-                        </a>
-                        <ul class="dropdown-menu" role="menu">
+                        <c:when test="${sessionScope.user!=null}">
                             <li>
-                                <a href="${ctx}/user">我的主页</a>
+                                <a href="${base}/post/editing" class="plus"><i class="icon icon-note"></i> 写文章</a>
                             </li>
-                            <li>
-                                <a href="${ctx}/user/profile">编辑资料</a>
+                            <li class="dropdown">
+                                <a href="#" class="user dropdown-toggle" data-toggle="dropdown">
+                                    <img class="img-circle" src="${ctx}${sessionScope.user.name}">
+                                    <span>${sessionScope.user.name}</span>
+                                </a>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li>
+                                        <a href="${ctx}/UserServlet?op=toMyPage">我的主页</a>
+                                    </li>
+                                    <li>
+                                        <a href="${ctx}/user/profile">编辑资料</a>
+                                    </li>
+                                    <li><a href="${ctx}/admin">后台管理</a></li>
+                                    <li><a href="${ctx}/UserServlet?op=logout">退出</a></li>
+                                </ul>
                             </li>
-
-                                <li><a href="${ctx}/admin">后台管理</a></li>
-
-                            <li><a href="${ctx}/logout">退出</a></li>
-                        </ul>
-                    </li>
-                    </c:when>
+                        </c:when>
                         <c:otherwise>
-                    <li><a href="/UserServlet?op=toLogin" class="btn btn-default btn-sm signup">登录</a></li>
-
-                    <li><a href="/UserServlet?op=toRegister" class="btn btn-primary btn-sm signup">注册</a></li>
-                    </c:otherwise>
+                            <li><a href="${ctx}/UserServlet?op=toLogin" class="btn btn-default btn-sm signup">登录</a>
+                            </li>
+                            <li><a href="${ctx}/UserServlet?op=toRegister" class="btn btn-primary btn-sm signup">注册</a>
+                            </li>
+                        </c:otherwise>
                     </c:choose>
                 </ul>
             </div>
@@ -129,13 +121,13 @@
 </header>
 
 <script type="text/javascript">
-$(function () {
-	$('a[nav]').each(function(){  
-        $this = $(this);
-        if($this[0].href == String(window.location)){  
-            $this.closest('li').addClass("active");  
-        }  
+    $(function () {
+        $('a[nav]').each(function () {
+            $this = $(this);
+            if ($this[0].href == String(window.location)) {
+                $this.closest('li').addClass("active");
+            }
+        });
     });
-});
 </script>
 <!-- Header END -->

@@ -36,42 +36,43 @@
                     <div class="panel-body remove-padding-horizontal">
 
                         <ul class="list-group row topic-list">
-
-                            <li class="list-group-item ">
-                                <a class="reply_count_area hidden-xs pull-right" href="#">
-                                    <div class="count_set">
+                            <c:forEach items="${postsList}" var="post">
+                                <li class="list-group-item ">
+                                    <a class="reply_count_area hidden-xs pull-right" href="#">
+                                        <div class="count_set">
                                             <span class="count_of_votes" data-toggle="tooltip"
-                                                  title="阅读数">${0}</span>
-                                        <span class="count_seperator">/</span>
-                                        <span class="count_of_replies" data-toggle="tooltip"
-                                              title="回复数">${0}</span>
-                                        <span class="count_seperator">/</span>
-                                        <span class="count_of_visits" data-toggle="tooltip"
-                                              title="点赞数">${0}</span>
-                                        <span class="count_seperator">|</span>
-                                        <abbr class="timeago">${0}</abbr>
-                                    </div>
-                                </a>
-                                <div class="avatar pull-left">
-                                    <a href="${base}/users/${row.author.id}">
-                                        <img class="media-object img-thumbnail avatar avatar-middle"
-                                             src="${base + row.author.avatar}">
+                                                  title="阅读数">${post.views}</span>
+                                            <span class="count_seperator">/</span>
+                                            <span class="count_of_replies" data-toggle="tooltip"
+                                                  title="回复数">${post.comments}</span>
+                                            <span class="count_seperator">/</span>
+                                            <span class="count_of_visits" data-toggle="tooltip"
+                                                  title="点赞数">${post.favors}</span>
+                                            <span class="count_seperator">|</span>
+                                            <abbr class="timeago">${0}</abbr>
+                                        </div>
                                     </a>
-                                </div>
-                                <div class="infos">
-                                    <div class="media-heading">
-                                        <%--<@classify row/><a href="${base}/view/${row.id}">${row.title}</a>--%>
+                                    <div class="avatar pull-left">
+                                        <a href="${base}/users/${row.author.id}">
+                                            <img class="media-object img-thumbnail avatar avatar-middle"
+                                                 src="${base + row.author.avatar}">
+                                        </a>
                                     </div>
-                                </div>
-                            </li>
-
-
-                            <li class="list-group-item ">
-                                <div class="infos">
-                                    <div class="media-heading">该目录下还没有内容!</div>
-                                </div>
-                            </li>
-
+                                    <div class="infos">
+                                        <div class="media-heading">
+                                                ${post.title}
+                                                <%--<@classify row/><a href="${base}/view/${row.id}">${row.title}</a>--%>
+                                        </div>
+                                    </div>
+                                </li>
+                            </c:forEach>
+                            <c:if test="${postsList == null}">
+                                <li class="list-group-item ">
+                                    <div class="infos">
+                                        <div class="media-heading">该目录下还没有内容!</div>
+                                    </div>
+                                </li>
+                            </c:if>
                         </ul>
                     </div>
 
