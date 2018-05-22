@@ -76,4 +76,11 @@ public class PostsServiceImpl implements PostsService {
         check(list != null, "无查询结果");
         return list;
     }
+
+    @Override
+    public List<Posts> findNewPostsLimit(int LIMIT) {
+        List<Posts> list = pd.getAllPosts();
+        check(list != null, "无查询结果");
+        return list;
+    }
 }
