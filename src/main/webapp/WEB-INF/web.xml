@@ -14,7 +14,7 @@
             <!-- 不允许在页面中使用java脚本 -->
             <scripting-invalid>true</scripting-invalid>
             <!-- 给所有的jsp页面导入要依赖的库，taglib.jsp就是一个全局的标签文件 -->
-            <include-prelude>jsps/taglib.jsp</include-prelude>
+            <include-prelude>/jsps/taglib.jsp</include-prelude>
         </jsp-property-group>
     </jsp-config>
 </web-app>

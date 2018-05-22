@@ -1,3 +1,4 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <link rel="stylesheet" media='all' href="${ctx}/static/dist/vendors/bootstrap/css/bootstrap.min.css">
 <link rel='stylesheet' media='all' href="${ctx}/static/dist/vendors/share.js/css/share.min.css"/>
 
@@ -20,17 +21,6 @@
 <script type="text/javascript" src="${ctx}/static/theme/default/js/utils.js"></script>
 
 <script src="${ctx}/static/dist/vendors/pace/pace.min.js"></script>
-
-<script type="text/javascript">
-    var _ctx_path = '${ctx}';
-
-    window.app = {
-        ctx: '${ctx}',
-        LOGIN_TOKEN: '${profile.id}'
-    };
-
-    //window.UEDITOR_HOME_URL = '${ctx}/dist/vendors/ueditor/';
-</script>
 
 <script type="text/javascript" src="${ctx}/static/theme/default/js/sea.js"></script>
 <script type="text/javascript" src="${ctx}/static/theme/default/js/sea.config.js"></script>

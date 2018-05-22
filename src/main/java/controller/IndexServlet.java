@@ -38,7 +38,7 @@ public class IndexServlet extends HttpServlet {
 
 
             //从设置的目录中获得模板
-            Template template = cfg.getTemplate("default/index.ftl");
+            Template template = cfg.getTemplate("default/index.jsp");
 
             //合并模板和数据模型
         }
