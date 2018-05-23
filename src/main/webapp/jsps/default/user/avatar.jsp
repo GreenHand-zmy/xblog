@@ -26,7 +26,7 @@
                 <div id="message">
 
                 </div>
-                <form class="form-horizontal" enctype="multipart/form-data" action="upload" method="post">
+                <form class="form-horizontal" enctype="multipart/form-data" action="${ctx}/upload" method="post">
                     <input type="hidden" id="x" name="x" value=""/>
                     <input type="hidden" id="y" name="y" value=""/>
                     <input type="hidden" id="width" name="width" value=""/>
@@ -40,7 +40,7 @@
                         </label>
                     </div>
                     <div class="update_ava">
-                        <img src="<@resource src=profile.avatar/>" id="target" alt="[Example]" />
+                        <img src="<@resource src=profile.avatar/>" id="target" alt="[Example]"/>
                     </div>
 
                     <div class="form-group">

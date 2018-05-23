@@ -15,14 +15,16 @@ import java.io.IOException;
  */
 @WebServlet("/upload")
 @MultipartConfig
-public class uploadServlet extends HttpServlet{
+public class uploadServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
+
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String path=this.getServletContext().getRealPath("/upload");
-        File paths= new File(path);
+        String path = this.getServletContext().getRealPath("/upload");
+        File paths = new File(path);
         Part part = req.getPart("file");
         String fileName = part.getSubmittedFileName();
-        part.write(paths+fileName);
+        System.out.println(paths + "/" + fileName);
+        part.write(paths + "/" + fileName);
     }
 }
