@@ -11,44 +11,37 @@ public class Posts {
     private long authorId;//作者
     private int comments;//评论数
     private Date created;//创建时间
-    private String editor;//编辑器
     private int favors;//喜欢数
     private int featured;//推荐状态
     private int channelId;//频道编号
     private int status;//文章状态
-    private String summary;//摘要
-    private String tags;//标签
     private String title;//标题
     private int views;//阅读数
     private int weight;//置顶
+    // 文章内容
     private String content;
 
     public Posts() {
     }
 
-    public Posts(long authorId, int comments, Date created, String editor, int favors, int featured, int channelId, int status, String summary, String tags, String title, int views , int weight) {
+    public Posts(long authorId, int comments, Date created, String editor, int favors, int featured, int channelId, int status, String summary, String tags, String title, int views, int weight) {
         this.authorId = authorId;
         this.comments = comments;
         this.created = created;
-        this.editor = editor;
         this.favors = favors;
         this.featured = featured;
         this.channelId = channelId;
         this.status = status;
-        this.summary = summary;
-        this.tags = tags;
         this.title = title;
         this.views = views;
         this.weight = weight;
     }
 
-    public Posts(long id,  int featured, int channelId, int status, String summary, String tags, String title, int weight) {
+    public Posts(long id, int featured, int channelId, int status, String summary, String tags, String title, int weight) {
         this.id = id;
         this.featured = featured;
         this.channelId = channelId;
         this.status = status;
-        this.summary = summary;
-        this.tags = tags;
         this.title = title;
         this.weight = weight;
     }
@@ -85,14 +78,6 @@ public class Posts {
         this.created = created;
     }
 
-    public String getEditor() {
-        return editor;
-    }
-
-    public void setEditor(String editor) {
-        this.editor = editor;
-    }
-
     public int getFavors() {
         return favors;
     }
@@ -125,22 +110,6 @@ public class Posts {
         this.status = status;
     }
 
-    public String getSummary() {
-        return summary;
-    }
-
-    public void setSummary(String summary) {
-        this.summary = summary;
-    }
-
-    public String getTags() {
-        return tags;
-    }
-
-    public void setTags(String tags) {
-        this.tags = tags;
-    }
-
     public String getTitle() {
         return title;
     }
@@ -157,9 +126,13 @@ public class Posts {
         this.views = views;
     }
 
-    public int getWeight() {return weight;}
+    public int getWeight() {
+        return weight;
+    }
 
-    public void setWeight(int weight) {this.weight = weight;}
+    public void setWeight(int weight) {
+        this.weight = weight;
+    }
 
     public String getContent() {
         return content;
@@ -167,25 +140,5 @@ public class Posts {
 
     public void setContent(String content) {
         this.content = content;
-    }
-
-    @Override
-    public String toString() {
-        return "Posts{" +
-                "id=" + id +
-                ", authorId=" + authorId +
-                ", comments=" + comments +
-                ", created=" + created +
-                ", editor='" + editor + '\'' +
-                ", favors=" + favors +
-                ", featured=" + featured +
-                ", channelId=" + channelId +
-                ", status=" + status +
-                ", summary='" + summary + '\'' +
-                ", tags='" + tags + '\'' +
-                ", title='" + title + '\'' +
-                ", views=" + views + '\'' +
-                ", weight="+ weight +
-        '}';
     }
 }

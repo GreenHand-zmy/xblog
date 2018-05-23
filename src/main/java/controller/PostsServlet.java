@@ -38,30 +38,27 @@ public class PostsServlet extends HttpServlet {
     }
 
     private void addPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Posts post = new Posts();
-        Date created = new Date();
-        List<Channel> channelList = channelService.findAll();
+        // 获取必要参数
+        // 从Session中获取user对象
         User user = (User) req.getSession().getAttribute("user");
-        int channelId = Integer.parseInt(req.getParameter("channelId"));
-        String tags = req.getParameter("tags");
+        // 获取文章标题
         String title = req.getParameter("title");
-        String summary = req.getParameter("summary");
+        // 获取频道编号
+        int channelId = Integer.parseInt(req.getParameter("channelId"));
+        // 获取文章内容
+        String content = req.getParameter("content");
+
+        // 构造文章对象
+        Posts post = new Posts();
         post.setAuthorId(user.getId());
-        post.setCreated(created);
         post.setTitle(title);
-        post.setTags(tags);
         post.setChannelId(channelId);
-        post.setComments(0);
-        post.setFavors(0);
-        post.setFeatured(0);
-        post.setStatus(0);
-        post.setSummary(summary);
-        post.setViews(0);
-        post.setWeight(0);
+        post.setContent(content);
+        post.setCreated(new Date());
+
+        // 添加到数据库中
         postsService.addPost(post);
-        if (postDao.addPost(post) > 0) {
-            resp.sendRedirect("jsps/default/index.jsp");
-        }
+        resp.sendRedirect("index");
     }
 
     private void updatePostFavors(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -69,8 +66,6 @@ public class PostsServlet extends HttpServlet {
         PrintWriter out = resp.getWriter();
         long id = Integer.parseInt(req.getParameter("id"));
         post = postsService.getPost(id);
-        int favors = post.getFavors() + 1;
-        post.setFeatured(favors);
         postsService.updatePost(post);
         resp.sendRedirect("jsps/default/auth/view.jsp?id=" + post.getId());
     }
@@ -105,8 +100,6 @@ public class PostsServlet extends HttpServlet {
         String editor = req.getParameter("editor");
         String title = req.getParameter("title");
         post.setTitle(title);
-        post.setTags(tags);
-        post.setTags(editor);
         post.setChannelId(channelId);
         postsService.updatePost(post);
         resp.sendRedirect("jsps/default/auth/index.jsp");
@@ -145,6 +138,7 @@ public class PostsServlet extends HttpServlet {
         } else if ("toAddPostPage".equals(op)) {
             req.getRequestDispatcher("jsps/default/channel/editing.jsp").forward(req, resp);
         } else if ("addPost".equals(op)) {
+            // 添加文章
             addPost(req, resp);
         } else if ("getPost".equals(op)) {
             getPost(req, resp);

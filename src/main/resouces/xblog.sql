@@ -66,11 +66,11 @@ CREATE TABLE `mto_posts` (
   `weight` int(11) DEFAULT NULL COMMENT '是否置顶',
   `created` datetime DEFAULT NULL COMMENT '文章产生时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 /*Data for the table `mto_posts` */
 
-insert  into `mto_posts`(`id`,`author_id`,`channel_id`,`title`,`content`,`views`,`comments`,`favors`,`featured`,`status`,`weight`,`created`) values (2,2,2,'2',NULL,1,3,5,2,2,2,'2018-05-21 16:49:16'),(3,2,1,'1',NULL,1,3,5,1,1,2,'2018-05-22 16:12:39'),(4,6,1,'1','1',11,1,1,1,1,11,'2018-05-23 10:19:18'),(5,7,1,'asdasd','<p>asdasdad</p>',0,0,0,0,0,NULL,NULL);
+insert  into `mto_posts`(`id`,`author_id`,`channel_id`,`title`,`content`,`views`,`comments`,`favors`,`featured`,`status`,`weight`,`created`) values (5,7,1,'asdasd','<p>asdasdad</p>',0,0,0,0,0,NULL,'2018-05-23 20:46:12'),(6,7,1,'asd','<p>阿斯达斯的</p>',0,0,0,0,0,NULL,NULL),(7,7,3,'傻逼zh','<p>阿斯达斯大所</p>',0,0,0,0,0,NULL,NULL);
 
 /*Table structure for table `mto_users` */
 

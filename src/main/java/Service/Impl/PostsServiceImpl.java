@@ -33,7 +33,6 @@ public class PostsServiceImpl implements PostsService {
         int num1 = pd.isExits(post.getId());
         check(num1 == 1, "用户名不存在");
         check(post.getChannelId() != 0, "频道编号不能为空");
-        check(post.getTags() != null, "标签不能为空");
         check(post.getContent() != null, "内容不能为空");
         check(post.getTitle() != null, "标题不能为空");
         check(post.getFeatured() != 0,"推荐状态不能为空");

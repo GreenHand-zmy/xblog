@@ -1,5 +1,9 @@
 
-<textarea id="content" name="content" class="form-control">${view.content}</textarea>
+<textarea id="content" name="content" class="form-control">
+    <c:if test="${post.content != null}">
+        ${post.content}
+    </c:if>
+</textarea>
 
 <script type="text/javascript">
 $(function () {
