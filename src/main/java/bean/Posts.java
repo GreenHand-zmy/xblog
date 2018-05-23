@@ -21,6 +21,8 @@ public class Posts {
     private String title;//标题
     private int views;//阅读数
     private int weight;//置顶
+    private String content;
+
     public Posts() {
     }
 
@@ -158,6 +160,14 @@ public class Posts {
     public int getWeight() {return weight;}
 
     public void setWeight(int weight) {this.weight = weight;}
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
 
     @Override
     public String toString() {

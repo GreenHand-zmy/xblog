@@ -20,28 +20,31 @@
         </div>
         <div class="panel-body">
             <div id="message"></div>
-            <form class="form-horizontal" action="${base}/post/update" method="post" enctype="multipart/form-data">
-                <input type="hidden" name="id" value="${view.id}"/>
-                <input type="hidden" name="authorId" value="${view.authorId}"/>
+            <form class="form-horizontal" action="${ctx}/PostsServlet?op=updatePost&id=${post.id}" method="post">
+                <%--<input type="hidden" name="id" value="${view.id}"/>--%>
+                <%--<input type="hidden" name="authorId" value="${view.authorId}"/>--%>
                 <div class="form-group">
                     <label class="col-sm-2 control-label no-padding-right">标题</label>
                     <div class="col-sm-8">
-                        <input type="text" class="form-control" name="title" maxlength="128" data-required value="${view.title}">
+                        <input type="text" class="form-control" name="title" maxlength="128" data-required value="${post.title}">
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-2 control-label no-padding-right">发布到</label>
                     <div class="col-sm-3">
                         <select class="form-control" name="channelId">
-                            <#list channels as row>
+
                                 <option value="${row.id}" <#if (view.channelId == row.id)> selected </#if>>${row.name}</option>
-                            </#list>
+                                <c:forEach items="${sessionScope.channelList}" var="channel">
+                                    <option value="${channel.id}">${channel.name}</option>
+                                </c:forEach>
+
                         </select>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="desc" class="col-sm-2 control-label no-padding-right">内容</label>
-                    <input type="hidden" name="editor" value="${site_editor}"/>
+                    <input type="hidden" name="editor" value="${post.editor}"/>
                     <div class="col-sm-8">
                         <jsp:include page="editor/ueditor.jsp"/>
                     </div>
@@ -49,7 +52,7 @@
                 <div class="form-group">
                     <label class="col-sm-2 control-label no-padding-right">标签</label>
                     <div class="col-sm-8">
-                        <input type="hidden" name="tags" id="fieldTags" value="${view.tags}">
+                        <input type="hidden" name="tags" id="fieldTags" value="${post.tags}">
                         <ul id="tags"></ul>
                         <p class="help-block" style="font-size: 12px;">添加相关标签，用逗号或空格分隔 (最多4个).</p>
                     </div>

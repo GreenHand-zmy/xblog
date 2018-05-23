@@ -13,9 +13,9 @@ public class PostDaoImpl  implements PostDao {
 
     @Override
     public int addPost(Posts post) {
-        String sql="insert into mto_posts (author_id,comments,created,editor,favors,featured,channel_id,status,summary,tags,title,views,weight) " +
+        String sql="insert into mto_posts (author_id,comments,content,created,editor,favors,featured,channel_id,status,summary,tags,title,views,weight) " +
                 "values(?,?,?,?,?,?,?,?,?,?,?,?,?)";
-        return DBUtil.executeUpdate(sql,post.getAuthorId(),post.getComments(),
+        return DBUtil.executeUpdate(sql,post.getAuthorId(),post.getComments(),post.getContent(),
                 post.getCreated(), post.getEditor(),post.getFavors(),post.getFeatured(),
                 post.getChannelId(), post.getStatus(),post.getSummary(),post.getTags(),post.getTitle(),
                 post.getViews(),post.getWeight());
@@ -23,8 +23,8 @@ public class PostDaoImpl  implements PostDao {
 
     @Override
     public int updatePost(Posts post) {
-        String sql="update mto_posts set featured=?,status=?,summary=?,weight=?,channel_id=?,tags=?,title=? where id=?";
-        Object[] values={post.getFeatured(),post.getStatus(),post.getSummary(),post.getWeight(),post.getChannelId(),post.getTags(),post.getTitle(),post.getId()};
+        String sql="update mto_posts set featured=?,status=?,content=?,summary=?,weight=?,channel_id=?,tags=?,title=? where id=?";
+        Object[] values={post.getFeatured(),post.getStatus(),post.getContent(),post.getSummary(),post.getWeight(),post.getChannelId(),post.getTags(),post.getTitle(),post.getId()};
         return DBUtil.executeUpdate(sql,values);
     }//修改文章
 

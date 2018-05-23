@@ -59,7 +59,7 @@ public class PostsServlet extends HttpServlet {
         post.setViews(0);
         post.setWeight(0);
         postsService.addPost(post);
-        if(postDao.addPost(post)>0){
+        if (postDao.addPost(post) > 0) {
             resp.sendRedirect("jsps/default/index.jsp");
         }
     }
@@ -98,24 +98,16 @@ public class PostsServlet extends HttpServlet {
     }
 
     private void updatePost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Posts post = new Posts();
-        PrintWriter out = resp.getWriter();
         long id = Integer.parseInt(req.getParameter("id"));
-        post = postsService.getPost(id);
+        Posts post = postDao.getPost(id);
         int channelId = Integer.parseInt(req.getParameter("channelId"));
         String tags = req.getParameter("tags");
+        String editor = req.getParameter("editor");
         String title = req.getParameter("title");
-        String summary = req.getParameter("summary");
-        int featured = Integer.parseInt(req.getParameter("featured"));
-        int status = Integer.parseInt(req.getParameter("status"));
-        int weight = Integer.parseInt(req.getParameter("weight"));
         post.setTitle(title);
         post.setTags(tags);
+        post.setTags(editor);
         post.setChannelId(channelId);
-        post.setSummary(summary);
-        post.setFeatured(featured);
-        post.setWeight(weight);
-        post.setStatus(status);
         postsService.updatePost(post);
         resp.sendRedirect("jsps/default/auth/index.jsp");
     }
@@ -137,6 +129,11 @@ public class PostsServlet extends HttpServlet {
             postsList = ps.findNewPostsLimit2(LIMIT);
         } else if ("selectByComments".equals(op)) {
             postsList = ps.findNewPostsLimit3(LIMIT);
+        } else if ("toUpdatePostPage".equals(op)) {
+            Long id = Long.parseLong(req.getParameter("id"));
+            Posts post = postDao.getPost(id);
+            req.setAttribute("post", post);
+            req.getRequestDispatcher("jsps/default/channel/update.jsp").forward(req, resp);
         } else if ("updatePost".equals(op)) {
             updatePost(req, resp);
         } else if ("updatePostFavors".equals(op)) {
@@ -151,6 +148,11 @@ public class PostsServlet extends HttpServlet {
             addPost(req, resp);
         } else if ("getPost".equals(op)) {
             getPost(req, resp);
+        } else if ("toPostPage".equals(op)) {
+            Long id = Long.parseLong(req.getParameter("id"));
+            Posts post = postDao.getPost(id);
+            req.setAttribute("post", post);
+            req.getRequestDispatcher("jsps/default/channel/view.jsp").forward(req, resp);
         } else if ("delPost".equals(op)) {
             PrintWriter out = resp.getWriter();
             long id = Integer.parseInt(req.getParameter("id"));

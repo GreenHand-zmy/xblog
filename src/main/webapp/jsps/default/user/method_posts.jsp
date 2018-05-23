@@ -41,11 +41,13 @@
       						</span>
 
                                             <div class="pull-right hidden-xs">
-                                                <a class="act_edit" href="javascript:void(0);" data-evt="edit" data-id=""
+                                                <a class="act_edit" href="javascript:void(0);" data-evt="edit"
+                                                   data-id="${posts.id}"
                                                    data-toggle="tooltip" title="编辑文章">
                                                     <i class="icon icon-note"></i>
                                                 </a>
-                                                <a class="act_delete" href="javascript:void(0);" data-evt="trash" data-id=""
+                                                <a class="act_delete" href="javascript:void(0);" data-evt="trash"
+                                                   data-id="${posts.id}"
                                                    data-toggle="tooltip" title="删除文章">
                                                     <i class="icon icon-close"></i>
                                                 </a>
@@ -98,7 +100,7 @@
         // edit
         $('a[data-evt=edit]').click(function () {
             var id = $(this).attr('data-id');
-            window.location.href = '${base}/post/editing?id=' + id;
+            window.location.href = '${ctx}/PostsServlet?op=toUpdatePostPage&id=' + id;
         });
     })
 </script>
