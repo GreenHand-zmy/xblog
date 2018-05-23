@@ -16,7 +16,7 @@ import java.io.IOException;
 @WebServlet("/upload")
 @MultipartConfig
 public class uploadServlet extends HttpServlet {
-    private static final long serialVersionUID = 1L;
+    private String basePath = "/upload/";
 
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -24,6 +24,7 @@ public class uploadServlet extends HttpServlet {
         File paths = new File(path);
         Part part = req.getPart("file");
         String fileName = part.getSubmittedFileName();
+        fileName.substring(fileName.indexOf("."),fileName.length());
         System.out.println(paths + "/" + fileName);
         part.write(paths + "/" + fileName);
     }
