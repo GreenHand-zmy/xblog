@@ -34,25 +34,26 @@ public class ChannelServlet extends HttpServlet{
             Collections.sort(postsList, new Comparator<Posts>() {
                 @Override
                 public int compare(Posts o1, Posts o2) {
-                    return o1.getCreated().compareTo(o2.getCreated());
+                    return o2.getCreated().compareTo(o1.getCreated());
                 }
             });
         }else if ("favors".equals(order)){
             Collections.sort(postsList, new Comparator<Posts>() {
                 @Override
                 public int compare(Posts o1, Posts o2) {
-                    return o1.getFavors()-o2.getFavors();
+                    return o2.getFavors()-o1.getFavors();
                 }
             });
         }else if("hottest".equals(order)){
             Collections.sort(postsList, new Comparator<Posts>() {
                 @Override
                 public int compare(Posts o1, Posts o2) {
-                    return o1.getComments()-o2.getComments();
+                    return o2.getComments()-o1.getComments();
                 }
             });
         }
         req.setAttribute("postsList",postsList);
+        req.setAttribute("id",id);
         req.getRequestDispatcher("jsps/default/channel/index.jsp").forward(req,resp);
     }
 }
