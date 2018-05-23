@@ -22,14 +22,11 @@
             <div class="col-xs-12 col-md-9 side-right">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        动态
+                        我的文章
                     </div>
 
                     <div class="panel-body remove-padding-horizontal">
                         <ul class="list-group topic-list">
-                            <#list page.content as row>
-                            <#if row.post??>
-                            <#assign target = row.post>
                             <li class="list-group-item " style="padding: 0 15px;">
                                 <a class="reply_count_area hidden-xs pull-right" href="#">
                                     <div class="count_set">
@@ -64,7 +61,6 @@
                         </ul>
                     </div>
                     <div class="panel-footer">
-                        <@pager request.requestURI!"", page, 5/>
                     </div>
                 </div>
             </div>

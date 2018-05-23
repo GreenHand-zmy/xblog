@@ -1,9 +1,12 @@
 package Servlet;
 
+import Service.CommentService;
+import Service.Impl.CommentServiceImpl;
 import Service.Impl.PostsServiceImpl;
 import Service.Impl.UserServiceImpl;
 import Service.PostsService;
 import Service.UserService;
+import bean.Comment;
 import bean.Posts;
 import bean.User;
 
@@ -13,6 +16,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -22,7 +26,7 @@ import java.util.List;
 public class UserServlet extends HttpServlet {
     private UserService userService = new UserServiceImpl();
     private PostsService postsService = new PostsServiceImpl();
-
+    private CommentService commentService = new CommentServiceImpl();
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String op = req.getParameter("op");
@@ -50,14 +54,16 @@ public class UserServlet extends HttpServlet {
             req.getRequestDispatcher("jsps/default/auth/register.jsp").forward(req, resp);
         } else if ("toMyPage".equals(op)) {
 
-            req.getRequestDispatcher("jsps/default/user/method_feeds.jsp").forward(req, resp);
+            req.getRequestDispatcher("jsps/default/user/method_posts.jsp").forward(req, resp);
         } else if ("toMyArticle".equals(op)) {
             User user = (User) req.getSession().getAttribute("user");
             List<Posts> postsList = postsService.getPostAuthorId(user.getId());
             req.setAttribute("postsList",postsList);
             req.getRequestDispatcher("jsps/default/user/method_posts.jsp").forward(req, resp);
         } else if ("toMyComment".equals(op)) {
-
+            User user = (User) req.getSession().getAttribute("user");
+            List<Comment> commentsList = commentService.getCommentsByAuthor(user.getId());
+            req.setAttribute("commentsList",commentsList);
             req.getRequestDispatcher("jsps/default/user/method_comments.jsp").forward(req, resp);
         } else if ("toUpdate".equals(op)) {
             req.getRequestDispatcher("jsps/default/user/profile.jsp").forward(req, resp);
@@ -75,6 +81,8 @@ public class UserServlet extends HttpServlet {
         if (num > 0) {
             User user = userService.getUser1(username);
             req.getSession().setAttribute("user", user);
+            user.setLastLogin(new Date());
+            userService.updateUser(user);
             resp.sendRedirect("index");
         } else {
             resp.sendRedirect("jsps/default/auth/login.jsp");
@@ -112,7 +120,7 @@ public class UserServlet extends HttpServlet {
             userService.updateUser(user);
         }
         req.getSession().setAttribute("user", user);
-        req.getRequestDispatcher("jsps/default/user/method_feeds.jsp").forward(req, resp);
+        req.getRequestDispatcher("jsps/default/user/method_posts.jsp").forward(req, resp);
     }
 
     private void logout(HttpServletRequest req, HttpServletResponse resp) throws IOException {

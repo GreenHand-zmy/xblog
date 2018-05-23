@@ -27,14 +27,12 @@
 
                     <div class="panel-body">
                         <ul class="list-group">
-                            <#list page.content as row>
-                            <li class="list-group-item" el="loop-${row.id}">
-                                <#if row.post??>
-                                <a href="${base}/view/${row.post.id}" class="remove-padding-left">${row.post.title}</a>
-                                <#else>
+                            <c:choose>
+                                <c:when test="${commentsList!=null}">
+                                    <c:forEach items="${commentsList}" var="comments">
+                            <li class="list-group-item">
+                                <a href="" class="remove-padding-left">${comments.content}</a>
                                 <a href="javascript:;" class="remove-padding-left">文章已删除</a>
-                            </
-                            #if>
                             <span class="meta">
 								<span class="timeago">${0}</span>
       						</span>
@@ -49,22 +47,20 @@
                             <div class="reply-body markdown-reply content-body">
                                 <p>${row.content}</p>
                             </div>
+                                    </c:forEach>
+                                </c:when>
+                                <c:otherwise>
                             </li>
-                        </
-                        #list>
-
-                        <#if page.content?size == 0>
                         <li class="list-group-item ">
                             <div class="infos">
                                 <div class="media-heading">该目录下还没有内容!</div>
                             </div>
                         </li>
-                    </
-                    #if>
+                                </c:otherwise>
+                    </c:choose>
                     </ul>
                 </div>
                 <div class="panel-footer">
-                    <@pager "user?method=comments", page, 5/>
                 </div>
             </div>
         </div>

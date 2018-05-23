@@ -92,7 +92,7 @@
                             </li>
                             <li class="dropdown">
                                 <a href="#" class="user dropdown-toggle" data-toggle="dropdown">
-                                    <img class="img-circle" src="${ctx}${sessionScope.user.name}">
+                                    <img class="img-circle" src="${ctx}${sessionScope.user.avatar}">
                                     <span>${sessionScope.user.name}</span>
                                 </a>
                                 <ul class="dropdown-menu" role="menu">

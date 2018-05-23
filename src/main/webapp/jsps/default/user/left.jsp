@@ -30,9 +30,6 @@
     <div id="home-navbar" class="collapse navbar-collapse">
         <ul class="list-group user-nav first">
             <li class="list-group-item">
-                <a href="${base}/user"><i class="icon icon-layers"></i> 动态</a>
-            </li>
-            <li class="list-group-item">
                 <a href="/UserServlet?op=toMyArticle"><i class="icon icon-list"></i> 我的文章</a>
             </li>
             <li class="list-group-item">
