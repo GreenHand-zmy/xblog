@@ -24,6 +24,7 @@
             </div>
             <div class="panel-body">
                 <div id="message">
+
                 </div>
                 <form class="form-horizontal" enctype="multipart/form-data" action="upload" method="post">
                     <input type="hidden" id="x" name="x" value=""/>
