@@ -37,6 +37,9 @@ public class PostsServiceImpl implements PostsService {
         check(post.getChannelId() != 0, "频道编号不能为空");
         check(post.getTags() != null, "标签不能为空");
         check(post.getTitle() != null, "标题不能为空");
+        check(post.getFeatured() != -1, "推荐状态不能为空");
+        check(post.getStatus() != -1, "文章状态不能为空");
+        check(post.getWeight()!=-1, "置顶状态不能为空");
         int num = pd.updatePost(post);
         return num;
     }
@@ -94,5 +97,10 @@ public class PostsServiceImpl implements PostsService {
         List<Posts> list = pd.findNewPostsLimit3(LIMIT);
         check(list != null, "无查询结果");
         return list;
+    }
+    public Posts getPost(Long id){
+        Posts post = pd.getPost(id);
+        check(post != null, "该用户不存在");
+        return post;
     }
 }

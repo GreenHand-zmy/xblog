@@ -40,11 +40,15 @@ public class Posts {
         this.weight = weight;
     }
 
-    public Posts(long id, int channelId, String tags, String title) {
+    public Posts(long id,  int featured, int channelId, int status, String summary, String tags, String title, int weight) {
         this.id = id;
+        this.featured = featured;
         this.channelId = channelId;
+        this.status = status;
+        this.summary = summary;
         this.tags = tags;
         this.title = title;
+        this.weight = weight;
     }
 
     public long getId() {

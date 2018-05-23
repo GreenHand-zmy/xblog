@@ -23,8 +23,8 @@ public class PostDaoImpl  implements PostDao {
 
     @Override
     public int updatePost(Posts post) {
-        String sql="update mto_posts set channel_id=?,tags=?,title=? where id=?";
-        Object[] values={post.getChannelId(),post.getTags(),post.getTitle(),post.getId()};
+        String sql="update mto_posts set featured=?,status=?,summary=?,weight=?,channel_id=?,tags=?,title=? where id=?";
+        Object[] values={post.getFeatured(),post.getStatus(),post.getSummary(),post.getWeight(),post.getChannelId(),post.getTags(),post.getTitle(),post.getId()};
         return DBUtil.executeUpdate(sql,values);
     }//修改文章
 
