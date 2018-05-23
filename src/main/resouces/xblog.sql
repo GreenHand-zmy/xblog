@@ -2,7 +2,7 @@
 SQLyog Ultimate v12.09 (64 bit)
 MySQL - 5.7.14-log : Database - xblog
 *********************************************************************
-*/
+*/
 
 /*!40101 SET NAMES utf8 */;
 
@@ -13,8 +13,6 @@ MySQL - 5.7.14-log : Database - xblog
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 CREATE DATABASE /*!32312 IF NOT EXISTS*/`xblog` /*!40100 DEFAULT CHARACTER SET utf8 */;
-
-USE `xblog`;
 
 /*Table structure for table `mto_channels` */
 
@@ -41,41 +39,38 @@ CREATE TABLE `mto_comments` (
   `author_id` bigint(20) DEFAULT NULL COMMENT '作者编号',
   `content` varchar(255) DEFAULT NULL COMMENT '评论内容',
   `to_id` bigint(20) DEFAULT NULL COMMENT '评论的文章编号',
-  `status` int(11) NOT NULL COMMENT '评论状态',
+  `status` int(11) DEFAULT NULL COMMENT '评论状态',
   `created` datetime DEFAULT NULL COMMENT '评论时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 /*Data for the table `mto_comments` */
 
-insert  into `mto_comments`(`id`,`author_id`,`content`,`to_id`,`status`,`created`) values (1,2,'哇哇哇哇我',3,1,'2018-05-22 08:37:25');
+insert  into `mto_comments`(`id`,`author_id`,`content`,`to_id`,`status`,`created`) values (1,6,'哇哇哇哇我',3,1,'2018-05-22 08:37:25'),(2,6,'asdasd',3,1,'2018-05-23 14:09:29');
 
 /*Table structure for table `mto_posts` */
 
 DROP TABLE IF EXISTS `mto_posts`;
 
 CREATE TABLE `mto_posts` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `author_id` bigint(20) DEFAULT NULL,
-  `channel_id` bigint(20) DEFAULT NULL,
-  `content` text,
-  `created` datetime DEFAULT NULL,
-  `editor` varchar(255) DEFAULT NULL,
-  `comments` int(11) DEFAULT NULL,
-  `favors` int(11) DEFAULT NULL,
-  `featured` int(11) DEFAULT NULL,
-  `status` int(11) DEFAULT NULL,
-  `summary` varchar(255) DEFAULT NULL,
-  `tags` varchar(255) DEFAULT NULL,
-  `title` varchar(64) DEFAULT NULL,
-  `views` int(11) DEFAULT NULL,
-  `weight` int(11) DEFAULT NULL,
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '文章编号',
+  `author_id` bigint(20) DEFAULT NULL COMMENT '作者编号',
+  `channel_id` bigint(20) DEFAULT NULL COMMENT '频道编号',
+  `title` varchar(64) DEFAULT NULL COMMENT '文章标题',
+  `content` text COMMENT '文章内容',
+  `views` int(11) DEFAULT '0' COMMENT '文章阅读数',
+  `comments` int(11) DEFAULT '0' COMMENT '评论数量',
+  `favors` int(11) DEFAULT '0' COMMENT '喜欢数',
+  `featured` int(11) DEFAULT '0' COMMENT '是否推荐',
+  `status` int(11) DEFAULT '0' COMMENT '文章状态',
+  `weight` int(11) DEFAULT NULL COMMENT '是否置顶',
+  `created` datetime DEFAULT NULL COMMENT '文章产生时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 /*Data for the table `mto_posts` */
 
-insert  into `mto_posts`(`id`,`author_id`,`channel_id`,`content`,`created`,`editor`,`comments`,`favors`,`featured`,`status`,`summary`,`tags`,`title`,`views`,`weight`) values (2,2,1,NULL,'2018-05-21 16:49:16','4',3,5,1,1,'1','1','1',1,NULL),(3,2,1,NULL,'2018-05-22 16:12:39','4',3,5,1,1,'1','1','1',1,2);
+insert  into `mto_posts`(`id`,`author_id`,`channel_id`,`title`,`content`,`views`,`comments`,`favors`,`featured`,`status`,`weight`,`created`) values (5,7,1,'asdasd','<p>asdasdad</p>',0,0,0,0,0,NULL,'2018-05-23 20:46:12'),(6,7,1,'asd','<p>阿斯达斯的</p>',0,0,0,0,0,NULL,NULL),(7,7,3,'傻逼zh','<p>阿斯达斯大所</p>',0,0,0,0,0,NULL,NULL);
 
 /*Table structure for table `mto_users` */
 
@@ -95,11 +90,11 @@ CREATE TABLE `mto_users` (
   `signature` varchar(255) DEFAULT NULL,
   `last_login` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
 /*Data for the table `mto_users` */
 
-insert  into `mto_users`(`id`,`created`,`mobile`,`password`,`status`,`username`,`name`,`avatar`,`updated`,`gender`,`signature`,`last_login`) values (1,'2015-08-06 17:52:41',NULL,'1234',0,'久2','zh1','1','2018-05-21 16:11:47',0,'zmySB',NULL),(2,'2018-05-21 15:34:59',NULL,'123',NULL,'久','zh','/assets/images/ava/default.png',NULL,NULL,NULL,NULL),(4,'2018-05-21 16:15:30',NULL,'123',NULL,'久','zh','/assets/images/ava/default.png',NULL,NULL,NULL,NULL),(5,'2018-05-22 13:48:03',NULL,'123',NULL,'久23','zh','/assets/images/ava/default.png',NULL,NULL,NULL,NULL),(6,'2018-05-22 13:49:17',NULL,'123456',NULL,'a123456','jiu','/assets/images/ava/default.png',NULL,NULL,NULL,NULL),(7,'2018-05-22 16:17:46',NULL,'12345',NULL,'admin','admin','/assets/images/ava/default.png',NULL,NULL,NULL,NULL);
+insert  into `mto_users`(`id`,`created`,`mobile`,`password`,`status`,`username`,`name`,`avatar`,`updated`,`gender`,`signature`,`last_login`) values (1,'2015-08-06 17:52:41',NULL,'1234',0,'久2','zh1','1','2018-05-21 16:11:47',0,'zmySB',NULL),(2,'2018-05-21 15:34:59',NULL,'123',NULL,'久','zh','/assets/images/ava/default.png',NULL,NULL,NULL,NULL),(4,'2018-05-21 16:15:30',NULL,'123',NULL,'久','zh','/assets/images/ava/default.png',NULL,NULL,NULL,NULL),(5,'2018-05-22 13:48:03',NULL,'123',NULL,'久23','zh','/assets/images/ava/default.png',NULL,NULL,NULL,NULL),(6,'2018-05-22 13:49:17',NULL,'123456',NULL,'a123456','端对端','/assets/images/ava/default.png','2018-05-23 10:14:38',NULL,'端对端',NULL),(7,'2018-05-22 16:17:46',NULL,'123',NULL,'admin','admin','/assets/images/ava/default.png',NULL,NULL,NULL,NULL),(8,'2018-05-23 15:10:23',NULL,'123456',NULL,'zmy123','傻逼叶振东','/assets/images/ava/default.png',NULL,NULL,NULL,NULL);
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

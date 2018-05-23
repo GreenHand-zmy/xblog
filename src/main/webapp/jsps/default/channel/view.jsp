@@ -20,7 +20,7 @@
                 <div class="topic panel panel-default">
                     <div class="infos panel-heading">
 
-                        <h1 class="panel-title topic-title">${view.title}</h1>
+                        <h1 class="panel-title topic-title">${post.title}</h1>
 
                         <div class="meta inline-block">
 
@@ -28,8 +28,7 @@
                                 ${view.author.name}
                             </a>
                             <abbr class="timeago">${0}</abbr>
-                            ⋅
-                            ${view.views} 阅读
+                            ${post.views} 阅读
 
                         </div>
                         <div class="clearfix"></div>
@@ -37,11 +36,11 @@
 
                     <div class="content-body entry-content panel-body ">
                         <div class="markdown-body">
-                            ${view.content}
+                            ${post.content}
                         </div>
                     </div>
                     <div class="panel-footer operate">
-                        <#list view.tagsArray as tag>
+                        <#list 本文章不得转载，否则后果自负！>
                         <span>
                             <a class="label label-default" href="${base}/tag/${tag}/">#${tag}</a>
                         </span>

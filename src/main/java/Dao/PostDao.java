@@ -10,6 +10,9 @@ import java.util.List;
 public interface PostDao {
     public int addPost(Posts post);//添加文章
     public int updatePost(Posts post);//修改文章
+    public int updatePostFavors(Posts post);//修改文章点赞数
+    public int updatePostViews(Posts post);//修改文章阅读量
+    public int updatePostComments(Posts post);//修改文章评论量
     public int deletePost(Long Id);//删除文章
     public List<Posts> getPostTitle(String title);//根据文章标题模糊查询
     public List<Posts> getPostAuthorId(Long authorId);//根据作者标号查询

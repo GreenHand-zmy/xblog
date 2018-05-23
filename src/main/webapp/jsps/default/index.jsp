@@ -1,3 +1,7 @@
+<%@ page import="bean.Posts" %>
+<%@ page import="Dao.PostDao" %>
+<%@ page import="Dao.Impl.PostDaoImpl" %>
+<%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="zh-CN">
@@ -60,7 +64,7 @@
                                     </div>
                                     <div class="infos">
                                         <div class="media-heading">
-                                                ${post.title}
+                                               <a href="${ctx}/PostsServlet?op=toPostPage&id=${post.id}"> ${post.title}</a>
                                                 <%--<@classify row/><a href="${base}/view/${row.id}">${row.title}</a>--%>
                                         </div>
                                     </div>
@@ -69,7 +73,9 @@
                             <c:if test="${postsList == null}">
                                 <li class="list-group-item ">
                                     <div class="infos">
-                                        <div class="media-heading">该目录下还没有内容!</div>
+                                        <div class="media-heading">该目录下还没有内容!
+
+                                        </div>
                                     </div>
                                 </li>
                             </c:if>

@@ -10,44 +10,44 @@
 </head>
 <!-- header -->
 <%@include file="../include/header.jsp" %>
-
 <!-- content -->
 <div class="wrap">
     <!-- Main -->
     <div class="container">
         <div class="col-xs-12 col-md-8">
             <div id="message"></div>
-            <form class="form-horizontal" action="${base}/post/submit" method="post" enctype="multipart/form-data">
-                <input type="hidden" name="id" value="${0}"/>
-                <input type="hidden" name="authorId" value="${0}"/>
-            <div class="form-group">
-                <input type="text" class="form-control" name="title" maxlength="128" data-required value="${0}"
-                       placeholder="请输入标题">
-            </div>
-            <div class="form-group">
-                <select class="form-control" name="channelId" data-required>
-                    <option value="">请选择栏目</option>
-
-                </select>
-            </div>
-            <div class="form-group">
-                <%@include file="editor/ueditor.jsp" %>
-            </div>
-            <div class="form-group">
-                <div>
-                    <input type="hidden" name="tags" id="fieldTags" value="${0}"
-                           placeholder="添加相关标签，用逗号或空格分隔 (最多4个)">
-                    <ul id="tags"></ul>
-                    <p class="help-block" style="font-size: 12px;">添加相关标签，用逗号或空格分隔 (最多4个).</p>
-                </div>
-            </div>
-            <div class="row">
+            <form class="form-horizontal" action="${ctx}/PostsServlet?op=addPost" method="post">
+                <input type="hidden" name="authorId" value="${sessionScope.user.id}"/>
                 <div class="form-group">
-                    <div class="text-center">
-                        <button type="submit" class="btn btn-primary">提交</button>
+                    <input type="text" class="form-control" name="title" maxlength="128" data-required value="${title}"
+                           placeholder="请输入标题">
+                </div>
+                <div class="form-group">
+                    <select class="form-control" name="channelId" data-required>
+                        <option value="">请选择栏目</option>
+                        <c:forEach items="${sessionScope.channelList}" var="channel">
+                            <option value="${channel.id}">${channel.name}</option>
+                        </c:forEach>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <%@include file="editor/ueditor.jsp" %>
+                </div>
+                <div class="form-group">
+                    <div>
+                        <input type="hidden" name="tags" id="fieldTags" value="${tags}"
+                               placeholder="添加相关标签，用逗号或空格分隔 (最多4个)">
+                        <ul id="tags"></ul>
+                        <p class="help-block" style="font-size: 12px;">添加相关标签，用逗号或空格分隔 (最多4个).</p>
                     </div>
                 </div>
-            </div>
+                <div class="row">
+                    <div class="form-group">
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary">提交</button>
+                        </div>
+                    </div>
+                </div>
             </form>
             <!-- /form-actions -->
         </div>

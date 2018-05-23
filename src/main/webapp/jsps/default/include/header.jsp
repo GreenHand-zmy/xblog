@@ -88,7 +88,7 @@
                     <c:choose>
                         <c:when test="${sessionScope.user!=null}">
                             <li>
-                                <a href="${base}/post/editing" class="plus"><i class="icon icon-note"></i> 写文章</a>
+                                <a href="${ctx}/PostsServlet?op=toAddPostPage" class="plus"><i class="icon icon-note"></i> 写文章</a>
                             </li>
                             <li class="dropdown">
                                 <a href="#" class="user dropdown-toggle" data-toggle="dropdown">

@@ -13,19 +13,19 @@ public class CommentDaoImpl implements CommentDao {
 
     @Override
     public Comment getCommentById(long id) {
-        String sql = "SELECT * FROM mto_comments WHERE id=?";
+        String sql = "SELECT id,author_id,content,created,status,to_id FROM mto_comments WHERE id=?";
         return DBUtil.getObject(sql, Comment.class, id);
     }
 
     @Override
     public List<Comment> getComments(long toid) {
-        String sql = "SELECT * FROM mto_comments WHERE to_id=?";
+        String sql = "SELECT id,author_id,content,created,status,to_id FROM mto_comments WHERE to_id=?";
         return DBUtil.getObjects(sql, Comment.class, toid);
     }
 
     @Override
     public List<Comment> getCommentsByAuthor(long authorId) {
-        String sql = "SELECT * FROM mto_comments WHERE author_id=?";
+        String sql = "SELECT id,author_id,content,created,status,to_id FROM mto_comments WHERE author_id=?";
         return DBUtil.getObjects(sql, Comment.class, authorId);
     }
 

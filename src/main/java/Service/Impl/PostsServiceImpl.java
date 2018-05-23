@@ -20,12 +20,10 @@ public class PostsServiceImpl implements PostsService {
         int num1 = pd.isExits(post.getId());
         check(num1 == 0, "用户名已存在");
         check(post.getAuthorId() != 0, "作者名不能为空");
-        check(post.getComments() != 0, "评论数不能为空");
-        check(post.getFavors() != 0, "喜欢数不能为空");
-        check(post.getFeatured() != 0, "推荐状态不能为空");
-        check(post.getStatus() != 0, "文章状态不能为空");
-        check(post.getViews() != 0, "阅读数不能为空");
-        check(post.getWeight() != 0, "置顶状态不能为空");
+        check(post.getFeatured() != -1, "推荐状态不能为空");
+        check(post.getStatus() != -1, "文章状态不能为空");
+        check(post.getWeight() != -1, "置顶状态不能为空");
+        check(post.getContent() != null, "内容不能为空");
         int num = pd.addPost(post);
         return num;
     }
@@ -35,11 +33,11 @@ public class PostsServiceImpl implements PostsService {
         int num1 = pd.isExits(post.getId());
         check(num1 == 1, "用户名不存在");
         check(post.getChannelId() != 0, "频道编号不能为空");
-        check(post.getTags() != null, "标签不能为空");
+        check(post.getContent() != null, "内容不能为空");
         check(post.getTitle() != null, "标题不能为空");
-        check(post.getFeatured() != -1, "推荐状态不能为空");
-        check(post.getStatus() != -1, "文章状态不能为空");
-        check(post.getWeight()!=-1, "置顶状态不能为空");
+        check(post.getFeatured() != 0,"推荐状态不能为空");
+        check(post.getStatus() != 0, "文章状态不能为空");
+        check(post.getWeight()!=0, "置顶状态不能为空");
         int num = pd.updatePost(post);
         return num;
     }
@@ -49,6 +47,24 @@ public class PostsServiceImpl implements PostsService {
         Posts post = pd.getPost(id);
         check(post != null, "该用户不存在");
         int num = pd.addPost(post);
+        return num;
+    }
+
+    @Override
+    public int updatePostFavors(Posts post) {
+        int num = pd.updatePostFavors(post);
+        return num;
+    }
+
+    @Override
+    public int updatePostViews(Posts post) {
+        int num = pd.updatePostViews(post);
+        return num;
+    }
+
+    @Override
+    public int updatePostComments(Posts post) {
+        int num = pd.updatePostComments(post);
         return num;
     }
 
