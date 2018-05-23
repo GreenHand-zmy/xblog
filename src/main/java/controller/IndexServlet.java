@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet({"/", "/index"})
+@WebServlet({"/index"})
 public class IndexServlet extends HttpServlet {
     private ChannelService channelService = new ChannelServiceImpl();
     private PostsService postsService = new PostsServiceImpl();
