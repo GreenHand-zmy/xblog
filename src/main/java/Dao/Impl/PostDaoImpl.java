@@ -101,7 +101,7 @@ public class PostDaoImpl  implements PostDao {
     }//根据点赞查询前LIMIT条
     @Override
     public List<Posts> findNewPostsLimit3(int LIMIT) {
-        String sql ="SELECT * FROM mto_posts ORDER BY comments DESC LIMIT ?";
+        String sql ="SELECT id,author_id authorId,channel_id channelId,content,created,editor,comment,favors,featured,status,summary,tags,title,views,weight FROM mto_posts ORDER BY comments DESC LIMIT ?";
         return DBUtil.getObjects(sql, Posts.class, LIMIT);
     }//根据评论查询前LIMIT条
 }
