@@ -26,7 +26,7 @@
                     <select class="form-control" name="channelId" data-required>
                         <option value="">请选择栏目</option>
                         <c:forEach items="${sessionScope.channelList}" var="channel">
-                            <option value="">${channel.name}</option>
+                            <option value="${channel.id}">${channel.name}</option>
                         </c:forEach>
                     </select>
                 </div>
