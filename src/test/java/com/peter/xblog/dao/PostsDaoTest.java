@@ -17,7 +17,7 @@ public class PostsDaoTest {
     @Test
     public void testAdd() {
         Date date = new Date();
-        Posts post = new Posts(2L, 3, date, "4", 5, 1, 1, 1, "1", "1", "1", 1,2);
+        Posts post = new Posts(2L, 3, date, "4", 5, 1, 1, 1, "1", "1", "1", 1,2,"321");
         int num = pd.addPost(post);
         System.out.println(num);
     }
@@ -39,7 +39,7 @@ public class PostsDaoTest {
     @Test
     public void testDelect() {
 
-        pd.deletePost(1L);
+        pd.deletePost(8L);
         List<Posts> list = pd.getAllPosts();
         for (Posts post :list) {
             System.out.println(post);
@@ -54,7 +54,7 @@ public class PostsDaoTest {
     }
     @Test
     public void testUpdate() {
-        Posts post = new Posts(2,2,2,2,"2","2","2",2);
+        Posts post = new Posts(7,2,2,2,"2",2,"234");
         pd.updatePost(post);
         List<Posts> list = pd.getPostAuthorId(2L);
         for (Posts post1 :list) {

@@ -18,7 +18,7 @@ public class PostsServiceTest {
     @Test
     public void testAdd() {
         Date date = new Date();
-        Posts post = new Posts(2L, 3, date, "4", 5, 1, 1, 1, "1", "1", "1", 1, 1);
+        Posts post = new Posts(2L, 3, date, "4", 5, 1, 1, 1, "1", "1", "1", 1, 1,"312");
         int num = pd.addPost(post);
         System.out.println(num);
     }
@@ -33,8 +33,7 @@ public class PostsServiceTest {
 
     @Test
     public void testDelect() {
-
-        pd.deletePost(1L);
+        pd.deletePost(9L);
         List<Posts> list = pd.getAllPosts();
         for (Posts post : list) {
             System.out.println(post);
@@ -51,7 +50,7 @@ public class PostsServiceTest {
 
     @Test
     public void testUpdate() {
-        Posts post = new Posts(2, 2, 2, 2, "2", "2", "2", 2);
+        Posts post = new Posts(7,2,2,2,"2",2,"789");
         pd.updatePost(post);
         List<Posts> list = pd.getPostAuthorId(1L);
         for (Posts post1 : list) {

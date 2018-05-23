@@ -46,7 +46,7 @@ public class PostsServiceImpl implements PostsService {
     public int deletePost(Long id) {
         Posts post = pd.getPost(id);
         check(post != null, "该用户不存在");
-        int num = pd.addPost(post);
+        int num = pd.deletePost(id);
         return num;
     }
 

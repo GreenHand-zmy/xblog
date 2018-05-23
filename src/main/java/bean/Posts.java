@@ -24,7 +24,7 @@ public class Posts {
     public Posts() {
     }
 
-    public Posts(long authorId, int comments, Date created, String editor, int favors, int featured, int channelId, int status, String summary, String tags, String title, int views, int weight) {
+    public Posts(long authorId, int comments, Date created, String editor, int favors, int featured, int channelId, int status, String summary, String tags, String title, int views, int weight, String content) {
         this.authorId = authorId;
         this.comments = comments;
         this.created = created;
@@ -35,15 +35,17 @@ public class Posts {
         this.title = title;
         this.views = views;
         this.weight = weight;
+        this.content = content;
     }
 
-    public Posts(long id, int featured, int channelId, int status, String summary, String tags, String title, int weight) {
+    public Posts(long id, int featured, int channelId, int status,  String title, int weight,String content) {
         this.id = id;
         this.featured = featured;
         this.channelId = channelId;
         this.status = status;
         this.title = title;
         this.weight = weight;
+        this.content = content;
     }
 
     public long getId() {
@@ -140,5 +142,23 @@ public class Posts {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    @Override
+    public String toString() {
+        return "Posts{" +
+                "id=" + id +
+                ", authorId=" + authorId +
+                ", comments=" + comments +
+                ", created=" + created +
+                ", favors=" + favors +
+                ", featured=" + featured +
+                ", channelId=" + channelId +
+                ", status=" + status +
+                ", title='" + title + '\'' +
+                ", views=" + views +
+                ", weight=" + weight +
+                ", content='" + content + '\'' +
+                '}';
     }
 }
