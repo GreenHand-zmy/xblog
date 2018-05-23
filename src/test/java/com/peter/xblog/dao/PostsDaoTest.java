@@ -30,6 +30,13 @@ public class PostsDaoTest {
         }
     }
     @Test
+    public void testSelect2() {
+        List<Posts> list = pd.getChannelPosts(1L);
+        for (Posts post :list) {
+            System.out.println(post);
+        }
+    }
+    @Test
     public void testDelect() {
 
         pd.deletePost(1L);
