@@ -7,9 +7,9 @@
             </a>
         </div>
         <div class="user-info">
-            <div class="nk mb10">${user.name}</div>
+            <div class="nk mb10">${sessionScope.user.name}</div>
             <div class="mb6">
-                <a class="btn btn-success btn-xs" href="${base}/user/profile"><i class="icon icon-note"></i> 修改账户</a>
+                <a class="btn btn-success btn-xs" href="/UserServlet?op=toUpdate"><i class="icon icon-note"></i> 修改账户</a>
             </div>
         </div>
     </li>

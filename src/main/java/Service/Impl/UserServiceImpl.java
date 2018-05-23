@@ -38,9 +38,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public int updateUser(User user) {
         check(user.getPassword()!=null,"密码不能为空");
-        check(user.getUsername()!=null,"用户名不能为空");
-        int num1 = ud.isExits(user.getUsername());
-        check(num1==0,"用户名已存在");
         check(user.getName()!=null,"真实姓名不能为空");
         int num=ud.updateUser(user);
         return num;

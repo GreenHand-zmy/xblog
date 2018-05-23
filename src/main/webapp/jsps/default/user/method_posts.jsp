@@ -27,48 +27,48 @@
 
                     <div class="panel-body">
                         <ul class="list-group">
-                            <#list page.content as row>
-                            <li class="list-group-item" el="loop-${0}">
-                                <a href="${base}/view/${row.id}" class="remove-padding-left">${0}</a>
-                                <span class="meta">
-								${0} 点赞
+                            <c:choose>
+                                <c:when test="${postsList!=null}">
+                                    <c:forEach items="${postsList}" var="posts">
+                                        <li class="list-group-item" el="loop-${0}">
+                                            <a href="${base}/view/${0}" class="remove-padding-left">${posts.title}</a>
+                                            <span class="meta">
+								${posts.favors} 点赞
 								<span> ⋅ </span>
-                                ${0} 回复
+                                ${posts.comments} 回复
 								<span> ⋅ </span>
 								<span class="timeago">${0}</span>
       						</span>
 
-                                <div class="pull-right hidden-xs">
-                                    <a class="act_edit" href="javascript:void(0);" data-evt="edit" data-id=""
-                                       data-toggle="tooltip" title="编辑文章">
-                                        <i class="icon icon-note"></i>
-                                    </a>
-                                    <a class="act_delete" href="javascript:void(0);" data-evt="trash" data-id=""
-                                       data-toggle="tooltip" title="删除文章">
-                                        <i class="icon icon-close"></i>
-                                    </a>
-                                </div>
-                            </li>
-                        </
-                        #list>
-
-                        <#if page.content?size == 0>
-                        <li class="list-group-item ">
-                            <div class="infos">
-                                <div class="media-heading">该目录下还没有内容!</div>
-                            </div>
-                        </li>
-                    </
-                    #if>
-                    </ul>
-                </div>
-                <div class="panel-footer">
-                    <@pager "user?method=posts", page, 5/>
+                                            <div class="pull-right hidden-xs">
+                                                <a class="act_edit" href="javascript:void(0);" data-evt="edit" data-id=""
+                                                   data-toggle="tooltip" title="编辑文章">
+                                                    <i class="icon icon-note"></i>
+                                                </a>
+                                                <a class="act_delete" href="javascript:void(0);" data-evt="trash" data-id=""
+                                                   data-toggle="tooltip" title="删除文章">
+                                                    <i class="icon icon-close"></i>
+                                                </a>
+                                            </div>
+                                        </li>
+                                    </c:forEach>
+                                </c:when>
+                                <c:otherwise>
+                                    <li class="list-group-item ">
+                                        <div class="infos">
+                                            <div class="media-heading">该目录下还没有内容!</div>
+                                        </div>
+                                    </li>
+                                </c:otherwise>
+                            </c:choose>
+                        </ul>
+                    </div>
+                    <div class="panel-footer">
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 </div>
 <!-- footer -->
 <%@include file="../include/footer.jsp" %>

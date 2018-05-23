@@ -24,8 +24,8 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public int updateUser(User user) {
-        String sql = "update mto_users set password=?,username=?,name=?,avatar=?,signature=?,updated=sysDate() where id=?";
-        return DBUtil.executeUpdate(sql, user.getPassword(), user.getUsername(), user.getName(), user.getAvatar(), user.getSignature(), user.getId());
+        String sql = "update mto_users set password=?,name=?,avatar=?,signature=?,updated=sysDate() where id=?";
+        return DBUtil.executeUpdate(sql, user.getPassword(), user.getName(), user.getAvatar(), user.getSignature(), user.getId());
     }
 
     @Override
