@@ -48,6 +48,12 @@ public class PostsServlet extends HttpServlet{
             postsList=ps.findNewPostsLimit3(LIMIT);
         }else if("updatePost".equals(op)){
             updatePost(req, resp);
+        }else if("updatePostFavors".equals(op)){
+            updatePostFavors(req, resp);
+        }else if("updatePostViews".equals(op)){
+            updatePostViews(req, resp);
+        }else if("updatePostComments".equals(op)){
+            updatePostComments(req, resp);
         }else if("addPost".equals(op)){
             addPost(req, resp);
         }else if("getPost".equals(op)){
@@ -92,6 +98,36 @@ public class PostsServlet extends HttpServlet{
         post.setWeight(0);
         postsService.addPost(post);
         resp.sendRedirect("jsps/default/auth/index.jsp");
+    }
+    private void updatePostFavors(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        Posts post = new Posts();
+        PrintWriter out = resp.getWriter();
+        long id=Integer.parseInt(req.getParameter("id"));
+        post = postsService.getPost(id);
+        int favors=post.getFavors()+1;
+        post.setFeatured(favors);
+        postsService.updatePost(post);
+        resp.sendRedirect("jsps/default/auth/view.jsp?id="+post.getId());
+    }
+    private void updatePostViews(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        Posts post = new Posts();
+        PrintWriter out = resp.getWriter();
+        long id=Integer.parseInt(req.getParameter("id"));
+        post = postsService.getPost(id);
+        int views=post.getViews()+1;
+        post.setViews(views);
+        postsService.updatePost(post);
+        resp.sendRedirect("jsps/default/auth/view.jsp?id="+post.getId());
+    }
+    private void updatePostComments(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        Posts post = new Posts();
+        PrintWriter out = resp.getWriter();
+        long id=Integer.parseInt(req.getParameter("id"));
+        post = postsService.getPost(id);
+        int comments=post.getComments()+1;
+        post.setComments(comments);
+        postsService.updatePost(post);
+        resp.sendRedirect("jsps/default/auth/view.jsp?id="+post.getId());
     }
     private void updatePost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Posts post = new Posts();

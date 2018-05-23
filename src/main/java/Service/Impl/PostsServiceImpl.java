@@ -53,6 +53,24 @@ public class PostsServiceImpl implements PostsService {
     }
 
     @Override
+    public int updatePostFavors(Posts post) {
+        int num = pd.updatePostFavors(post);
+        return num;
+    }
+
+    @Override
+    public int updatePostViews(Posts post) {
+        int num = pd.updatePostViews(post);
+        return num;
+    }
+
+    @Override
+    public int updatePostComments(Posts post) {
+        int num = pd.updatePostComments(post);
+        return num;
+    }
+
+    @Override
     public List<Posts> getPostTitle(String title) {
         List<Posts> list = pd.getPostTitle(title);
         check(list != null, "无查询结果");
