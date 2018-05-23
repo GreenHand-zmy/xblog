@@ -24,7 +24,7 @@ public class uploadServlet extends HttpServlet {
         File paths = new File(path);
         Part part = req.getPart("file");
         String fileName = part.getSubmittedFileName();
-        fileName.substring(fileName.indexOf("."),fileName.length());
+//        fileName.substring(fileName.indexOf("."),fileName.length());
         System.out.println(paths + "/" + fileName);
         part.write(paths + "/" + fileName);
     }

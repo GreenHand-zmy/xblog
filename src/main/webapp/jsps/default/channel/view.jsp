@@ -40,11 +40,7 @@
                         </div>
                     </div>
                     <div class="panel-footer operate">
-                        <#list 本文章不得转载，否则后果自负！>
-                        <span>
-                            <a class="label label-default" href="${base}/tag/${tag}/">#${tag}</a>
-                        </span>
-                        </#list>
+                        本文章不得转载，否则后果自负
                     </div>
                     <div class="panel-footer operate">
                         <div class="hidden-xs">

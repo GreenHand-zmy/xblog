@@ -23,8 +23,9 @@
                 <form class="form-horizontal" action="${ctx}/PostsServlet?op=updatePost&id=${post.id}" method="post">
                     <%--<input type="hidden" name="id" value="${view.id}"/>--%>
                     <%--<input type="hidden" name="authorId" value="${view.authorId}"/>--%>
+                        <input type="hidden" name="authorId" value="${post.featured}"/>
                     <div class="form-group">
-                        <label class="col-sm-2 control-label no-padding-right">${post.channelId}标题</label>
+                        <label class="col-sm-2 control-label no-padding-right">标题</label>
                         <div class="col-sm-8">
                             <input type="text" class="form-control" name="title" maxlength="128" data-required
                                    value="${post.title}">
@@ -35,16 +36,16 @@
                         <div class="col-sm-3">
                             <select class="form-control" name="channelId">
                                 <c:forEach items="${sessionScope.channelList}" var="channel">
-                                    <%--<c:if test="${channel.id == post.channelId}">
-                                        <option value="${channel.id}" selected="selected">${channel.name}</option>
-                                    </c:if>
-
-                                    <option value="${channel.id}">${channel.name}</option>--%>
-
+                                    <c:choose>
+                                        <c:when test="${channel.id == post.channelId}">
+                                            <option value="${channel.id}" selected="selected">${channel.name}</option>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <option value="${channel.id}">${channel.name}</option>
+                                        </c:otherwise>
+                                    </c:choose>
                                 </c:forEach>
-
                             </select>
-
                         </div>
                     </div>
                     <div class="form-group">

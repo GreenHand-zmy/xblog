@@ -20,77 +20,77 @@
                     <div class="panel-heading">
                         <ul class="list-inline topic-filter">
                             <li data-toggle="tooltip" title="发布时间排序">
-                                <a href="/ChannelServlet?order=newest&id=${id}">最近</a>
+                                <a href="${ctx}/ChannelServlet?order=newest&id=${id}">最近</a>
                             </li>
                             <li data-toggle="tooltip" title="点赞数排序">
-                                <a href="/ChannelServlet?order=favors&id=${id}">投票</a>
+                                <a href="${ctx}/ChannelServlet?order=favors&id=${id}">投票</a>
                             </li>
                             <li data-toggle="tooltip" title="评论次数排序">
-                                <a href="/ChannelServlet?order=hottest&id=${id}">热门</a>
+                                <a href="${ctx}/ChannelServlet?order=hottest&id=${id}">热门</a>
                             </li>
                         </ul>
                         <div class="clearfix"></div>
                     </div>
-                    <@contents channelId=channel.id pn=pn order=order>
 
                     <div class="panel-body remove-padding-horizontal">
 
                         <ul class="list-group row topic-list">
                             <c:forEach var="row" items="${postsList}">
-                                    <li class="list-group-item ">
-                                        <a class="reply_count_area hidden-xs pull-right" href="#">
-                                            <div class="count_set">
+                                <li class="list-group-item ">
+                                    <a class="reply_count_area hidden-xs pull-right" href="#">
+                                        <div class="count_set">
                                             <span class="count_of_votes" data-toggle="tooltip"
                                                   title="阅读数">${row.views}</span>
-                                                <span class="count_seperator">/</span>
-                                                <span class="count_of_replies" data-toggle="tooltip"
-                                                      title="回复数">${row.comments}</span>
-                                                <span class="count_seperator">/</span>
-                                                <span class="count_of_visits" data-toggle="tooltip"
-                                                      title="点赞数">${row.favors}</span>
-                                                <span class="count_seperator">|</span>
-                                                <abbr class="timeago">${0}</abbr>
-                                            </div>
-                                        </a>
-                                        <div class="avatar pull-left">
-                                                <%--<a href="${base}/users/${row.author.id}">
-                                                    <img class="media-object img-thumbnail avatar avatar-middle"
-                                                         src="${base + row.author.avatar}">
-                                                </a>--%>
+                                            <span class="count_seperator">/</span>
+                                            <span class="count_of_replies" data-toggle="tooltip"
+                                                  title="回复数">${row.comments}</span>
+                                            <span class="count_seperator">/</span>
+                                            <span class="count_of_visits" data-toggle="tooltip"
+                                                  title="点赞数">${row.favors}</span>
+                                            <span class="count_seperator">|</span>
+                                            <abbr class="timeago">${0}</abbr>
                                         </div>
-                                        <div class="infos">
-                                            <div class="media-heading">
-                                                <@classify row/><a href="${base}/view/${row.id}">${row.title}</a>
-                                            </div>
+                                    </a>
+                                    <div class="avatar pull-left">
+                                            <%--<a href="${base}/users/${row.author.id}">
+                                                <img class="media-object img-thumbnail avatar avatar-middle"
+                                                     src="${base + row.author.avatar}">
+                                            </a>--%>
+                                    </div>
+                                    <div class="infos">
+                                        <div class="media-heading">
+                                                <%--todo:加上头像<@classify row/>--%>
+
+                                            <a href="${ctx}/PostsServlet?op=toPostView&postId=${row.id}">${row.title}</a>
                                         </div>
-                                    </li>
+                                    </div>
+                                </li>
                             </c:forEach>
 
-
-                            <#if  results.content?size == 0>
+                            <c:if test="${postsList == null||fn:length(postsList)==0}">
                                 <li class="list-group-item ">
                                     <div class="infos">
                                         <div class="media-heading">该目录下还没有内容!</div>
                                     </div>
                                 </li>
-                            </#if>
+                            </c:if>
                         </ul>
                     </div>
 
                     <div class="panel-footer text-right remove-padding-horizontal pager-footer">
                         <!-- Pager -->
-                        <@pager request.requestURI!"", results, 5/>
+                        <%--todo:分页<@pager request.requestURI!"", results, 5/>--%>
                     </div>
+                </div>
+
+            </div>
+
+            <div class="col-xs-12 col-md-3 side-right">
+                <jsp:include page="../include/right.jsp"/>
             </div>
 
         </div>
-
-        <div class="col-xs-12 col-md-3 side-right">
-            <jsp:include page="../include/right.jsp"/>
-        </div>
-
     </div>
-</div>
 </div>
 <!-- footer -->
 <jsp:include page="../include/footer.jsp"/>

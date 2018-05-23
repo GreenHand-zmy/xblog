@@ -28,17 +28,18 @@
                     <div class="panel-body">
                         <ul class="list-group">
                             <c:choose>
-                                <c:when test="${postsList!=null}">
+                                <c:when test="${postsList!=null && fn:length(postsList) > 0}">
                                     <c:forEach items="${postsList}" var="posts">
-                                        <li class="list-group-item" el="loop-${0}">
-                                            <a href="${base}/view/${0}" class="remove-padding-left">${posts.title}</a>
+                                        <li class="list-group-item">
+                                            <a href="${ctx}/PostsServlet?op=toPostView&postId=${posts.id}"
+                                               class="remove-padding-left">${posts.title}</a>
                                             <span class="meta">
-								${posts.favors} 点赞
-								<span> ⋅ </span>
-                                ${posts.comments} 回复
-								<span> ⋅ </span>
-								<span class="timeago">${0}</span>
-      						</span>
+                                                ${posts.favors} 点赞
+                                                <span> ⋅ </span>
+                                                ${posts.comments} 回复
+                                                <span> ⋅ </span>
+								                <span class="timeago">${0}</span>
+      						                </span>
 
                                             <div class="pull-right hidden-xs">
                                                 <a class="act_edit" href="javascript:void(0);" data-evt="edit"

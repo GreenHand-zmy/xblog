@@ -6,7 +6,6 @@ import Service.ChannelService;
 import Service.Impl.ChannelServiceImpl;
 import Service.Impl.PostsServiceImpl;
 import Service.PostsService;
-import bean.Channel;
 import bean.Posts;
 import bean.User;
 
@@ -17,7 +16,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 /**
  * Created by Fang on 2018/5/22.
@@ -62,10 +63,19 @@ public class PostsServlet extends HttpServlet {
     }
 
     private void updatePostFavors(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Posts post = new Posts();
-        PrintWriter out = resp.getWriter();
         long id = Integer.parseInt(req.getParameter("id"));
-        post = postsService.getPost(id);
+        // 获取更新内容
+        // 获取文章标题
+        String title = req.getParameter("title");
+        // 获取频道编号
+        int channelId = Integer.parseInt(req.getParameter("channelId"));
+        // 获取文章内容
+        String content = req.getParameter("content");
+        // 通过文章编号获取文章
+        Posts post = postsService.getPost(id);
+        // 修改文章属性
+        post.setContent(content);
+        // 提交到数据库中
         postsService.updatePost(post);
         resp.sendRedirect("jsps/default/auth/view.jsp?id=" + post.getId());
     }
@@ -93,16 +103,26 @@ public class PostsServlet extends HttpServlet {
     }
 
     private void updatePost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        // 通过文章编号获取文章
         long id = Integer.parseInt(req.getParameter("id"));
         Posts post = postDao.getPost(id);
-        int channelId = Integer.parseInt(req.getParameter("channelId"));
-        String tags = req.getParameter("tags");
-        String editor = req.getParameter("editor");
+
+        // 获取修改后的属性
+
+        // 文章标题
         String title = req.getParameter("title");
+        // 文章频道
+        int channelId = Integer.parseInt(req.getParameter("channelId"));
+        // 文章内容
+        String content = req.getParameter("content");
+
+        // 设置到对象中
         post.setTitle(title);
         post.setChannelId(channelId);
+        post.setContent(content);
+        // 写入到数据库中
         postsService.updatePost(post);
-        resp.sendRedirect("jsps/default/auth/index.jsp");
+        resp.sendRedirect("ChannelServlet?id=" + post.getChannelId());
     }
 
     @Override
@@ -151,6 +171,18 @@ public class PostsServlet extends HttpServlet {
             long id = Integer.parseInt(req.getParameter("id"));
             postsService.deletePost(id);
             req.getRequestDispatcher("jsps/default/user/method_posts.jsp").forward(req, resp);
+        }
+        // 根据文章编号查询到文章
+        else if ("toPostView".equals(op)) {
+            // 获取文章编号
+            long postId = Long.parseLong(req.getParameter("postId"));
+
+            // 获取文章实体数据
+            Posts post = postsService.getPost(postId);
+            req.setAttribute("post", post);
+            // todo 访问一次数据库中访问量加1
+            // 转发到展示页面
+            req.getRequestDispatcher("jsps/default/channel/view.jsp").forward(req, resp);
         }
     }
 }
