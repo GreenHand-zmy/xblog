@@ -53,6 +53,7 @@ public class ChannelServlet extends HttpServlet{
             });
         }
         req.setAttribute("postsList",postsList);
+        req.setAttribute("id",id);
         req.getRequestDispatcher("jsps/default/channel/index.jsp").forward(req,resp);
     }
 }

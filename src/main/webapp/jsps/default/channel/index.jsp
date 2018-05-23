@@ -20,13 +20,13 @@
                     <div class="panel-heading">
                         <ul class="list-inline topic-filter">
                             <li data-toggle="tooltip" title="发布时间排序">
-                                <a href="?order=newest">最近</a>
+                                <a href="/ChannelServlet?order=newest&id=${id}">最近</a>
                             </li>
                             <li data-toggle="tooltip" title="点赞数排序">
-                                <a href="?order=favors">投票</a>
+                                <a href="/ChannelServlet?order=favors&id=${id}">投票</a>
                             </li>
                             <li data-toggle="tooltip" title="评论次数排序">
-                                <a href="?order=hottest">热门</a>
+                                <a href="/ChannelServlet?order=hottest&id=${id}">热门</a>
                             </li>
                         </ul>
                         <div class="clearfix"></div>
