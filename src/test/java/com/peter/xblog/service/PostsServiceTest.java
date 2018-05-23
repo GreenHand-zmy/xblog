@@ -18,7 +18,7 @@ public class PostsServiceTest {
     @Test
     public void testAdd() {
         Date date = new Date();
-        Posts post = new Posts(2L, 3, date, "4", 5, 1, 1, 1, "1", "1", "1", 1,1);
+        Posts post = new Posts(2L, 3, date, "4", 5, 1, 1, 1, "1", "1", "1", 1, 1);
         int num = pd.addPost(post);
         System.out.println(num);
     }
@@ -26,54 +26,66 @@ public class PostsServiceTest {
     @Test
     public void testSelect() {
         List<Posts> list = pd.getPostAuthorId(1L);
-        for (Posts post :list) {
+        for (Posts post : list) {
             System.out.println(post);
         }
     }
+
     @Test
     public void testDelect() {
 
         pd.deletePost(1L);
         List<Posts> list = pd.getAllPosts();
-        for (Posts post :list) {
+        for (Posts post : list) {
             System.out.println(post);
         }
     }
+
     @Test
     public void testSelectAll() {
         List<Posts> list = pd.getAllPosts();
-        for (Posts post :list) {
+        for (Posts post : list) {
             System.out.println(post);
         }
     }
+
     @Test
     public void testUpdate() {
-        Posts post = new Posts(2,2,2,2,"2","2","2",2);
+        Posts post = new Posts(2, 2, 2, 2, "2", "2", "2", 2);
         pd.updatePost(post);
         List<Posts> list = pd.getPostAuthorId(1L);
-        for (Posts post1 :list) {
+        for (Posts post1 : list) {
             System.out.println(post);
         }
     }
+
     @Test
     public void testSelectAll2() {
         List<Posts> list = pd.findNewPostsLimit(3);
-        for (Posts post :list) {
+        for (Posts post : list) {
             System.out.println(post);
         }
     }
+
     @Test
     public void testSelectAll3() {
         List<Posts> list = pd.findNewPostsLimit2(3);
-        for (Posts post :list) {
+        for (Posts post : list) {
             System.out.println(post);
         }
     }
+
     @Test
     public void testSelectAll4() {
         List<Posts> list = pd.findNewPostsLimit3(3);
-        for (Posts post :list) {
+        for (Posts post : list) {
             System.out.println(post);
         }
+    }
+
+    @Test
+    public void getPost() {
+        Posts post = pd.getPost(5L);
+        System.out.println(post);
     }
 }
