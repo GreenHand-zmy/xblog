@@ -47,8 +47,7 @@ public class CommentDaoTest {
     }
     @Test
     public void testgetCommentsByAuthor(){
-        long authorid=2;
-        List<Comment> commentList=cd.getCommentsByAuthor(2);
+        List<Comment> commentList=cd.getCommentsByAuthor(8);
         for (Comment c:commentList) {
             System.out.println(c.getContent());
         }
