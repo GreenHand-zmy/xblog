@@ -85,7 +85,7 @@
                 btn: ['确定', '取消'], //按钮
                 shade: false //不显示遮罩
             }, function () {
-                jQuery.getJSON('${base}/post/delete/' + id, function (ret) {
+                jQuery.getJSON('${ctx}/PostsServlet?op=delPost&id=' + id, function (ret) {
                     layer.msg(ret.message, {icon: 1});
                     if (ret.code >= 0) {
                         location.reload();

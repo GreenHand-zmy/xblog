@@ -154,9 +154,9 @@ public class PostsServlet extends HttpServlet {
             req.setAttribute("post", post);
             req.getRequestDispatcher("jsps/default/channel/view.jsp").forward(req, resp);
         } else if ("delPost".equals(op)) {
-            PrintWriter out = resp.getWriter();
             long id = Integer.parseInt(req.getParameter("id"));
             postsService.deletePost(id);
+            req.getRequestDispatcher("jsps/default/user/method_posts.jsp").forward(req, resp);
         }
     }
 }
