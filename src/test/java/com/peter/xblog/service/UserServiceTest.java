@@ -27,7 +27,6 @@ public class UserServiceTest {
     public void updateUser() {
         User user1 = new User();
         user1.setPassword("1234");
-        user1.setUsername("久2");
         user1.setName("zh1");
         user1.setAvatar("1");
         user1.setSignature("zmySB");
