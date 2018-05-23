@@ -54,7 +54,7 @@ public class PostDaoImpl  implements PostDao {
 
     @Override
     public List<Posts> getChannelPosts(Long channel) {
-        String sql="select * from mto_posts where channel = ?";
+        String sql="select * from mto_posts where channel_id = ?";
         return DBUtil.getObjects(sql,Posts.class,channel);
     }//根据频道id查询所有文章
 
