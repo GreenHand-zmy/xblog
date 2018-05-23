@@ -48,10 +48,31 @@ public class PostsServiceTest {
     }
     @Test
     public void testUpdate() {
-        Posts post = new Posts(1L, 1, "1", "2");
+        Posts post = new Posts(2,2,2,2,"2","2","2",2);
         pd.updatePost(post);
         List<Posts> list = pd.getPostAuthorId(1L);
         for (Posts post1 :list) {
+            System.out.println(post);
+        }
+    }
+    @Test
+    public void testSelectAll2() {
+        List<Posts> list = pd.findNewPostsLimit(3);
+        for (Posts post :list) {
+            System.out.println(post);
+        }
+    }
+    @Test
+    public void testSelectAll3() {
+        List<Posts> list = pd.findNewPostsLimit2(3);
+        for (Posts post :list) {
+            System.out.println(post);
+        }
+    }
+    @Test
+    public void testSelectAll4() {
+        List<Posts> list = pd.findNewPostsLimit3(3);
+        for (Posts post :list) {
             System.out.println(post);
         }
     }
