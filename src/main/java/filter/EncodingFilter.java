@@ -9,7 +9,7 @@ import java.io.IOException;
 /**
  * Created by zmy on 2018/5/23.
  */
-@WebFilter(value = {"/"})
+@WebFilter(value = {"/*"})
 public class EncodingFilter implements Filter{
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
