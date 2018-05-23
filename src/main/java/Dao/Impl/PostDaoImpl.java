@@ -54,25 +54,25 @@ public class PostDaoImpl implements PostDao {
 
     @Override
     public List<Posts> getPostAuthorId(Long authorId) {
-        String sql = "select * from mto_posts where author_id = ?";
+        String sql = "select id,author_id authorId,channel_id channelId,title,content,views,comments,favors,featured,created,status,weight from mto_posts where author_id = ?";
         return DBUtil.getObjects(sql, Posts.class, authorId);
     }//根据作者编号查询
 
     @Override
     public List<Posts> getPostTitle(String title) {
-        String sql = "select * from mto_posts where title like '%" + title + "%'";
+        String sql = "select id,author_id authorId,channel_id channelId,title,content,views,comments,favors,featured,created,status,weight from mto_posts where title like '%" + title + "%'";
         return DBUtil.getObjects(sql, Posts.class);
     }//根据文章标题模糊查询
 
     @Override
     public List<Posts> getAllPosts() {
-        String sql = "select * from mto_posts";
+        String sql = "select id,author_id authorId,channel_id channelId,title,content,views,comments,favors,featured,created,status,weight from mto_posts";
         return DBUtil.getObjects(sql, Posts.class);
     }//查询所有
 
     @Override
     public List<Posts> getChannelPosts(Long channel) {
-        String sql = "select * from mto_posts where channel_id = ?";
+        String sql = "select id,author_id authorId,channel_id channelId,title,content,views,comments,favors,featured,created,status,weight from mto_posts where channel_id = ?";
         return DBUtil.getObjects(sql, Posts.class, channel);
     }//根据频道id查询所有文章
 
@@ -83,25 +83,25 @@ public class PostDaoImpl implements PostDao {
     }//查询id是否存在
 
     public Posts getPost(Long id) {
-        String sql = "select * from mto_posts where id=?";
+        String sql = "select id,author_id authorId,channel_id channelId,title,content,views,comments,favors,featured,created,status,weight from mto_posts where id=?";
         return DBUtil.getObject(sql, Posts.class, id);
     }//根据id查询
 
     @Override
     public List<Posts> findNewPostsLimit(int LIMIT) {
-        String sql = "SELECT * FROM mto_posts ORDER BY created DESC LIMIT ?";
+        String sql = "SELECT id,author_id authorId,channel_id channelId,title,content,views,comments,favors,featured,created,status,weight FROM mto_posts ORDER BY created DESC LIMIT ?";
         return DBUtil.getObjects(sql, Posts.class, LIMIT);
     }//根据时间查询前LIMIT条
 
     @Override
     public List<Posts> findNewPostsLimit2(int LIMIT) {
-        String sql = "SELECT * FROM mto_posts ORDER BY favors DESC LIMIT ?";
+        String sql = "SELECT id,author_id authorId,channel_id channelId,title,content,views,comments,favors,featured,created,status,weight FROM mto_posts ORDER BY favors DESC LIMIT ?";
         return DBUtil.getObjects(sql, Posts.class, LIMIT);
     }//根据点赞查询前LIMIT条
 
     @Override
     public List<Posts> findNewPostsLimit3(int LIMIT) {
-        String sql = "SELECT id,author_id authorId,channel_id channelId,content,created,editor,comment,favors,featured,status,summary,tags,title,views,weight FROM mto_posts ORDER BY comments DESC LIMIT ?";
+        String sql = "SELECT id,author_id authorId,channel_id channelId,title,content,views,comments,favors,featured,created,status,weight FROM mto_posts ORDER BY comments DESC LIMIT ?";
         return DBUtil.getObjects(sql, Posts.class, LIMIT);
     }//根据评论查询前LIMIT条
 }
