@@ -19,4 +19,16 @@ public interface UserStatusConstant {
      * 用户删除状态
      */
     Integer DELETED_STATUS = 2;
+    /**
+     * 管理员状态
+     */
+    Integer ADMIN_STATUS = 3;
+    /**
+     * 男状态
+     */
+    Integer BOY_STATUS = 4;
+    /**
+     *女状态
+     */
+    Integer GIRL_STATUS = 5;
 }

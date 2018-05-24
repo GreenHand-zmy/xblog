@@ -117,7 +117,7 @@ public class UserServlet extends HttpServlet {
             userService.updateUser(user);
             resp.sendRedirect("index");
         } else {
-            resp.sendRedirect("jsps/default/auth/login.jsp");
+            resp.getWriter().print("<script>alert('用户名或密码错误');history.go('-1');</script>");
         }
     }
 

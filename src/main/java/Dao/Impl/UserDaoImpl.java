@@ -12,20 +12,15 @@ import java.util.List;
 public class UserDaoImpl implements UserDao {
     @Override
     public int addUser(User user) {
-        String sql = "insert into mto_users(created,password,username,name) values(sysDate(),?,?,?)";
-        return DBUtil.executeUpdate(sql, user.getPassword(), user.getUsername(), user.getName());
+        String sql = "insert into mto_users(created,password,username,name,status) values(sysDate(),?,?,?,?)";
+        return DBUtil.executeUpdate(sql, user.getPassword(), user.getUsername(), user.getName(),user.getStatus());
     }
 
-    @Override
-    public int delUser(int id) {
-        String sql = "delete from mto_users where id=?";
-        return DBUtil.executeUpdate(sql, id);
-    }
 
     @Override
     public int updateUser(User user) {
-        String sql = "update mto_users set password=?,name=?,avatar=?,signature=?,updated=sysDate() where id=?";
-        return DBUtil.executeUpdate(sql, user.getPassword(), user.getName(), user.getAvatar(), user.getSignature(), user.getId());
+        String sql = "update mto_users set password=?,name=?,avatar=?,signature=?,status=?,updated=sysDate() where id=?";
+        return DBUtil.executeUpdate(sql, user.getPassword(), user.getName(), user.getAvatar(), user.getSignature(),user.getStatus(), user.getId());
     }
 
     @Override
