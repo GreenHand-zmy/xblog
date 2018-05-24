@@ -80,8 +80,11 @@
                     </div>
 
                     <div class="panel-footer text-right remove-padding-horizontal pager-footer">
-                        <!-- Pager -->
-                        <%--<@pager request.requestURI!"", results, 5/>--%>
+                        <ul class="pagination">
+                            <li><a href="${cURL}${pageNo - 1}" pageNo="${pageNo - 1}" class="prev">上一页</a></li>
+                            <li><a href="${url}${idx}">${1}</a></li>
+                            <li><a href="${cURL}${pageNo + 1}" pageNo="${pageNo + 1}" class="next">下一页</a></li>
+                        </ul>
                     </div>
                 </div>
             </div>

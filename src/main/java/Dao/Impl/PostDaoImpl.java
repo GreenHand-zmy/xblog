@@ -2,6 +2,7 @@ package Dao.Impl;
 
 import Dao.PostDao;
 import bean.Posts;
+import constant.TableNameConstant;
 import utils.DBUtil;
 
 import java.util.List;
@@ -104,4 +105,25 @@ public class PostDaoImpl implements PostDao {
         String sql = "SELECT id,author_id authorId,channel_id channelId,title,content,views,comments,favors,featured,created,status,weight FROM mto_posts ORDER BY comments DESC LIMIT ?";
         return DBUtil.getObjects(sql, Posts.class, LIMIT);
     }//根据评论查询前LIMIT条
+
+    @Override
+    public List<Posts> findNewPostsLimit4(int LIMIT) {
+        String sql = "SELECT id,author_id authorId,channel_id channelId,title,content,views,comments,favors,featured,created,status,weight FROM mto_posts ORDER BY views DESC LIMIT ?";
+        return DBUtil.getObjects(sql, Posts.class, LIMIT);
+    }//根据阅读数查询前LIMIT条
+
+    @Override
+    public Integer countAll() {
+        String sql = "select count(*) from " + TableNameConstant.POST_TABLE;
+        return DBUtil.getCount(sql, Integer.class);
+    }
+
+    @Override
+    public List<Posts> findByOffsetAndLimit(Integer offset, Integer limit) {
+        String sql = "SELECT id,author_id authorId,channel_id channelId,title,content,views," +
+                "comments,favors,featured,created,status,weight " +
+                "from " + TableNameConstant.POST_TABLE + " limit ?,?";
+
+        return DBUtil.getObjects(sql, Posts.class, offset, limit);
+    }
 }
