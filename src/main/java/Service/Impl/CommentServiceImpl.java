@@ -6,6 +6,8 @@ import Service.CommentService;
 import Service.PostsService;
 import bean.Comment;
 import bean.Post;
+import constant.CommentStatusConstant;
+import utils.DBUtil;
 import vo.PostCommentVo;
 
 import java.util.ArrayList;
@@ -43,7 +45,8 @@ public class CommentServiceImpl implements CommentService {
     //根据评论编号删除评论
     @Override
     public int delComment(long id) {
-        int num = commentDao.delComment(id);
+        String sql="UPDATE mto_comments SET `status`=? WHERE id=?";
+        int num = DBUtil.executeUpdate(sql, CommentStatusConstant.DELETED_STATUS,id);
         check(num != 0, "删除评论失败！");
         return num;
     }
@@ -67,6 +70,12 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public List<Comment> getAllComments() {
         return commentDao.getAllComments();
+    }
+
+    @Override
+    public int DisComment(long id) {
+        String sql="UPDATE mto_comments SET `status`=? WHERE id=?";
+        return DBUtil.executeUpdate(sql,CommentStatusConstant.DISABLED_STATUS,id);
     }
 
     @Override
