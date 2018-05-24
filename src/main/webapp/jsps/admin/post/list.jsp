@@ -80,7 +80,7 @@
                                 </a>
                             </#if>
 
-                            <a href="${base}/admin/post/view?id=${row.id}" class="btn btn-xs btn-info">
+                            <a href="${ctx}/PostsServlet?op=toUpPoRootPage&postId=${5}" class="btn btn-xs btn-info">
                                 <i class="fa fa-edit"></i>
                             </a>
                             <a href="javascript:void(0);" class="btn btn-xs btn-default" data-id="${row.id}" rel="delete">

@@ -131,9 +131,9 @@ public class PostServiceTest {
         System.out.println(post);
     }
 
-    @Test
+   /* @Test
     public void findByPage() {
         PageBean<Post> page = pd.findByPage(1, 2);
         page.getPageSize();
-    }
+    }*/
 }

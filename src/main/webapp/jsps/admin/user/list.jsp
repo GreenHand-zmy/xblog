@@ -64,11 +64,11 @@
                             <i class="fa fa-check"></i> 激活
                             </a>
                             </#if>
-                            <a href="${base}/admin/user/pwd?id=${row.id}" class="btn btn-xs btn-white">
+                            <a href="${ctx}/PostsServlet?op=toUpUserPwdPage&userId=${1}" class="btn btn-xs btn-white">
                                 <i class="fa fa-unlock-alt"></i> 修改密码
                             </a>
 
-                            <a href="${base}/admin/user/view?id=${row.id}" class="btn btn-xs btn-primary">
+                            <a href="${ctx}/PostsServlet?op=toUpUserRootPage&userId=${1}" class="btn btn-xs btn-primary">
                                 <i class="fa fa-check-square-o"></i> 修改角色
                             </a>
                         <#else>

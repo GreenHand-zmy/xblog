@@ -44,7 +44,7 @@
                                 </#if>
                             </td>
                             <td class="text-center">
-                                <a href="view?id=${row.id}" class="btn btn-xs btn-success">
+                                <a href="${ctx}/PostsServlet?op=toUpChannelPage&channelId=${1}" class="btn btn-xs btn-success">
                                 <i class="fa fa-edit"></i> 修改
                                 </a>
                                 <a href="javascript:void(0);" class="btn btn-xs btn-white" data-id="${row.id}"
