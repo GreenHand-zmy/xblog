@@ -1,14 +1,14 @@
 package vo;
 
 import bean.Comment;
-import bean.Posts;
+import bean.Post;
 
 /**
  * Created by zmy on 2018/5/23.
  */
 public class PostCommentVo {
     // 文章
-    private Posts posts;
+    private Post post;
 
     // 评论
     private Comment comment;
@@ -16,17 +16,17 @@ public class PostCommentVo {
     public PostCommentVo() {
     }
 
-    public PostCommentVo(Posts posts, Comment comment) {
-        this.posts = posts;
+    public PostCommentVo(Post post, Comment comment) {
+        this.post = post;
         this.comment = comment;
     }
 
-    public Posts getPosts() {
-        return posts;
+    public Post getPost() {
+        return post;
     }
 
-    public void setPosts(Posts posts) {
-        this.posts = posts;
+    public void setPost(Post post) {
+        this.post = post;
     }
 
     public Comment getComment() {

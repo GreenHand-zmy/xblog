@@ -1,4 +1,4 @@
-<%@ page import="bean.Posts" %>
+<%@ page import="bean.Post" %>
 <%@ page import="Dao.PostDao" %>
 <%@ page import="Dao.Impl.PostDaoImpl" %>
 <%@ page import="java.util.List" %>
@@ -39,7 +39,7 @@
                     <div class="panel-body remove-padding-horizontal">
 
                         <ul class="list-group row topic-list">
-                            <c:forEach items="${postsList}" var="post">
+                            <c:forEach items="${postList}" var="post">
                                 <li class="list-group-item ">
                                     <a class="reply_count_area hidden-xs pull-right" href="#">
                                         <div class="count_set">
@@ -69,7 +69,7 @@
                                     </div>
                                 </li>
                             </c:forEach>
-                            <c:if test="${postsList == null}">
+                            <c:if test="${postList == null}">
                                 <li class="list-group-item ">
                                     <div class="infos">
                                         <div class="media-heading">该目录下还没有内容!

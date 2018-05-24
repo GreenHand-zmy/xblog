@@ -28,28 +28,28 @@
                     <div class="panel-body">
                         <ul class="list-group">
                             <c:choose>
-                                <c:when test="${postsList!=null && fn:length(postsList) > 0}">
-                                    <c:forEach items="${postsList}" var="posts">
+                                <c:when test="${postList!=null && fn:length(postList) > 0}">
+                                    <c:forEach items="${postList}" var="post">
                                         <li class="list-group-item">
-                                            <a href="${ctx}/PostsServlet?op=toPostView&postId=${posts.id}"
-                                               class="remove-padding-left">${posts.title}</a>
+                                            <a href="${ctx}/PostsServlet?op=toPostView&postId=${post.id}"
+                                               class="remove-padding-left">${post.title}</a>
                                             <span class="meta">
-                                                ${posts.favors} 点赞
+                                                ${post.favors} 点赞
                                                 <span> ⋅ </span>
-                                                ${posts.comments} 回复
+                                                ${post.comments} 回复
                                                 <span> ⋅ </span>
-                                                    ${posts.views} 阅读数
+                                                    ${post.views} 阅读数
 								                <span class="timeago">${0}</span>
       						                </span>
 
                                             <div class="pull-right hidden-xs">
                                                 <a class="act_edit" href="javascript:void(0);" data-evt="edit"
-                                                   data-id="${posts.id}"
+                                                   data-id="${post.id}"
                                                    data-toggle="tooltip" title="编辑文章">
                                                     <i class="icon icon-note"></i>
                                                 </a>
                                                 <a class="act_delete" href="javascript:void(0);" data-evt="trash"
-                                                   data-id="${posts.id}"
+                                                   data-id="${post.id}"
                                                    data-toggle="tooltip" title="删除文章">
                                                     <i class="icon icon-close"></i>
                                                 </a>

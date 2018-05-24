@@ -1,7 +1,7 @@
 package Dao.Impl;
 
 import Dao.PostDao;
-import bean.Posts;
+import bean.Post;
 import constant.TableNameConstant;
 import utils.DBUtil;
 
@@ -13,35 +13,35 @@ import java.util.List;
 public class PostDaoImpl implements PostDao {
 
     @Override
-    public int addPost(Posts post) {
+    public int addPost(Post post) {
         String sql = "INSERT INTO mto_posts(author_id,channel_id,title,content,created)" +
                 "values(?,?,?,?,CURRENT_TIMESTAMP)";
         return DBUtil.executeUpdate(sql, post.getAuthorId(), post.getChannelId(), post.getTitle(), post.getContent());
     }//添加文章
 
     @Override
-    public int updatePost(Posts post) {
+    public int updatePost(Post post) {
         String sql = "update mto_posts set featured=?,status=?,content=?,weight=?,channel_id=?,title=? where id=?";
         Object[] values = {post.getFeatured(), post.getStatus(), post.getContent(), post.getWeight(), post.getChannelId(), post.getTitle(), post.getId()};
         return DBUtil.executeUpdate(sql, values);
     }//修改文章
 
     @Override
-    public int updatePostFavors(Posts post) {
+    public int updatePostFavors(Post post) {
         String sql = "update mto_posts set favors=? where id=?";
         Object[] values = {post.getFavors(), post.getId()};
         return DBUtil.executeUpdate(sql, values);
     }//按照文章id修改点赞数
 
     @Override
-    public int updatePostViews(Posts post) {
+    public int updatePostViews(Post post) {
         String sql = "update mto_posts set views=? where id=?";
         Object[] values = {post.getViews(), post.getId()};
         return DBUtil.executeUpdate(sql, values);
     }//按照文章id修改阅读数
 
     @Override
-    public int updatePostComments(Posts post) {
+    public int updatePostComments(Post post) {
         String sql = "update mto_posts set comments=? where id=?";
         Object[] values = {post.getComments(), post.getId()};
         return DBUtil.executeUpdate(sql, values);
@@ -54,62 +54,62 @@ public class PostDaoImpl implements PostDao {
     }//根据文章id删除文章
 
     @Override
-    public List<Posts> getPostAuthorId(Long authorId) {
+    public List<Post> getPostAuthorId(Long authorId) {
         String sql = "select id,author_id authorId,channel_id channelId,title,content,views,comments,favors,featured,created,status,weight from mto_posts where author_id = ?";
-        return DBUtil.getObjects(sql, Posts.class, authorId);
+        return DBUtil.getObjects(sql, Post.class, authorId);
     }//根据作者编号查询
 
     @Override
-    public List<Posts> getPostTitle(String title) {
+    public List<Post> getPostTitle(String title) {
         String sql = "select id,author_id authorId,channel_id channelId,title,content,views,comments,favors,featured,created,status,weight from mto_posts where title like '%" + title + "%'";
-        return DBUtil.getObjects(sql, Posts.class);
+        return DBUtil.getObjects(sql, Post.class);
     }//根据文章标题模糊查询
 
     @Override
-    public List<Posts> getAllPosts() {
+    public List<Post> getAllPosts() {
         String sql = "select id,author_id authorId,channel_id channelId,title,content,views,comments,favors,featured,created,status,weight from mto_posts";
-        return DBUtil.getObjects(sql, Posts.class);
+        return DBUtil.getObjects(sql, Post.class);
     }//查询所有
 
     @Override
-    public List<Posts> getChannelPosts(Long channel) {
+    public List<Post> getChannelPosts(Long channel) {
         String sql = "select id,author_id authorId,channel_id channelId,title,content,views,comments,favors,featured,created,status,weight from mto_posts where channel_id = ?";
-        return DBUtil.getObjects(sql, Posts.class, channel);
+        return DBUtil.getObjects(sql, Post.class, channel);
     }//根据频道id查询所有文章
 
     @Override
     public int isExits(Long id) {
         String sql = "select count(*) from mto_posts where id=?";
-        return DBUtil.getCount(sql, Posts.class, id);
+        return DBUtil.getCount(sql, Post.class, id);
     }//查询id是否存在
 
-    public Posts getPost(Long id) {
+    public Post getPost(Long id) {
         String sql = "select id,author_id authorId,channel_id channelId,title,content,views,comments,favors,featured,created,status,weight from mto_posts where id=?";
-        return DBUtil.getObject(sql, Posts.class, id);
+        return DBUtil.getObject(sql, Post.class, id);
     }//根据id查询
 
     @Override
-    public List<Posts> findNewPostsLimit(int LIMIT) {
+    public List<Post> findNewPostsLimit(int LIMIT) {
         String sql = "SELECT id,author_id authorId,channel_id channelId,title,content,views,comments,favors,featured,created,status,weight FROM mto_posts ORDER BY created DESC LIMIT ?";
-        return DBUtil.getObjects(sql, Posts.class, LIMIT);
+        return DBUtil.getObjects(sql, Post.class, LIMIT);
     }//根据时间查询前LIMIT条
 
     @Override
-    public List<Posts> findNewPostsLimit2(int LIMIT) {
+    public List<Post> findNewPostsLimit2(int LIMIT) {
         String sql = "SELECT id,author_id authorId,channel_id channelId,title,content,views,comments,favors,featured,created,status,weight FROM mto_posts ORDER BY favors DESC LIMIT ?";
-        return DBUtil.getObjects(sql, Posts.class, LIMIT);
+        return DBUtil.getObjects(sql, Post.class, LIMIT);
     }//根据点赞查询前LIMIT条
 
     @Override
-    public List<Posts> findNewPostsLimit3(int LIMIT) {
+    public List<Post> findNewPostsLimit3(int LIMIT) {
         String sql = "SELECT id,author_id authorId,channel_id channelId,title,content,views,comments,favors,featured,created,status,weight FROM mto_posts ORDER BY comments DESC LIMIT ?";
-        return DBUtil.getObjects(sql, Posts.class, LIMIT);
+        return DBUtil.getObjects(sql, Post.class, LIMIT);
     }//根据评论查询前LIMIT条
 
     @Override
-    public List<Posts> findNewPostsLimit4(int LIMIT) {
+    public List<Post> findNewPostsLimit4(int LIMIT) {
         String sql = "SELECT id,author_id authorId,channel_id channelId,title,content,views,comments,favors,featured,created,status,weight FROM mto_posts ORDER BY views DESC LIMIT ?";
-        return DBUtil.getObjects(sql, Posts.class, LIMIT);
+        return DBUtil.getObjects(sql, Post.class, LIMIT);
     }//根据阅读数查询前LIMIT条
 
     @Override
@@ -119,11 +119,19 @@ public class PostDaoImpl implements PostDao {
     }
 
     @Override
-    public List<Posts> findByOffsetAndLimit(Integer offset, Integer limit) {
+    public Integer countByAuthorId(Long authorId) {
+        String sql = "select count(*) from " + TableNameConstant.POST_TABLE +
+                " where author_id = ?";
+
+        return DBUtil.getCount(sql, Integer.class, authorId);
+    }
+
+    @Override
+    public List<Post> findByOffsetAndLimit(Integer offset, Integer limit) {
         String sql = "SELECT id,author_id authorId,channel_id channelId,title,content,views," +
                 "comments,favors,featured,created,status,weight " +
                 "from " + TableNameConstant.POST_TABLE + " limit ?,?";
 
-        return DBUtil.getObjects(sql, Posts.class, offset, limit);
+        return DBUtil.getObjects(sql, Post.class, offset, limit);
     }
 }

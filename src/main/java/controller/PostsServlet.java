@@ -6,7 +6,7 @@ import Service.ChannelService;
 import Service.Impl.ChannelServiceImpl;
 import Service.Impl.PostsServiceImpl;
 import Service.PostsService;
-import bean.Posts;
+import bean.Post;
 import bean.User;
 
 import javax.servlet.ServletException;
@@ -31,7 +31,7 @@ public class PostsServlet extends HttpServlet {
     private PostDao postDao = new PostDaoImpl();
 
     private void getPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Posts post = new Posts();
+        Post post = new Post();
         PrintWriter out = resp.getWriter();
         long id = Integer.parseInt(req.getParameter("id"));
         post = postsService.getPost(id);
@@ -50,7 +50,7 @@ public class PostsServlet extends HttpServlet {
         String content = req.getParameter("content");
 
         // 构造文章对象
-        Posts post = new Posts();
+        Post post = new Post();
         post.setAuthorId(user.getId());
         post.setTitle(title);
         post.setChannelId(channelId);
@@ -72,7 +72,7 @@ public class PostsServlet extends HttpServlet {
         // 获取文章内容
         String content = req.getParameter("content");
         // 通过文章编号获取文章
-        Posts post = postsService.getPost(id);
+        Post post = postsService.getPost(id);
         // 修改文章属性
         post.setContent(content);
         // 提交到数据库中
@@ -81,7 +81,7 @@ public class PostsServlet extends HttpServlet {
     }
 
     private void updatePostViews(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Posts post = new Posts();
+        Post post = new Post();
         PrintWriter out = resp.getWriter();
         long id = Integer.parseInt(req.getParameter("id"));
         post = postsService.getPost(id);
@@ -92,7 +92,7 @@ public class PostsServlet extends HttpServlet {
     }
 
     private void updatePostComments(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Posts post = new Posts();
+        Post post = new Post();
         PrintWriter out = resp.getWriter();
         long id = Integer.parseInt(req.getParameter("id"));
         post = postsService.getPost(id);
@@ -105,7 +105,7 @@ public class PostsServlet extends HttpServlet {
     private void updatePost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         // 通过文章编号获取文章
         long id = Integer.parseInt(req.getParameter("id"));
-        Posts post = postDao.getPost(id);
+        Post post = postDao.getPost(id);
 
         // 获取修改后的属性
 
@@ -128,23 +128,23 @@ public class PostsServlet extends HttpServlet {
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String op = req.getParameter("op");
-        List<Posts> postsList = new ArrayList<Posts>();
+        List<Post> postList = new ArrayList<Post>();
         int LIMIT = 5;
         if ("selectAuthorId".equals(op)) {
             PrintWriter out = resp.getWriter();
             long authorId = Integer.parseInt(req.getParameter("authorId"));
-            postsList = ps.getPostAuthorId(authorId);
+            postList = ps.getPostAuthorId(authorId);
         } else if ("selectAll".equals(op)) {
-            postsList = ps.getAllPosts();
+            postList = ps.getAllPosts();
         } else if ("selectByTime".equals(op)) {
-            postsList = ps.findNewPostsLimit(LIMIT);
+            postList = ps.findNewPostsLimit(LIMIT);
         } else if ("selectByFavors".equals(op)) {
-            postsList = ps.findNewPostsLimit2(LIMIT);
+            postList = ps.findNewPostsLimit2(LIMIT);
         } else if ("selectByComments".equals(op)) {
-            postsList = ps.findNewPostsLimit3(LIMIT);
+            postList = ps.findNewPostsLimit3(LIMIT);
         } else if ("toUpdatePostPage".equals(op)) {
             Long id = Long.parseLong(req.getParameter("id"));
-            Posts post = postDao.getPost(id);
+            Post post = postDao.getPost(id);
             req.setAttribute("post", post);
             req.getRequestDispatcher("jsps/default/channel/update.jsp").forward(req, resp);
         } else if ("updatePost".equals(op)) {
@@ -173,7 +173,7 @@ public class PostsServlet extends HttpServlet {
             long postId = Long.parseLong(req.getParameter("postId"));
 
             // 获取文章实体数据
-            Posts post = postsService.getPost(postId);
+            Post post = postsService.getPost(postId);
             post.setViews(post.getViews() + 1);
             req.setAttribute("post", post);
             postDao.updatePostViews(post);

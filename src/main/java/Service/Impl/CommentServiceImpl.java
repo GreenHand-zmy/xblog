@@ -5,7 +5,7 @@ import Dao.Impl.CommentDaoImpl;
 import Service.CommentService;
 import Service.PostsService;
 import bean.Comment;
-import bean.Posts;
+import bean.Post;
 import vo.PostCommentVo;
 
 import java.util.ArrayList;
@@ -71,7 +71,7 @@ public class CommentServiceImpl implements CommentService {
         commentList.forEach(comment -> {
             // 根据评论toId查询评论了哪篇文章
             Long toId = comment.getToId();
-            Posts targetPost = postsService.getPost(toId);
+            Post targetPost = postsService.getPost(toId);
             postCommentVoList.add(new PostCommentVo(targetPost, comment));
         });
         return postCommentVoList;
