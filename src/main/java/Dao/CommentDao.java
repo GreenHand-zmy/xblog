@@ -15,4 +15,5 @@ public interface CommentDao {
      int addComment(Comment comment);//增加一条评论
      int getCount(long toid);//根据所评论文章（对应于当前文章id）得到该文章的评论数
      int getCount1(long authorId);//查看一人的所有评论数
+     List<Comment> getAllComments();//查询所有评论
 }

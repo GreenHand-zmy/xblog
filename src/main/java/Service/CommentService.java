@@ -27,6 +27,9 @@ public interface CommentService {
     //根据所评论文章toId(对应于当前文章的id)得到该文章的评论数
     int getCount(long toid);
 
+    //查询所有评论
+    List<Comment> getAllComments();
+
     List<PostCommentVo> getPostCommentVoByAuthorId(Long authorId);
 
     int getCount1(long authorId);

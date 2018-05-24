@@ -63,6 +63,12 @@ public class CommentServiceImpl implements CommentService {
         return num;
     }
 
+    //查询所有评论
+    @Override
+    public List<Comment> getAllComments() {
+        return commentDao.getAllComments();
+    }
+
     @Override
     public List<PostCommentVo> getPostCommentVoByAuthorId(Long authorId) {
         // 根据作者编号查询所有评论
