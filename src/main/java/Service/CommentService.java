@@ -28,4 +28,6 @@ public interface CommentService {
     int getCount(long toid);
 
     List<PostCommentVo> getPostCommentVoByAuthorId(Long authorId);
+
+    int getCount1(long authorId);
 }

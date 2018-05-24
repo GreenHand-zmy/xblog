@@ -76,4 +76,10 @@ public class CommentServiceImpl implements CommentService {
         });
         return postCommentVoList;
     }
+
+    @Override
+    public int getCount1(long authorId) {
+        int  num = commentDao.getCount1(authorId);
+        return num;
+    }
 }

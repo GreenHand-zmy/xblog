@@ -46,4 +46,10 @@ public class CommentDaoImpl implements CommentDao {
         String sql = "SELECT COUNT(*) FROM mto_comments WHERE to_id=?";
         return DBUtil.getCount(sql, null, toid);
     }
+
+    @Override
+    public int getCount1(long authorId) {
+        String sql="select count(*) from mto_comments where author_id=?";
+        return DBUtil.getCount(sql,null,authorId);
+    }
 }

@@ -40,10 +40,10 @@
                                     </div>
                                 </a>
                                 <div class="avatar pull-left">
-                                    <a href="${base}/users/${target.author.id}">
-                                        <img class="media-object img-thumbnail avatar avatar-middle"
-                                             src="${base + target.author.avatar}">
-                                    </a>
+                                    <%--&lt;%&ndash;<a href="${base}/users/${target.author.id}">&ndash;%&gt;--%>
+                                        <%--<img class="media-object img-thumbnail avatar avatar-middle"--%>
+                                             <%--&lt;%&ndash;src="${base + target.author.avatar}">&ndash;%&gt;--%>
+                                    <%--</a>--%>
                                 </div>
                                 <div class="infos">
                                     <div class="media-heading">

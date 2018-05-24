@@ -55,6 +55,9 @@ public class UserServlet extends HttpServlet {
             req.getRequestDispatcher("jsps/default/auth/register.jsp").forward(req, resp);
         } else if ("toMyPage".equals(op)) {
             //到我的主页
+            User user = (User) req.getSession().getAttribute("user");
+            List<Posts> postsList = postsService.getPostAuthorId(user.getId());
+            req.setAttribute("postsList",postsList);
             req.getRequestDispatcher("jsps/default/user/method_posts.jsp").forward(req, resp);
         } else if ("toMyArticle".equals(op)) {
             //到我的文章
@@ -80,9 +83,11 @@ public class UserServlet extends HttpServlet {
             req.getRequestDispatcher("jsps/default/user/password.jsp").forward(req, resp);
         }else if("toOtherUser".equals(op)){
             //查看他人主页
-            Long  id= Long.valueOf(req.getParameter("antherId"));
+            Long  id= Long.parseLong(req.getParameter("antherId"));
             User user = userService.getUser(id);
-            req.getSession().setAttribute("user",user);
+            req.setAttribute("user",user);
+            Posts posts = postsService.getPost(id);
+            req.setAttribute("posts",posts);
             req.getRequestDispatcher("jsps/default/view/view.jsp").forward(req,resp);
         }else if ("showUserAvatar".equals(op)){
             // 输出图片
@@ -147,6 +152,9 @@ public class UserServlet extends HttpServlet {
             userService.updateUser(user);
         }
         req.getSession().setAttribute("user", user);
+        User user1= (User) req.getSession().getAttribute("user");
+        List<Posts> postsList = postsService.getPostAuthorId(user1.getId());
+        req.setAttribute("postsList",postsList);
         req.getRequestDispatcher("jsps/default/user/method_posts.jsp").forward(req, resp);
     }
 
