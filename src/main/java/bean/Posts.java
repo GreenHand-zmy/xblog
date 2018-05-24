@@ -48,6 +48,14 @@ public class Posts {
         this.content = content;
     }
 
+    public Posts(long id, int favors) {
+        this.id = id;
+        this.favors = favors;
+        this.views = favors;
+        this.comments = favors;
+    }
+
+
     public long getId() {
         return id;
     }

@@ -27,30 +27,30 @@ public class PostDaoImpl implements PostDao {
 
     @Override
     public int updatePostFavors(Posts post) {
-        String sql = "update mto_posts set featured=? where id=?";
-        Object[] values = {post.getFeatured(), post.getId()};
+        String sql = "update mto_posts set favors=? where id=?";
+        Object[] values = {post.getFavors(), post.getId()};
         return DBUtil.executeUpdate(sql, values);
-    }
+    }//按照文章id修改点赞数
 
     @Override
     public int updatePostViews(Posts post) {
         String sql = "update mto_posts set views=? where id=?";
         Object[] values = {post.getViews(), post.getId()};
         return DBUtil.executeUpdate(sql, values);
-    }
+    }//按照文章id修改阅读数
 
     @Override
     public int updatePostComments(Posts post) {
         String sql = "update mto_posts set comments=? where id=?";
         Object[] values = {post.getComments(), post.getId()};
         return DBUtil.executeUpdate(sql, values);
-    }
+    }//按照文章id修改评论数
 
     @Override
     public int deletePost(Long Id) {
         String sql = "delete from mto_posts where id=?";
         return DBUtil.executeUpdate(sql, Id);
-    }//删除文章
+    }//根据文章id删除文章
 
     @Override
     public List<Posts> getPostAuthorId(Long authorId) {
