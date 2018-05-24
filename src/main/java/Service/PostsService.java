@@ -36,7 +36,6 @@ public interface PostsService {
     public List<Posts> findNewPostsLimit2(int LIMIT);//根据点赞查询前LIMIT条
 
     public List<Posts> findNewPostsLimit3(int LIMIT);//根据评论查询前LIMIT条
-    public List<Posts> findNewPostsLimit4(int LIMIT);//根据评论查询前LIMIT条
 
     /**
      * 获取分页数据
@@ -46,4 +45,5 @@ public interface PostsService {
      * @return
      */
     PageBean<Posts> findByPage(int pageIndex, int pageSize);
+    public List<Posts> findNewPostsLimit4(int LIMIT);//根据阅读数查询前LIMIT条
 }

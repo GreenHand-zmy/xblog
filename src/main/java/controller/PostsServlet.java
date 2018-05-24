@@ -181,5 +181,9 @@ public class PostsServlet extends HttpServlet {
             // 转发到展示页面
             req.getRequestDispatcher("jsps/default/channel/view.jsp").forward(req, resp);
         }
+        // 后台修改文章
+        else if("toUpPoRootPage".equals(op)){
+
+        }
     }
 }
