@@ -27,6 +27,7 @@ public class ChannelServlet extends HttpServlet{
 
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        //得到所选频道的内容并按需求排序
         long id=Long.parseLong(req.getParameter("id"));
         List<Posts> postsList= postsService.getChannelPosts(id);
         String order=req.getParameter("order");

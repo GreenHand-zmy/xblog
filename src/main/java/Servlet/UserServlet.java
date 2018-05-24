@@ -47,29 +47,34 @@ public class UserServlet extends HttpServlet {
             update(req, resp);
 
         } else if ("toLogin".equals(op)) {
-
+            //到登录页面
             req.getRequestDispatcher("jsps/default/auth/login.jsp").forward(req, resp);
         } else if ("toRegister".equals(op)) {
-
+            //到注册页面
             req.getRequestDispatcher("jsps/default/auth/register.jsp").forward(req, resp);
         } else if ("toMyPage".equals(op)) {
-
+            //到我的主页
             req.getRequestDispatcher("jsps/default/user/method_posts.jsp").forward(req, resp);
         } else if ("toMyArticle".equals(op)) {
+            //到我的文章
             User user = (User) req.getSession().getAttribute("user");
             List<Posts> postsList = postsService.getPostAuthorId(user.getId());
             req.setAttribute("postsList",postsList);
             req.getRequestDispatcher("jsps/default/user/method_posts.jsp").forward(req, resp);
         } else if ("toMyComment".equals(op)) {
+            //到我的评论
             User user = (User) req.getSession().getAttribute("user");
             List<Comment> commentsList = commentService.getCommentsByAuthor(user.getId());
             req.setAttribute("commentsList",commentsList);
             req.getRequestDispatcher("jsps/default/user/method_comments.jsp").forward(req, resp);
         } else if ("toUpdate".equals(op)) {
+            //到编辑信息页面
             req.getRequestDispatcher("jsps/default/user/profile.jsp").forward(req, resp);
         } else if ("toUpdateAvatar".equals(op)) {
+            //到编辑头像页面
             req.getRequestDispatcher("jsps/default/user/avatar.jsp").forward(req, resp);
         } else if ("toUpdatePassword".equals(op)) {
+            //到编辑密码页面
             req.getRequestDispatcher("jsps/default/user/password.jsp").forward(req, resp);
         }
     }

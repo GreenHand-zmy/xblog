@@ -19,35 +19,35 @@ import static utils.CheckUtil.check;
 public class CommentServiceImpl implements CommentService {
     private CommentDao commentDao = new CommentDaoImpl();
     private PostsService postsService = new PostsServiceImpl();
-
+    //根据评论编号得到评论
     @Override
     public Comment getCommentById(long id) {
         Comment comment = commentDao.getCommentById(id);
         check(comment != null, "没有符合id的评论！");
         return comment;
     }
-
+    //根据所评论的文章（toid）得到该文章的所有评论
     @Override
     public List<Comment> getComments(long toid) {
         List<Comment> commentList = commentDao.getComments(toid);
         check(commentList != null, "暂无评论！");
         return commentList;
     }
-
+    //得到一个用户的所有评论
     @Override
     public List<Comment> getCommentsByAuthor(long authorId) {
         List<Comment> commentList = commentDao.getCommentsByAuthor(authorId);
         check(commentList != null, "用户暂无评论！");
         return commentList;
     }
-
+    //根据评论编号删除评论
     @Override
     public int delComment(long id) {
         int num = commentDao.delComment(id);
         check(num != 0, "删除评论失败！");
         return num;
     }
-
+    //增加一条评论
     @Override
     public int addComment(Comment comment) {
         int num = commentDao.addComment(comment);
@@ -55,7 +55,7 @@ public class CommentServiceImpl implements CommentService {
         check(num != 0, "评论失败！");
         return num;
     }
-
+    //根据所评论文章toId(对应于当前文章的id)得到该文章的评论数
     @Override
     public int getCount(long toid) {
         int num = commentDao.getCount(toid);
