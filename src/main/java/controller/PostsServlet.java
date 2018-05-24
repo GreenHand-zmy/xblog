@@ -181,7 +181,6 @@ public class PostsServlet extends HttpServlet {
         else if ("toPostView".equals(op)) {
             // 获取文章编号
             long postId = Long.parseLong(req.getParameter("postId"));
-
             // 获取文章实体数据
             Post post = postsService.getPost(postId);
             post.setViews(post.getViews() + 1);

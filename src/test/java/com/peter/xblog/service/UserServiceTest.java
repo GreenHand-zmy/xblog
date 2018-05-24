@@ -17,9 +17,19 @@ public class UserServiceTest {
     public void addUser() {
         User user = new User();
         user.setPassword("123");
-        user.setUsername("久23");
+        user.setUsername("久伴");
         user.setName("zh");
         int num = us.addUser(user);
+        System.out.println(num);
+    }
+
+    @Test
+    public void addAdmin() {
+        User user = new User();
+        user.setPassword("123");
+        user.setUsername("久伴1");
+        user.setName("zh");
+        int num = us.addAdmin(user);
         System.out.println(num);
     }
 
@@ -37,7 +47,7 @@ public class UserServiceTest {
 
     @Test
     public void delUser() {
-        int num = us.delUser(4);
+        int num = us.delUser(4L);
         System.out.println(num);
     }
 

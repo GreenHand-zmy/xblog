@@ -35,11 +35,7 @@ public class UserDaoTest {
        System.out.println(num);
    }
 
-   @Test
-    public  void delUser(){
-        int num = ud.delUser(3);
-       System.out.println(num);
-   }
+
 
    @Test
     public void getUser(){

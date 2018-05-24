@@ -5,6 +5,9 @@ import Dao.UserDao;
 import Service.UserService;
 import bean.User;
 
+import static constant.UserStatusConstant.ADMIN_STATUS;
+import static constant.UserStatusConstant.DELETED_STATUS;
+import static constant.UserStatusConstant.NORMAL_STATUS;
 import static utils.CheckUtil.*;
 
 import java.util.List;
@@ -23,15 +26,29 @@ public class UserServiceImpl implements UserService {
         int num1 = ud.isExits(user.getUsername());
         check(num1==0,"用户名已存在");
         check(user.getName()!=null,"昵称不能为空");
+        user.setStatus(NORMAL_STATUS);
         int num=ud.addUser(user);
         return num;
     }
 
     @Override
-    public int delUser(int id) {
+    public int addAdmin(User user) {
+        check(user.getPassword()!=null,"密码不能为空");
+        check(user.getUsername()!=null,"用户名不能为空");
+        int num1 = ud.isExits(user.getUsername());
+        check(num1==0,"用户名已存在");
+        check(user.getName()!=null,"昵称不能为空");
+        user.setStatus(ADMIN_STATUS);
+        int num=ud.addUser(user);
+        return num;
+    }
+
+    @Override
+    public int delUser(long id) {
         User user=ud.getUser(id);
         check(user!=null,"该用户不存在");
-        int num=ud.delUser(id);
+        user.setStatus(DELETED_STATUS);
+        int  num = ud.updateUser(user);
         return num;
     }
 
