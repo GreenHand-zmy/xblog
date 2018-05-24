@@ -64,7 +64,7 @@
                                     </div>
                                     <div class="infos">
                                         <div class="media-heading">
-                                               <a href="${ctx}/PostsServlet?op=toPostPage&id=${post.id}"> ${post.title}</a>
+                                               <a href="${ctx}/PostsServlet?op=toPostView&postId=${post.id}"> ${post.title}</a>
                                                 <%--<@classify row/><a href="${base}/view/${row.id}">${row.title}</a>--%>
                                         </div>
                                     </div>

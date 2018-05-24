@@ -28,44 +28,52 @@
                     <div class="panel-body">
                         <ul class="list-group">
                             <c:choose>
-                                <c:when test="${commentsList!=null}">
-                                    <c:forEach items="${commentsList}" var="comments">
-                            <li class="list-group-item">
-                                <a href="" class="remove-padding-left">${comments.content}</a>
-                                <a href="javascript:;" class="remove-padding-left">文章已删除</a>
-                            <span class="meta">
-								<span class="timeago">${0}</span>
-      						</span>
+                                <c:when test="${postCommentVoList!=null && fn:length(postCommentVoList) > 0}">
+                                    <c:forEach items="${postCommentVoList}" var="postComment">
+                                        <li class="list-group-item">
+                                        <c:choose>
+                                            <c:when test="${postComment.posts != null}">
+                                                <a href="" class="remove-padding-left">${postComment.posts.title}</a>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <a href="javascript:;" class="remove-padding-left">文章已删除</a>
+                                            </c:otherwise>
+                                        </c:choose>
 
-                            <div class="pull-right hidden-xs">
-                                <a class="act" href="javascript:void(0);" data-evt="trash" data-id="${row.id}"
-                                   data-toggle="tooltip" title="删除评论">
-                                    <i class="icon icon-close"></i>
-                                </a>
-                            </div>
+                                        <span class="meta">
+								            <span class="timeago">${"多少小时前"}</span>
+                                        </span>
 
-                            <div class="reply-body markdown-reply content-body">
-                                <p>${row.content}</p>
-                            </div>
+                                        <div class="pull-right hidden-xs">
+                                            <a class="act" href="javascript:void(0);" data-evt="trash"
+                                               data-id="${postComment.comment.id}"
+                                               data-toggle="tooltip" title="删除评论">
+                                                <i class="icon icon-close"></i>
+                                            </a>
+                                        </div>
+
+                                        <div class="reply-body markdown-reply content-body">
+                                            <p>${postComment.comment.content}</p>
+                                        </div>
                                     </c:forEach>
                                 </c:when>
                                 <c:otherwise>
-                            </li>
-                        <li class="list-group-item ">
-                            <div class="infos">
-                                <div class="media-heading">该目录下还没有内容!</div>
-                            </div>
-                        </li>
+                                    </li>
+                                    <li class="list-group-item ">
+                                        <div class="infos">
+                                            <div class="media-heading">该目录下还没有内容!</div>
+                                        </div>
+                                    </li>
                                 </c:otherwise>
-                    </c:choose>
-                    </ul>
-                </div>
-                <div class="panel-footer">
+                            </c:choose>
+                        </ul>
+                    </div>
+                    <div class="panel-footer">
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 </div>
 <!-- footer -->
 <%@include file="../include/footer.jsp" %>

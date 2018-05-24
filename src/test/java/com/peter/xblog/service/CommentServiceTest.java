@@ -62,6 +62,5 @@ public class CommentServiceTest {
     @Test
     public void getPostCommentVoByAuthorId() {
         List<PostCommentVo> postCommentVoByAuthorId = commentService.getPostCommentVoByAuthorId(6L);
-
     }
 }

@@ -99,21 +99,24 @@ public class PostsServiceImpl implements PostsService {
         check(list != null, "无查询结果");
         return list;
     }//按文章时间顺序查询
+
     @Override
     public List<Posts> findNewPostsLimit2(int LIMIT) {
         List<Posts> list = pd.findNewPostsLimit2(LIMIT);
         check(list != null, "无查询结果");
         return list;
     }//按文章点赞数从多到少查询
+
     @Override
     public List<Posts> findNewPostsLimit3(int LIMIT) {
         List<Posts> list = pd.findNewPostsLimit3(LIMIT);
         check(list != null, "无查询结果");
         return list;
     }//按文章评论数从多到少查询
-    public Posts getPost(Long id){
+
+    public Posts getPost(Long id) {
+        check(id != null, "查找文章必须输入文章编号");
         Posts post = pd.getPost(id);
-        check(post != null, "该用户不存在");
         return post;
     }//按文章id查询
 }
