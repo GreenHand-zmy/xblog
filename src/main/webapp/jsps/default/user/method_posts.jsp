@@ -31,15 +31,15 @@
                                 <c:when test="${postsList!=null && fn:length(postsList) > 0}">
                                     <c:forEach items="${postsList}" var="posts">
                                         <li class="list-group-item">
-                                            <a href="${ctx}/PostsServlet?op=toPostPage&id=${posts.id}"
+                                            <a href="${ctx}/PostsServlet?op=toPostView&postId=${posts.id}"
                                                class="remove-padding-left">${posts.title}</a>
                                             <span class="meta">
                                                 ${posts.favors} 点赞
                                                 <span> ⋅ </span>
                                                 ${posts.comments} 回复
                                                 <span> ⋅ </span>
-								                <span class="timeago"></span>
-                                                 ${posts.views} 阅读数
+                                                    ${posts.views} 阅读数
+								                <span class="timeago">${0}</span>
       						                </span>
 
                                             <div class="pull-right hidden-xs">

@@ -27,8 +27,7 @@
                                 <a href="?order=newest" class="active">最近</a>
                             </li>
                             <li data-toggle="tooltip" title="点赞数排序">
-                                <a href="?order=favors"
-                                   class="active">投票</a>
+                                <a href="?order=favors" class="active">投票</a>
                             </li>
                             <li data-toggle="tooltip" title="评论次数排序">
                                 <a href="?order=hottest" class="active">热门</a>
