@@ -1,7 +1,11 @@
 package controller;
 
+import Dao.ChannelDao;
+import Dao.Impl.ChannelDaoImpl;
 import Dao.Impl.PostDaoImpl;
+import Dao.Impl.UserDaoImpl;
 import Dao.PostDao;
+import Dao.UserDao;
 import Service.ChannelService;
 import Service.CommentService;
 import Service.Impl.ChannelServiceImpl;
@@ -9,6 +13,7 @@ import Service.Impl.CommentServiceImpl;
 import Service.Impl.PostsServiceImpl;
 import Service.PostsService;
 import bean.Post;
+import bean.Channel;
 import bean.User;
 
 import javax.servlet.ServletException;
@@ -32,6 +37,8 @@ public class PostsServlet extends HttpServlet {
     private CommentService commentService = new CommentServiceImpl();
     private ChannelService channelService = new ChannelServiceImpl();
     private PostDao postDao = new PostDaoImpl();
+    private UserDao userDao = new UserDaoImpl();
+    private ChannelDao channelDao = new ChannelDaoImpl();
 
     private void getPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Post post = new Post();
@@ -186,6 +193,35 @@ public class PostsServlet extends HttpServlet {
 
             // 转发到展示页面
             req.getRequestDispatcher("jsps/default/channel/view.jsp").forward(req, resp);
+        }
+        // 后台修改文章
+        else if("toUpPoRootPage".equals(op)){
+            // 通过文章编号获取文章
+            long id = Integer.parseInt(req.getParameter("postId"));
+            Post post = postDao.getPost(id);
+            req.setAttribute("post", post);
+            req.getRequestDispatcher("jsps/admin/post/update.jsp").forward(req,resp);
+        }
+        else if("toUpUserRootPage".equals(op)){
+            // 通过作者编号获取文章，改角色
+            long id = Integer.parseInt(req.getParameter("userId"));
+            User user = userDao.getUser(id);
+            req.setAttribute("user", user);
+            req.getRequestDispatcher("jsps/admin/user/view.jsp").forward(req,resp);
+        }
+        else if("toUpUserPwdPage".equals(op)){
+            // 通过作者编号获取文章，改密码
+            long id = Integer.parseInt(req.getParameter("userId"));
+            User user = userDao.getUser(id);
+            req.setAttribute("user", user);
+            req.getRequestDispatcher("jsps/admin/user/pwd.jsp").forward(req,resp);
+        }
+        else if("toUpChannelPage".equals(op)){
+            // 通过栏目编号获取文章
+            long id = Integer.parseInt(req.getParameter("channelId"));
+            Channel channel = channelDao.findById(id);
+            req.setAttribute("channel", channel);
+            req.getRequestDispatcher("jsps/admin/channel/view.jsp").forward(req,resp);
         }
     }
 }
