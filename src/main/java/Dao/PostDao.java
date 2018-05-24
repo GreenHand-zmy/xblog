@@ -1,6 +1,6 @@
 package Dao;
 
-import bean.Posts;
+import bean.Post;
 
 import java.util.List;
 
@@ -15,7 +15,7 @@ public interface PostDao {
      * @param post 文章实体
      * @return SQL语句影响行数
      */
-    int addPost(Posts post);
+    int addPost(Post post);
 
     /**
      * 修改文章
@@ -23,7 +23,7 @@ public interface PostDao {
      * @param post 文章实体
      * @return SQL语句影响行数
      */
-    int updatePost(Posts post);
+    int updatePost(Post post);
 
     /**
      * 修改文章点赞数
@@ -31,7 +31,7 @@ public interface PostDao {
      * @param post 文章实体
      * @return SQL语句影响行数
      */
-    int updatePostFavors(Posts post);
+    int updatePostFavors(Post post);
 
     /**
      * 修改文章阅读量
@@ -39,7 +39,7 @@ public interface PostDao {
      * @param post 文章实体
      * @return SQL语句影响行数
      */
-    int updatePostViews(Posts post);
+    int updatePostViews(Post post);
 
     /**
      * 修改文章评论量
@@ -47,7 +47,7 @@ public interface PostDao {
      * @param post 文章实体
      * @return SQL语句影响行数
      */
-    int updatePostComments(Posts post);
+    int updatePostComments(Post post);
 
     /**
      * 删除文章
@@ -65,20 +65,28 @@ public interface PostDao {
     Integer countAll();
 
     /**
+     * 根据作者编号,查找返回数量
+     *
+     * @param authorId 作者编号
+     * @return 文章数量
+     */
+    Integer countByAuthorId(Long authorId);
+
+    /**
      * 根据偏移量和限制数量查找文章
      *
      * @param offset 偏移量
      * @param limit  限制大小
      * @return
      */
-    List<Posts> findByOffsetAndLimit(Integer offset, Integer limit);
+    List<Post> findByOffsetAndLimit(Integer offset, Integer limit);
 
     /**
      * 查询所有
      *
      * @return 所有文章
      */
-    List<Posts> getAllPosts();
+    List<Post> getAllPosts();
 
     /**
      * 根据频道id查询所有文章
@@ -86,7 +94,7 @@ public interface PostDao {
      * @param channelId 频道编号
      * @return 该频道的所有文章
      */
-    List<Posts> getChannelPosts(Long channelId);
+    List<Post> getChannelPosts(Long channelId);
 
     /**
      * 根据文章编号查询
@@ -94,19 +102,19 @@ public interface PostDao {
      * @param id 文章编号
      * @return 文章实体
      */
-    Posts getPost(Long id);
+    Post getPost(Long id);
 
-    List<Posts> getPostTitle(String title);//根据文章标题模糊查询
+    List<Post> getPostTitle(String title);//根据文章标题模糊查询
 
-    List<Posts> getPostAuthorId(Long authorId);//根据作者标号查询
+    List<Post> getPostAuthorId(Long authorId);//根据作者标号查询
 
     int isExits(Long id);//查询id是否存在
 
-    List<Posts> findNewPostsLimit(int LIMIT);//根据时间查询前LIMIT条
+    List<Post> findNewPostsLimit(int LIMIT);//根据时间查询前LIMIT条
 
-    List<Posts> findNewPostsLimit2(int LIMIT);//根据点赞查询前LIMIT条
+    List<Post> findNewPostsLimit2(int LIMIT);//根据点赞查询前LIMIT条
 
-    List<Posts> findNewPostsLimit3(int LIMIT);//根据评论数查询前LIMIT条
+    List<Post> findNewPostsLimit3(int LIMIT);//根据评论数查询前LIMIT条
 
-    List<Posts> findNewPostsLimit4(int LIMIT);//根据阅读数数查询前LIMIT条
+    List<Post> findNewPostsLimit4(int LIMIT);//根据阅读数数查询前LIMIT条
 }

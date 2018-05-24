@@ -5,7 +5,7 @@ import Dao.Impl.CommentDaoImpl;
 import Service.CommentService;
 import Service.PostsService;
 import bean.Comment;
-import bean.Posts;
+import bean.Post;
 import vo.PostCommentVo;
 
 import java.util.ArrayList;
@@ -63,6 +63,12 @@ public class CommentServiceImpl implements CommentService {
         return num;
     }
 
+    //查询所有评论
+    @Override
+    public List<Comment> getAllComments() {
+        return commentDao.getAllComments();
+    }
+
     @Override
     public List<PostCommentVo> getPostCommentVoByAuthorId(Long authorId) {
         // 根据作者编号查询所有评论
@@ -71,9 +77,15 @@ public class CommentServiceImpl implements CommentService {
         commentList.forEach(comment -> {
             // 根据评论toId查询评论了哪篇文章
             Long toId = comment.getToId();
-            Posts targetPost = postsService.getPost(toId);
+            Post targetPost = postsService.getPost(toId);
             postCommentVoList.add(new PostCommentVo(targetPost, comment));
         });
         return postCommentVoList;
+    }
+
+    @Override
+    public int getCount1(long authorId) {
+        int  num = commentDao.getCount1(authorId);
+        return num;
     }
 }

@@ -91,8 +91,8 @@
                 <ul class="list-group about-user">
                     <li class="list-group-item user-card" >
                         <div class="ava">
-                            <a href="${base}/users/${view.author.id}">
-                                <@showAva view.author.avatar "img-circle"/>
+                            <a href="${ctx}/UserServlet?op=toOtherUser&antherId=${post.authorId}">
+                                <img class="img-circle" src="${ctx}/UserServlet?op=showUserAvatar&authorId=${post.authorId}">
                             </a>
                         </div>
                         <div class="user-info">
@@ -106,7 +106,7 @@
                     <li class="list-group-item">
                         <div class="user-datas">
                             <ul>
-                                <li><strong>${view.author.posts}</strong><span>发布</span></li>
+                                <li><strong>${view.author.post}</strong><span>发布</span></li>
                                 <li class="noborder"><strong>${view.author.comments}</strong><span>评论</span></li>
                             </ul>
                         </div>

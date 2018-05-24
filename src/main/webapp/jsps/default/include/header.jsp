@@ -66,8 +66,8 @@
                 <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="${ctx}/">
-                    <img src="${ctx}/static/theme/default/images/logo.png"/>
+                <a class="navbar-brand" href="${ctx}/" >
+                    <img src="${ctx}/static/theme/default/images/logo.png" />
                 </a>
             </div>
             <div class="collapse navbar-collapse">

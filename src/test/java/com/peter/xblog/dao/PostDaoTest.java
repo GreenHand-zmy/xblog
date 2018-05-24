@@ -2,7 +2,7 @@ package com.peter.xblog.dao;
 
 import Dao.Impl.PostDaoImpl;
 import Dao.PostDao;
-import bean.Posts;
+import bean.Post;
 import org.junit.Test;
 
 import java.util.Date;
@@ -11,14 +11,14 @@ import java.util.List;
 /**
  * Created by Fang on 2018/5/21.
  */
-public class PostsDaoTest {
+public class PostDaoTest {
     PostDao pd = new PostDaoImpl();
 
     //测试添加文章
     @Test
     public void testAdd() {
         Date date = new Date();
-        Posts post = new Posts(2L, 3, date, "4", 5, 1, 1, 1, "1", "1", "1", 1, 2, "321");
+        Post post = new Post(2L, 3, date, "4", 5, 1, 1, 1, "1", "1", "1", 1, 2, "321");
         int num = pd.addPost(post);
         System.out.println(num);
     }
@@ -26,8 +26,8 @@ public class PostsDaoTest {
     //测试按作者id查找文章
     @Test
     public void testSelect() {
-        List<Posts> list = pd.getPostAuthorId(2L);
-        for (Posts post : list) {
+        List<Post> list = pd.getPostAuthorId(2L);
+        for (Post post : list) {
             System.out.println(post);
         }
     }
@@ -35,8 +35,8 @@ public class PostsDaoTest {
     //测试按栏目id查找文章
     @Test
     public void testSelect2() {
-        List<Posts> list = pd.getChannelPosts(1L);
-        for (Posts post : list) {
+        List<Post> list = pd.getChannelPosts(1L);
+        for (Post post : list) {
             System.out.println(post);
         }
     }
@@ -44,8 +44,8 @@ public class PostsDaoTest {
     //测试按文章标题模糊查询
     @Test
     public void testSelect3() {
-        List<Posts> list = pd.getPostTitle("123");
-        for (Posts post : list) {
+        List<Post> list = pd.getPostTitle("123");
+        for (Post post : list) {
             System.out.println(post);
         }
     }
@@ -54,8 +54,8 @@ public class PostsDaoTest {
     @Test
     public void testDelect() {
         pd.deletePost(8L);
-        List<Posts> list = pd.getAllPosts();
-        for (Posts post : list) {
+        List<Post> list = pd.getAllPosts();
+        for (Post post : list) {
             System.out.println(post);
         }
     }
@@ -63,8 +63,8 @@ public class PostsDaoTest {
     //测试查找所有文章
     @Test
     public void testSelectAll() {
-        List<Posts> list = pd.getAllPosts();
-        for (Posts post : list) {
+        List<Post> list = pd.getAllPosts();
+        for (Post post : list) {
             System.out.println(post);
         }
     }
@@ -72,10 +72,10 @@ public class PostsDaoTest {
     //测试更改文章
     @Test
     public void testUpdate() {
-        Posts post = new Posts(7, 2, 2, 2, "2", 2, "234");
+        Post post = new Post(7, 2, 2, 2, "2", 2, "234");
         pd.updatePost(post);
-        List<Posts> list = pd.getPostAuthorId(2L);
-        for (Posts post1 : list) {
+        List<Post> list = pd.getPostAuthorId(2L);
+        for (Post post1 : list) {
             System.out.println(post);
         }
     }
@@ -83,10 +83,10 @@ public class PostsDaoTest {
     //测试更改文章点赞数
     @Test
     public void testUpdate2() {
-        Posts post = new Posts(7, 2);
+        Post post = new Post(7, 2);
         pd.updatePostFavors(post);
-        List<Posts> list = pd.getPostAuthorId(2L);
-        for (Posts post1 : list) {
+        List<Post> list = pd.getPostAuthorId(2L);
+        for (Post post1 : list) {
             System.out.println(post);
         }
     }
@@ -94,10 +94,10 @@ public class PostsDaoTest {
     //测试更改文章阅读数
     @Test
     public void testUpdate3() {
-        Posts post = new Posts(7, 2);
+        Post post = new Post(7, 2);
         pd.updatePostViews(post);
-        List<Posts> list = pd.getPostAuthorId(2L);
-        for (Posts post1 : list) {
+        List<Post> list = pd.getPostAuthorId(2L);
+        for (Post post1 : list) {
             System.out.println(post);
         }
     }
@@ -105,10 +105,10 @@ public class PostsDaoTest {
     //测试更改文章评论数
     @Test
     public void testUpdate4() {
-        Posts post = new Posts(7, 3);
+        Post post = new Post(7, 3);
         pd.updatePostComments(post);
-        List<Posts> list = pd.getPostAuthorId(2L);
-        for (Posts post1 : list) {
+        List<Post> list = pd.getPostAuthorId(2L);
+        for (Post post1 : list) {
             System.out.println(post);
         }
     }
@@ -116,8 +116,8 @@ public class PostsDaoTest {
     //测试根据时间顺序查找文章
     @Test
     public void testSelectAll2() {
-        List<Posts> list = pd.findNewPostsLimit(1);
-        for (Posts post : list) {
+        List<Post> list = pd.findNewPostsLimit(1);
+        for (Post post : list) {
             System.out.println(post);
         }
     }
@@ -125,8 +125,8 @@ public class PostsDaoTest {
     //测试根据点赞数顺序查找文章
     @Test
     public void testSelectAll3() {
-        List<Posts> list = pd.findNewPostsLimit2(3);
-        for (Posts post : list) {
+        List<Post> list = pd.findNewPostsLimit2(3);
+        for (Post post : list) {
             System.out.println(post);
         }
     }
@@ -134,8 +134,8 @@ public class PostsDaoTest {
     //测试根据评论数顺序查找文章
     @Test
     public void testSelectAll4() {
-        List<Posts> list = pd.findNewPostsLimit3(3);
-        for (Posts post : list) {
+        List<Post> list = pd.findNewPostsLimit3(3);
+        for (Post post : list) {
             System.out.println(post);
         }
     }
@@ -148,6 +148,11 @@ public class PostsDaoTest {
 
     @Test
     public void findByOffsetAndLimit() {
-        List<Posts> postsList = pd.findByOffsetAndLimit(0, 3);
+        List<Post> postList = pd.findByOffsetAndLimit(0, 3);
+    }
+
+    @Test
+    public void countByAuthorId() {
+        Integer integer = pd.countByAuthorId(7L);
     }
 }
