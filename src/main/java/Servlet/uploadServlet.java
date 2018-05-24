@@ -4,7 +4,7 @@ import Service.Impl.PostsServiceImpl;
 import Service.Impl.UserServiceImpl;
 import Service.PostsService;
 import Service.UserService;
-import bean.Posts;
+import bean.Post;
 import bean.User;
 import utils.UUIDUtils;
 
@@ -39,7 +39,7 @@ public class uploadServlet extends HttpServlet {
         user.setAvatar(basePath+file);
         userservice.updateUser(user);
         part.write(paths + "/" + file);
-        List<Posts> postsList = postsService.getPostAuthorId(user.getId());
+        List<Post> postsList = postsService.getPostAuthorId(user.getId());
         req.setAttribute("postsList",postsList);
         req.getRequestDispatcher("jsps/default/user/method_posts.jsp").forward(req,resp);
     }
