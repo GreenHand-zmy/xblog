@@ -4,6 +4,7 @@ import Dao.Impl.PostDaoImpl;
 import Dao.PostDao;
 import Service.PostsService;
 import bean.Posts;
+import utils.PageBean;
 
 import java.util.List;
 
@@ -119,4 +120,14 @@ public class PostsServiceImpl implements PostsService {
         Posts post = pd.getPost(id);
         return post;
     }//按文章id查询
+
+
+    @Override
+    public PageBean<Posts> findByPage(int pageIndex, int limit) {
+        //todo 分页
+/*        pd
+        PageBean<Posts> pageBean = new PageBean<>();
+        pd.findByOffsetAndLimt(limit)*/
+        return null;
+    }
 }
