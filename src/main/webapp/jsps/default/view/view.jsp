@@ -20,12 +20,12 @@
                 <ul class="list-group about-user">
                     <li class="list-group-item user-card">
                         <div class="ava">
-                            <a href="#">
-                                <%--<@showAva user.avatar "img-circle"/>--%>
+                            <a>
+                                <img class="img-circle" src="${ctx}${user.avatar}" width="70px" height="60px" style="margin-top: 15px;">
                             </a>
                         </div>
                         <div class="user-info">
-                            <div class="nk mb10">${sessionScope.user.name}</div>
+                            <div class="nk mb10" >${user.name}</div><br>
                             <div class="mb6">
                                 <a class="btn btn-success btn-xs" href="javascript:void(0);" data-id=""
                                    rel="follow">+ 关注</a>
@@ -34,11 +34,14 @@
                     </li>
                     <li class="list-group-item">
                 <span>
-                    <%--<#if user.signature?? && (user.signature?length > 0) >
-                    ${user.signature}
-                    <#else>
+                    <c:choose>
+                    <c:when test="${user.signature!=null}">
+                        ${user.signature}
+                    </c:when>
+                        <c:otherwise>
                         什么都没留下
-                    </#if>--%>
+                        </c:otherwise>
+                    </c:choose>
                 </span>
                     </li>
                 </ul>
@@ -51,26 +54,27 @@
 
                     <div class="panel-body">
                         <ul class="list-group">
-                            <%--<#list results.content as row>--%>
+                           <c:choose>
+                               <c:when test="${posts!=null}">
                             <li class="list-group-item">
-                                <a href="#" class="remove-padding-left"></a>
+                                <a href="#" class="remove-padding-left">${posts.title}</a>
                                 <span class="meta">
-								${0} 点赞
+								${posts.favors} 点赞
 								<span> ⋅ </span>
                                 ${0} 回复
 								<span> ⋅ </span>
 								<span class="timeago">${0}</span>
       						</span>
                             </li>
-                            <%--</#list>--%>
-
-                            <%--<#if results.content?size == 0>--%>
+                               </c:when>
+                               <c:otherwise>
                             <li class="list-group-item ">
                                 <div class="infos">
                                     <div class="media-heading">该目录下还没有内容!</div>
                                 </div>
                             </li>
-                            <%--</#if>--%>
+                               </c:otherwise>
+                           </c:choose>
                         </ul>
                     </div>
                     <div class="panel-footer">

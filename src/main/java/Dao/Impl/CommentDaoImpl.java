@@ -10,6 +10,12 @@ import java.util.List;
  * Created by lfy on 2018/5/21.
  */
 public class CommentDaoImpl implements CommentDao {
+    @Override
+    public List<Comment> getAllComments() {
+        String sql="SELECT id,author_id authorId,content,created,status,to_id toId FROM mto_comments";
+        return DBUtil.getObjects(sql,Comment.class);
+    }
+
     //根据评论编号得到评论
     @Override
     public Comment getCommentById(long id) {
@@ -45,5 +51,11 @@ public class CommentDaoImpl implements CommentDao {
     public int getCount(long toid) {
         String sql = "SELECT COUNT(*) FROM mto_comments WHERE to_id=?";
         return DBUtil.getCount(sql, null, toid);
+    }
+
+    @Override
+    public int getCount1(long authorId) {
+        String sql="select count(*) from mto_comments where author_id=?";
+        return DBUtil.getCount(sql,null,authorId);
     }
 }

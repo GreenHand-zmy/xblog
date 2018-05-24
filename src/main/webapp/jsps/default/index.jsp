@@ -56,15 +56,13 @@
                                         </div>
                                     </a>
                                     <div class="avatar pull-left">
-                                        <a href="${base}/users/${row.author.id}">
-                                            <img class="media-object img-thumbnail avatar avatar-middle"
-                                                 src="${base + row.author.avatar}">
+                                        <a href="${ctx}/UserServlet?op=toOtherUser&antherId=${post.authorId}">
+                                            <img class="media-object img-thumbnail avatar avatar-middle" src="${ctx}/UserServlet?op=showUserAvatar&authorId=${post.authorId}" width="36px" height="36px">
                                         </a>
                                     </div>
                                     <div class="infos">
                                         <div class="media-heading">
                                                <a href="${ctx}/PostsServlet?op=toPostView&postId=${post.id}"> ${post.title}</a>
-                                                <%--<@classify row/><a href="${base}/view/${row.id}">${row.title}</a>--%>
                                         </div>
                                     </div>
                                 </li>

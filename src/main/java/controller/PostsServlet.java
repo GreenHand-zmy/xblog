@@ -3,7 +3,9 @@ package controller;
 import Dao.Impl.PostDaoImpl;
 import Dao.PostDao;
 import Service.ChannelService;
+import Service.CommentService;
 import Service.Impl.ChannelServiceImpl;
+import Service.Impl.CommentServiceImpl;
 import Service.Impl.PostsServiceImpl;
 import Service.PostsService;
 import bean.Post;
@@ -27,6 +29,7 @@ import java.util.List;
 public class PostsServlet extends HttpServlet {
     private PostsService ps = new PostsServiceImpl();
     private PostsService postsService = new PostsServiceImpl();
+    private CommentService commentService = new CommentServiceImpl();
     private ChannelService channelService = new ChannelServiceImpl();
     private PostDao postDao = new PostDaoImpl();
 
@@ -176,6 +179,9 @@ public class PostsServlet extends HttpServlet {
             Post post = postsService.getPost(postId);
             post.setViews(post.getViews() + 1);
             req.setAttribute("post", post);
+            Long id = post.getAuthorId();
+            int comment = commentService.getCount1(id);
+            int posts =0;
             postDao.updatePostViews(post);
 
             // 转发到展示页面

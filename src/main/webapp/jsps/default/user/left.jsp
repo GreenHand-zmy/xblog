@@ -2,7 +2,7 @@
 <ul class="list-group about-user">
     <li class="list-group-item user-card" >
         <div class="ava">
-            <a href="${base}/users/${user.id}">
+            <a href="${ctx}/UserServlet?op=toOtherUser&antherId=${sessionScope.user.id}">
                 <img src="${sessionScope.user.avatar}" >
             </a>
         </div>
@@ -53,11 +53,6 @@
             <li class="list-group-item">
                 <a href="${base}/user?method=notifies">
                     <i class="icon icon-envelope"></i> 通知
-                    <%--<#if (profile.badgesCount.notifies > 0)>
-                        <span class="label label-danger">${profile.badgesCount.notifies}</span>
-                    <#else>
-                        <span class="label label-default">0</span>
-                    </#if>--%>
                 </a>
             </li>
         </ul>

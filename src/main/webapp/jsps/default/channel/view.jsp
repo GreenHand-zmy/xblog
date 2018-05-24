@@ -91,8 +91,8 @@
                 <ul class="list-group about-user">
                     <li class="list-group-item user-card" >
                         <div class="ava">
-                            <a href="${base}/users/${view.author.id}">
-                                <@showAva view.author.avatar "img-circle"/>
+                            <a href="${ctx}/UserServlet?op=toOtherUser&antherId=${post.authorId}">
+                                <img class="img-circle" src="${ctx}/UserServlet?op=showUserAvatar&authorId=${post.authorId}">
                             </a>
                         </div>
                         <div class="user-info">

@@ -62,7 +62,7 @@
                                     <div class="infos">
                                         <div class="media-heading">
                                             <a href="${ctx}/UserServlet?op=toOtherUser&antherId=${row.id}">
-                                            <img class="img-circle" src="${ctx}/UserServlet?op=showUserAvatar&authorId=${row.id}" width="36px" height="36px">
+                                            <img class="img-circle" src="${ctx}/UserServlet?op=showUserAvatar&authorId=${row.authorId}" width="36px" height="36px">
                                             </a>
                                             <a href="${ctx}/PostsServlet?op=toPostView&postId=${row.id}">${row.title}</a>
                                         </div>
