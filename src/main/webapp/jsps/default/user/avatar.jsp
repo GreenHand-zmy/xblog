@@ -40,7 +40,7 @@
                         </label>
                     </div>
                     <div class="update_ava">
-                        <img src="<@resource src=profile.avatar/>" id="target" alt="[Example]"/>
+                        <img src="${sessionScope.user.avatar}" id="target" alt="[Example]"/>
                     </div>
 
                     <div class="form-group">

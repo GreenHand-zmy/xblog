@@ -16,7 +16,7 @@ public interface UserDao {
     //更新用户信息
     int updateUser(User user);
     //根据ID查询用户
-    User getUser(int id);
+    User getUser(long id);
     //根据用户名查询用户
     User getUser1(String username);
     //查询所有用户

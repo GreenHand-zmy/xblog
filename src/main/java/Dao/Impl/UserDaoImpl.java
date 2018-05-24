@@ -29,7 +29,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public User getUser(int id) {
+    public User getUser(long id) {
         String sql = "select * from mto_users where id=?";
         return DBUtil.getObject(sql, User.class, id);
     }
