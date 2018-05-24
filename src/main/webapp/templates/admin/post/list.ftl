@@ -52,7 +52,7 @@
                                 <span class="label label-warning">顶</span>
                             </#if>
                         </td>
-						<@shiro.hasPermission name="posts:edit">
+						<@shiro.hasPermission name="post:edit">
                         <td class="text-center" align="left">
                             <#if (row.featured == 0)>
                             <a href="javascript:void(0);" class="btn btn-xs btn-default" data-id="${row.id}" rel="featured"

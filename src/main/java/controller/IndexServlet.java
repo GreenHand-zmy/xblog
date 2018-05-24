@@ -7,7 +7,7 @@ import Service.Impl.UserServiceImpl;
 import Service.PostsService;
 import Service.UserService;
 import bean.Channel;
-import bean.Posts;
+import bean.Post;
 import bean.User;
 
 import javax.servlet.ServletException;
@@ -26,10 +26,10 @@ public class IndexServlet extends HttpServlet {
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         List<Channel> channelList = channelService.findAll();
-        List<Posts> postsList = postsService.getAllPosts();
+        List<Post> postList = postsService.getAllPosts();
         List<User> usersList = userservice.getAll();
         req.setAttribute("usersList",usersList);
-        req.setAttribute("postsList", postsList);
+        req.setAttribute("postList", postList);
         req.getSession().setAttribute("channelList", channelList);
         req.getRequestDispatcher("jsps/default/index.jsp").forward(req, resp);
     }

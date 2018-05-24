@@ -32,8 +32,8 @@
                                     <c:forEach items="${postCommentVoList}" var="postComment">
                                         <li class="list-group-item">
                                         <c:choose>
-                                            <c:when test="${postComment.posts != null}">
-                                                <a href="" class="remove-padding-left">${postComment.posts.title}</a>
+                                            <c:when test="${postComment.post != null}">
+                                                <a href="" class="remove-padding-left">${postComment.post.title}</a>
                                             </c:when>
                                             <c:otherwise>
                                                 <a href="javascript:;" class="remove-padding-left">文章已删除</a>

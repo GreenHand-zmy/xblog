@@ -45,7 +45,7 @@
                 </ul>
             </div>
             <div class="panel-footer">
-				<@pager "user?method=posts", page, 5/>
+				<@pager "user?method=post", page, 5/>
             </div>
         </div>
     </div>

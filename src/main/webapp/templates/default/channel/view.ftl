@@ -102,7 +102,7 @@
             <li class="list-group-item">
                 <div class="user-datas">
                     <ul>
-                        <li><strong>${view.author.posts}</strong><span>发布</span></li>
+                        <li><strong>${view.author.post}</strong><span>发布</span></li>
                         <li class="noborder"><strong>${view.author.comments}</strong><span>评论</span></li>
                     </ul>
                 </div>

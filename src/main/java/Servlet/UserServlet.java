@@ -6,8 +6,7 @@ import Service.Impl.PostsServiceImpl;
 import Service.Impl.UserServiceImpl;
 import Service.PostsService;
 import Service.UserService;
-import bean.Comment;
-import bean.Posts;
+import bean.Post;
 import bean.User;
 import vo.PostCommentVo;
 
@@ -62,8 +61,8 @@ public class UserServlet extends HttpServlet {
         } else if ("toMyArticle".equals(op)) {
             //到我的文章
             User user = (User) req.getSession().getAttribute("user");
-            List<Posts> postsList = postsService.getPostAuthorId(user.getId());
-            req.setAttribute("postsList",postsList);
+            List<Post> postList = postsService.getPostAuthorId(user.getId());
+            req.setAttribute("postList", postList);
             req.getRequestDispatcher("jsps/default/user/method_posts.jsp").forward(req, resp);
         } else if ("toMyComment".equals(op)) {
             //到我的评论
