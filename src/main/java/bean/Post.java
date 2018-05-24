@@ -6,7 +6,7 @@ import java.util.Date;
 /**
  * Created by lfy on 2018/5/21.
  */
-public class Posts {
+public class Post {
     private long id;//博客编号
     private long authorId;//作者
     private int comments;//评论数
@@ -21,10 +21,10 @@ public class Posts {
     // 文章内容
     private String content;
 
-    public Posts() {
+    public Post() {
     }
 
-    public Posts(long authorId, int comments, Date created, String editor, int favors, int featured, int channelId, int status, String summary, String tags, String title, int views, int weight, String content) {
+    public Post(long authorId, int comments, Date created, String editor, int favors, int featured, int channelId, int status, String summary, String tags, String title, int views, int weight, String content) {
         this.authorId = authorId;
         this.comments = comments;
         this.created = created;
@@ -38,7 +38,7 @@ public class Posts {
         this.content = content;
     }
 
-    public Posts(long id, int featured, int channelId, int status,  String title, int weight,String content) {
+    public Post(long id, int featured, int channelId, int status, String title, int weight, String content) {
         this.id = id;
         this.featured = featured;
         this.channelId = channelId;
@@ -48,7 +48,7 @@ public class Posts {
         this.content = content;
     }
 
-    public Posts(long id, int favors) {
+    public Post(long id, int favors) {
         this.id = id;
         this.favors = favors;
         this.views = favors;
@@ -154,7 +154,7 @@ public class Posts {
 
     @Override
     public String toString() {
-        return "Posts{" +
+        return "Post{" +
                 "id=" + id +
                 ", authorId=" + authorId +
                 ", comments=" + comments +

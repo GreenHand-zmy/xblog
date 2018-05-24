@@ -3,7 +3,7 @@ package controller;
 
 import Service.Impl.PostsServiceImpl;
 import Service.PostsService;
-import bean.Posts;
+import bean.Post;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -29,32 +29,32 @@ public class ChannelServlet extends HttpServlet{
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         //得到所选频道的内容并按需求排序
         long id=Long.parseLong(req.getParameter("id"));
-        List<Posts> postsList= postsService.getChannelPosts(id);
+        List<Post> postList = postsService.getChannelPosts(id);
         String order=req.getParameter("order");
 
         if("newest".equals(order)){
-            Collections.sort(postsList, new Comparator<Posts>() {
+            Collections.sort(postList, new Comparator<Post>() {
                 @Override
-                public int compare(Posts o1, Posts o2) {
+                public int compare(Post o1, Post o2) {
                     return o2.getCreated().compareTo(o1.getCreated());
                 }
             });
         }else if ("favors".equals(order)){
-            Collections.sort(postsList, new Comparator<Posts>() {
+            Collections.sort(postList, new Comparator<Post>() {
                 @Override
-                public int compare(Posts o1, Posts o2) {
+                public int compare(Post o1, Post o2) {
                     return o2.getFavors()-o1.getFavors();
                 }
             });
         }else if("hottest".equals(order)){
-            Collections.sort(postsList, new Comparator<Posts>() {
+            Collections.sort(postList, new Comparator<Post>() {
                 @Override
-                public int compare(Posts o1, Posts o2) {
+                public int compare(Post o1, Post o2) {
                     return o2.getComments()-o1.getComments();
                 }
             });
         }
-        req.setAttribute("postsList",postsList);
+        req.setAttribute("postList", postList);
 
         req.setAttribute("id",id);
         req.getRequestDispatcher("jsps/default/channel/index.jsp").forward(req,resp);

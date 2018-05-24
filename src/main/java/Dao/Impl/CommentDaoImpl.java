@@ -10,6 +10,12 @@ import java.util.List;
  * Created by lfy on 2018/5/21.
  */
 public class CommentDaoImpl implements CommentDao {
+    @Override
+    public List<Comment> getAllComments() {
+        String sql="SELECT id,author_id authorId,content,created,status,to_id toId FROM mto_comments";
+        return DBUtil.getObjects(sql,Comment.class);
+    }
+
     //根据评论编号得到评论
     @Override
     public Comment getCommentById(long id) {

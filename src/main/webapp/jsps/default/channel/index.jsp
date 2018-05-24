@@ -37,7 +37,7 @@
                     <div class="panel-body remove-padding-horizontal">
 
                         <ul class="list-group row topic-list">
-                            <c:forEach var="row" items="${postsList}">
+                            <c:forEach var="row" items="${postList}">
                                 <li class="list-group-item ">
                                     <a class="reply_count_area hidden-xs pull-right" href="#">
                                         <div class="count_set">
@@ -70,7 +70,7 @@
                                 </li>
                             </c:forEach>
 
-                            <c:if test="${postsList == null||fn:length(postsList)==0}">
+                            <c:if test="${postList == null||fn:length(postList)==0}">
                                 <li class="list-group-item ">
                                     <div class="infos">
                                         <div class="media-heading">该目录下还没有内容!</div>

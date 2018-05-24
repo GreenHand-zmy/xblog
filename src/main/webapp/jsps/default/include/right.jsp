@@ -5,7 +5,7 @@
     </div>
     <div class="panel-body">
         <ul class="list" id="hots">
-            <c:forEach items="${postsList}" var="post">
+            <c:forEach items="${postList}" var="post">
                 <li class="list-group-item ">
                     <a class="reply_count_area hidden-xs pull-right" href="#">
                         <div class="count_set">

@@ -1,5 +1,7 @@
-<#include "/admin/utils/ui.ftl"/>
-<@layout>
+<%--<#include "/admin/utils/ui.ftl"/>
+<@layout>--%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<jsp:include page="/jsps/admin/utils/ui.jsp"/>
 <div class="row">
     <div class="col-md-12 col-sm-12 col-xs-12">
 		<div class="x_panel">
@@ -42,7 +44,7 @@
                             <a href="${base}/view/${row.id}" target="_blank">${row.title}</a>
                         </td>
                         <td>${row.author.username}</td>
-                        <td>${row.created?string('yyyy-MM-dd')}</td>
+                        <%--<td>${row.created?string('yyyy-MM-dd')}</td>--%>
                         <td>${row.views}</td>
                         <td>
                             <#if (row.featured > 0)>
@@ -52,7 +54,7 @@
                                 <span class="label label-warning">顶</span>
                             </#if>
                         </td>
-						<@shiro.hasPermission name="post:edit">
+						<@shiro.hasPermission name="posts:edit">
                         <td class="text-center" align="left">
                             <#if (row.featured == 0)>
                             <a href="javascript:void(0);" class="btn btn-xs btn-default" data-id="${row.id}" rel="featured"
@@ -78,7 +80,7 @@
                                 </a>
                             </#if>
 
-                            <a href="${base}/admin/post/view?id=${row.id}" class="btn btn-xs btn-info">
+                            <a href="${ctx}/PostsServlet?op=toUpPoRootPage&postId=${5}" class="btn btn-xs btn-info">
                                 <i class="fa fa-edit"></i>
                             </a>
                             <a href="javascript:void(0);" class="btn btn-xs btn-default" data-id="${row.id}" rel="delete">
@@ -211,4 +213,4 @@ $(function() {
     });
 })
 </script>
-</@layout>
+<%--</@layout>--%>

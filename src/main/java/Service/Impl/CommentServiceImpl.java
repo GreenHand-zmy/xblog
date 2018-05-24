@@ -5,7 +5,9 @@ import Dao.Impl.CommentDaoImpl;
 import Service.CommentService;
 import Service.PostsService;
 import bean.Comment;
-import bean.Posts;
+import bean.Post;
+import constant.CommentStatusConstant;
+import utils.DBUtil;
 import vo.PostCommentVo;
 
 import java.util.ArrayList;
@@ -43,7 +45,8 @@ public class CommentServiceImpl implements CommentService {
     //根据评论编号删除评论
     @Override
     public int delComment(long id) {
-        int num = commentDao.delComment(id);
+        String sql="UPDATE mto_comments SET `status`=? WHERE id=?";
+        int num = DBUtil.executeUpdate(sql, CommentStatusConstant.DELETED_STATUS,id);
         check(num != 0, "删除评论失败！");
         return num;
     }
@@ -63,6 +66,18 @@ public class CommentServiceImpl implements CommentService {
         return num;
     }
 
+    //查询所有评论
+    @Override
+    public List<Comment> getAllComments() {
+        return commentDao.getAllComments();
+    }
+
+    @Override
+    public int DisComment(long id) {
+        String sql="UPDATE mto_comments SET `status`=? WHERE id=?";
+        return DBUtil.executeUpdate(sql,CommentStatusConstant.DISABLED_STATUS,id);
+    }
+
     @Override
     public List<PostCommentVo> getPostCommentVoByAuthorId(Long authorId) {
         // 根据作者编号查询所有评论
@@ -71,7 +86,7 @@ public class CommentServiceImpl implements CommentService {
         commentList.forEach(comment -> {
             // 根据评论toId查询评论了哪篇文章
             Long toId = comment.getToId();
-            Posts targetPost = postsService.getPost(toId);
+            Post targetPost = postsService.getPost(toId);
             postCommentVoList.add(new PostCommentVo(targetPost, comment));
         });
         return postCommentVoList;
