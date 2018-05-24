@@ -165,7 +165,10 @@ public class PostsServlet extends HttpServlet {
         } else if ("toPostPage".equals(op)) {
             Long id = Long.parseLong(req.getParameter("id"));
             Posts post = postDao.getPost(id);
-            req.setAttribute("post", post);
+            int num = post.getViews()+1;
+            Posts post2 = new Posts(id,post.getViews()+1);
+            postDao.updatePostViews(post2);
+            req.setAttribute("post", post2);
             req.getRequestDispatcher("jsps/default/channel/view.jsp").forward(req, resp);
         } else if ("delPost".equals(op)) {
             long id = Integer.parseInt(req.getParameter("id"));

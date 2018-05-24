@@ -27,8 +27,8 @@
                             <a class="author" href="${base}/users/${view.author.id}">
                                 ${view.author.name}
                             </a>
-                            <abbr class="timeago">${0}</abbr>
-                            ${post.views} 阅读
+                            <abbr class="timeago"></abbr>
+                            ${post.views} 阅读数
 
                         </div>
                         <div class="clearfix"></div>
