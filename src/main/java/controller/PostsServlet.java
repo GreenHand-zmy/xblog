@@ -162,11 +162,6 @@ public class PostsServlet extends HttpServlet {
             addPost(req, resp);
         } else if ("getPost".equals(op)) {
             getPost(req, resp);
-        } else if ("toPostPage".equals(op)) {
-            Long id = Long.parseLong(req.getParameter("id"));
-            Posts post = postDao.getPost(id);
-            req.setAttribute("post", post);
-            req.getRequestDispatcher("jsps/default/channel/view.jsp").forward(req, resp);
         } else if ("delPost".equals(op)) {
             long id = Integer.parseInt(req.getParameter("id"));
             postsService.deletePost(id);
@@ -179,8 +174,10 @@ public class PostsServlet extends HttpServlet {
 
             // 获取文章实体数据
             Posts post = postsService.getPost(postId);
+            post.setViews(post.getViews() + 1);
             req.setAttribute("post", post);
-            // todo 访问一次数据库中访问量加1
+            postDao.updatePostViews(post);
+
             // 转发到展示页面
             req.getRequestDispatcher("jsps/default/channel/view.jsp").forward(req, resp);
         }

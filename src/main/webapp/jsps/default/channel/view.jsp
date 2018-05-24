@@ -28,7 +28,7 @@
                                 ${view.author.name}
                             </a>
                             <abbr class="timeago">${0}</abbr>
-                            ${post.views} 阅读
+                            ${post.views} 阅读数
 
                         </div>
                         <div class="clearfix"></div>

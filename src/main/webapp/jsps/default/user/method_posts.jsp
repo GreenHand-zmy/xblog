@@ -38,6 +38,7 @@
                                                 <span> ⋅ </span>
                                                 ${posts.comments} 回复
                                                 <span> ⋅ </span>
+                                                    ${posts.views} 阅读数
 								                <span class="timeago">${0}</span>
       						                </span>
 

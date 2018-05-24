@@ -9,6 +9,7 @@ import Service.UserService;
 import bean.Comment;
 import bean.Posts;
 import bean.User;
+import vo.PostCommentVo;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -64,8 +65,8 @@ public class UserServlet extends HttpServlet {
         } else if ("toMyComment".equals(op)) {
             //到我的评论
             User user = (User) req.getSession().getAttribute("user");
-            List<Comment> commentsList = commentService.getCommentsByAuthor(user.getId());
-            req.setAttribute("commentsList",commentsList);
+            List<PostCommentVo> postCommentVoList = commentService.getPostCommentVoByAuthorId(user.getId());
+            req.setAttribute("postCommentVoList",postCommentVoList);
             req.getRequestDispatcher("jsps/default/user/method_comments.jsp").forward(req, resp);
         } else if ("toUpdate".equals(op)) {
             //到编辑信息页面

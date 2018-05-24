@@ -27,8 +27,7 @@
                                 <a href="?order=newest" class="active">最近</a>
                             </li>
                             <li data-toggle="tooltip" title="点赞数排序">
-                                <a href="?order=favors"
-                                   class="active">投票</a>
+                                <a href="?order=favors" class="active">投票</a>
                             </li>
                             <li data-toggle="tooltip" title="评论次数排序">
                                 <a href="?order=hottest" class="active">热门</a>
@@ -64,7 +63,7 @@
                                     </div>
                                     <div class="infos">
                                         <div class="media-heading">
-                                               <a href="${ctx}/PostsServlet?op=toPostPage&id=${post.id}"> ${post.title}</a>
+                                               <a href="${ctx}/PostsServlet?op=toPostView&postId=${post.id}"> ${post.title}</a>
                                                 <%--<@classify row/><a href="${base}/view/${row.id}">${row.title}</a>--%>
                                         </div>
                                     </div>
