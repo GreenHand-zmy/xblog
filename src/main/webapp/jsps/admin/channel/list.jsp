@@ -16,12 +16,13 @@
             </div>
             <div class="x_content">
                 <form id="qForm" class="form-inline">
-                    <input type="hidden" name="pn" value="${page.pageNo}" />
+                    <input type="hidden" name="pn" value="${page.pageNo}"/>
                 </form>
             </div>
             <div class="x_content">
                 <table id="dataGrid" class="table table-striped table-bordered b-t">
                     <thead>
+
                     <tr>
                         <th width="80">#</th>
                         <th>名称</th>
@@ -31,21 +32,23 @@
                     </tr>
                     </thead>
                     <tbody>
-                        <#list list as row>
+                    <#list list as row>
+                        <c:forEach items="${channelList}" var="channel">
                         <tr>
-                            <td class="text-center">${row.id}</td>
-                            <td>${row.name}</td>
-                            <td>${row.key}</td>
+                            <td class="text-center">${channel.id}</td>
+                            <td>${channel.name}</td>
+                            <td>${channel.key}</td>
                             <td>
                                 <#if (row.status == 0)>
-                                显示
-                                <#else>
-                                隐藏
+                                    显示
+                                    <#else>
+                                        隐藏
                                 </#if>
                             </td>
                             <td class="text-center">
-                                <a href="${ctx}/PostsServlet?op=toUpChannelPage&channelId=${1}" class="btn btn-xs btn-success">
-                                <i class="fa fa-edit"></i> 修改
+                                <a href="${ctx}/PostsServlet?op=toUpChannelPage&channelId=${1}"
+                                   class="btn btn-xs btn-success">
+                                    <i class="fa fa-edit"></i> 修改
                                 </a>
                                 <a href="javascript:void(0);" class="btn btn-xs btn-white" data-id="${row.id}"
                                    data-action="delete">
@@ -53,8 +56,10 @@
                                 </a>
                             </td>
                         </tr>
-                        </#list>
+                        </c:forEach>
+                    </#list>
                     </tbody>
+
                 </table>
             </div>
         </div>

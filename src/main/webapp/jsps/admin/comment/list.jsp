@@ -35,24 +35,26 @@
                     </tr>
                     </thead>
                     <tbody>
-                        <#list page.content as row>
-                        <tr>
-                            <td>
-                                <input type="checkbox" name="id" value="${row.id}">
-                            </td>
-                            <td class="text-center">${row.id}</td>
-                            <td>${row.content}</td>
-                            <td>${row.toId}</td>
-                            <td>${row.author.username}</td>
-                            <%--<td>${row.created?string('yyyy-MM-dd')}</td>--%>
-                            <td class="text-center" align="left">
-                                <a href="javascript:void(0);" class="btn btn-xs btn-white" data-id="${row.id}"
-                                   data-action="delete">
-                                    <i class="fa fa-bitbucket"></i> 删除
-                                </a>
-                            </td>
-                        </tr>
-                        </#list>
+                    <#list page.content as row>
+                        <c:forEach items="${commentList}" var="comment">
+                            <tr>
+                                <td>
+                                    <input type="checkbox" name="id" value="${comment.id}">
+                                </td>
+                                <td class="text-center">${comment.content}</td>
+                                <td>${comment.content}</td>
+                                <td>${comment.authorId}</td>
+                                <td>${row.author.username}</td>
+                                    <%--<td>${row.created?string('yyyy-MM-dd')}</td>--%>
+                                <td class="text-center" align="left">
+                                    <a href="javascript:void(0);" class="btn btn-xs btn-white" data-id="${row.id}"
+                                       data-action="delete">
+                                        <i class="fa fa-bitbucket"></i> 删除
+                                    </a>
+                                </td>
+                            </tr>
+                        </c:forEach>
+                    </#list>
                     </tbody>
                 </table>
                 <@pager "list" page 5 />
