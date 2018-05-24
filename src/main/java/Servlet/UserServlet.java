@@ -16,7 +16,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
+import java.io.*;
 import java.util.Date;
 import java.util.List;
 
@@ -73,10 +73,31 @@ public class UserServlet extends HttpServlet {
             req.getRequestDispatcher("jsps/default/user/profile.jsp").forward(req, resp);
         } else if ("toUpdateAvatar".equals(op)) {
             //到编辑头像页面
+
             req.getRequestDispatcher("jsps/default/user/avatar.jsp").forward(req, resp);
         } else if ("toUpdatePassword".equals(op)) {
             //到编辑密码页面
             req.getRequestDispatcher("jsps/default/user/password.jsp").forward(req, resp);
+        }else if("toOtherUser".equals(op)){
+            //查看他人主页
+            Long  id= Long.valueOf(req.getParameter("antherId"));
+            User user = userService.getUser(id);
+            req.getSession().setAttribute("user",user);
+            req.getRequestDispatcher("jsps/default/view/view.jsp").forward(req,resp);
+        }else if ("showUserAvatar".equals(op)){
+            // 输出图片
+            long authorId = Long.parseLong(req.getParameter("authorId"));
+            User user = userService.getUser(authorId);
+            File file = new File("D:\\JSPWork\\xblog\\xblog\\target\\xblog"+user.getAvatar());
+            resp.setContentType("image/jpeg");
+            OutputStream out = resp.getOutputStream();
+            FileInputStream input = new FileInputStream(file);
+            byte[] buffer = new byte[1024];
+            int count;
+            while ((count = input.read(buffer)) > 0) {
+                out.write(buffer, 0, count);
+            }
+            input.close();
         }
     }
 

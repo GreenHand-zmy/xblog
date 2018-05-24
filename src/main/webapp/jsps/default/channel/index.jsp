@@ -1,3 +1,5 @@
+<%@ page import="Service.UserService" %>
+<%@ page import="Service.Impl.UserServiceImpl" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="zh-CN">
@@ -59,8 +61,9 @@
                                     </div>
                                     <div class="infos">
                                         <div class="media-heading">
-                                                <%--todo:加上头像<@classify row/>--%>
-
+                                            <a href="${ctx}/UserServlet?op=toOtherUser&antherId=${row.id}">
+                                            <img class="img-circle" src="${ctx}/UserServlet?op=showUserAvatar&authorId=${row.id}" width="36px" height="36px">
+                                            </a>
                                             <a href="${ctx}/PostsServlet?op=toPostView&postId=${row.id}">${row.title}</a>
                                         </div>
                                     </div>

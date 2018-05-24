@@ -44,7 +44,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User getUser(int id) {
+    public User getUser(long id) {
         User user=ud.getUser(id);
         check(user!=null,"该用户不存在");
         return user;

@@ -1,5 +1,10 @@
 package Servlet;
 
+import Service.Impl.UserServiceImpl;
+import Service.UserService;
+import bean.User;
+import utils.UUIDUtils;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -17,15 +22,17 @@ import java.io.IOException;
 @MultipartConfig
 public class uploadServlet extends HttpServlet {
     private String basePath = "/upload/";
-
+    UserService userservice =new UserServiceImpl();
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String path = this.getServletContext().getRealPath("/upload");
         File paths = new File(path);
         Part part = req.getPart("file");
         String fileName = part.getSubmittedFileName();
-//        fileName.substring(fileName.indexOf("."),fileName.length());
-        System.out.println(paths + "/" + fileName);
-        part.write(paths + "/" + fileName);
+        String file= UUIDUtils.getId()+fileName.substring(fileName.indexOf("."),fileName.length());
+        User user= (User) req.getSession().getAttribute("user");
+        user.setAvatar(basePath+file);
+        userservice.updateUser(user);
+        part.write(paths + "/" + file);
     }
 }

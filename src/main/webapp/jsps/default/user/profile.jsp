@@ -24,7 +24,6 @@
             </div>
             <div class="panel-body">
                 <div id="message">
-                <#include "/default/inc/action_message.ftl"/>
                 </div>
                 <div class="tab-pane active" id="profile">
                     <form id="pf" action="/UserServlet?op=update&id=${sessionScope.user.id}" method="post" class="form-horizontal">

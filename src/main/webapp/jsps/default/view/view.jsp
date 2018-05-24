@@ -25,7 +25,7 @@
                             </a>
                         </div>
                         <div class="user-info">
-                            <div class="nk mb10">小豆丁</div>
+                            <div class="nk mb10">${sessionScope.user.name}</div>
                             <div class="mb6">
                                 <a class="btn btn-success btn-xs" href="javascript:void(0);" data-id=""
                                    rel="follow">+ 关注</a>

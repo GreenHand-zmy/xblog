@@ -1,6 +1,7 @@
 package Service;
 
 import bean.Posts;
+import utils.PageBean;
 
 import java.util.List;
 
@@ -23,4 +24,5 @@ public interface PostsService {
     public List<Posts> findNewPostsLimit2(int LIMIT);//根据点赞查询前LIMIT条
     public List<Posts> findNewPostsLimit3(int LIMIT);//根据评论查询前LIMIT条
     public List<Posts> findNewPostsLimit4(int LIMIT);//根据评论查询前LIMIT条
+    PageBean<Posts> findByPage(int pageIndex,int limit);
 }

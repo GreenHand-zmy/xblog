@@ -3,7 +3,7 @@
     <li class="list-group-item user-card" >
         <div class="ava">
             <a href="${base}/users/${user.id}">
-                <@showAva user.avatar "img-circle"/>
+                <img src="${sessionScope.user.avatar}" >
             </a>
         </div>
         <div class="user-info">

@@ -21,10 +21,6 @@ public class UUIDUtils {
         return getId();
     }
 
-    public static void main(String[] args) {
-//		System.out.println(getId());
-        String fileName = "xxx.jpg";
-        String substring = UUIDUtils.getId() + fileName.substring(fileName.indexOf("."), fileName.length());
-        System.out.println(substring);
+
     }
-}
+
