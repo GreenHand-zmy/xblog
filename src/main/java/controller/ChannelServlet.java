@@ -31,6 +31,7 @@ public class ChannelServlet extends HttpServlet{
         long id=Long.parseLong(req.getParameter("id"));
         List<Posts> postsList= postsService.getChannelPosts(id);
         String order=req.getParameter("order");
+
         if("newest".equals(order)){
             Collections.sort(postsList, new Comparator<Posts>() {
                 @Override
@@ -54,7 +55,9 @@ public class ChannelServlet extends HttpServlet{
             });
         }
         req.setAttribute("postsList",postsList);
+
         req.setAttribute("id",id);
         req.getRequestDispatcher("jsps/default/channel/index.jsp").forward(req,resp);
+
     }
 }

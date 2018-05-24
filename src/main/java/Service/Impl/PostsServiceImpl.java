@@ -114,6 +114,14 @@ public class PostsServiceImpl implements PostsService {
         return list;
     }//按文章评论数从多到少查询
 
+    @Override
+    public List<Posts> findNewPostsLimit4(int LIMIT) {
+        List<Posts> list = pd.findNewPostsLimit4(LIMIT);
+        check(list != null, "无查询结果");
+        return list;
+    }//按文章阅读数数从多到少查询
+
+    @Override
     public Posts getPost(Long id) {
         check(id != null, "查找文章必须输入文章编号");
         Posts post = pd.getPost(id);

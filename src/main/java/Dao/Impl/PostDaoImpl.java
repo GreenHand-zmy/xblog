@@ -104,4 +104,10 @@ public class PostDaoImpl implements PostDao {
         String sql = "SELECT id,author_id authorId,channel_id channelId,title,content,views,comments,favors,featured,created,status,weight FROM mto_posts ORDER BY comments DESC LIMIT ?";
         return DBUtil.getObjects(sql, Posts.class, LIMIT);
     }//根据评论查询前LIMIT条
+
+    @Override
+    public List<Posts> findNewPostsLimit4(int LIMIT) {
+        String sql = "SELECT id,author_id authorId,channel_id channelId,title,content,views,comments,favors,featured,created,status,weight FROM mto_posts ORDER BY views DESC LIMIT ?";
+        return DBUtil.getObjects(sql, Posts.class, LIMIT);
+    }//根据阅读数查询前LIMIT条
 }
