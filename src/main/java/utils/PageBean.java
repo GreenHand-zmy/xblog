@@ -23,7 +23,7 @@ public class PageBean<T> {
         this.pageIndex = pageIndex;
     }
 
-    public PageBean(Integer totalRecords, Integer pageSize, Integer pageIndex) {
+    public PageBean(Integer totalRecords, Integer pageIndex, Integer pageSize) {
         this.totalRecords = totalRecords;
         this.pageSize = pageSize;
         this.pageIndex = pageIndex;
