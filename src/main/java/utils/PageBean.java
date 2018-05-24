@@ -12,8 +12,8 @@ public class PageBean<T> {
     // 当前页码
     private Integer pageIndex;
 
-    // 总页数
-    private Integer totalPages;
+//    // 总页数
+    private Integer totalPages = 0;
 
     // 此页数据内容
     private List<T> data;
@@ -63,7 +63,7 @@ public class PageBean<T> {
      * @return
      */
     public Integer getTotalPages() {
-        return totalPages = totalRecords % pageSize == 0 ?
+        return totalRecords % pageSize == 0 ?
                 (totalRecords / pageSize) : (totalRecords / pageSize + 1);
     }
 
@@ -72,7 +72,7 @@ public class PageBean<T> {
      *
      * @return
      */
-    public boolean havePrePage() {
+    public boolean isHavePrePage() {
         return pageIndex > 1;
     }
 
@@ -81,7 +81,7 @@ public class PageBean<T> {
      *
      * @return
      */
-    public boolean haveNextPage() {
+    public boolean isHaveNextPage() {
         return pageIndex < getTotalPages();
     }
 
@@ -91,5 +91,12 @@ public class PageBean<T> {
 
     public void setData(List<T> data) {
         this.data = data;
+    }
+
+
+    public static void main(String[] args) {
+        PageBean<Integer> pageBean = new PageBean<>(1, 1, 9);
+        System.out.println(pageBean.getTotalPages());
+        System.out.println(pageBean.isHavePrePage());
     }
 }

@@ -65,6 +65,14 @@ public interface PostDao {
     Integer countAll();
 
     /**
+     * 根据频道编号查询文章数量
+     *
+     * @param channelId 频道编号
+     * @return
+     */
+    Integer countByChannelId(Long channelId);
+
+    /**
      * 根据作者编号,查找返回数量
      *
      * @param authorId 作者编号
@@ -74,12 +82,15 @@ public interface PostDao {
 
     /**
      * 根据偏移量和限制数量查找文章
+     * 如果频道为空,查找所有文章
+     * 如果频道为空,查找该频道所有文章
      *
-     * @param offset 偏移量
-     * @param limit  限制大小
+     * @param channelId 频道编号
+     * @param offset    偏移量
+     * @param limit     限制大小
      * @return
      */
-    List<Post> findByOffsetAndLimit(Integer offset, Integer limit);
+    List<Post> findByOffsetAndLimit(Long channelId, Integer offset, Integer limit);
 
     /**
      * 查询所有

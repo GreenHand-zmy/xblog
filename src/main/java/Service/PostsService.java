@@ -44,9 +44,19 @@ public interface PostsService {
      *
      * @param pageIndex 页码
      * @param pageSize  页大小
+     * @param channelId 频道编号
      * @return
      */
-    PageBean<Post> findByPage(int pageIndex, int pageSize);
+    PageBean<Post> findByPage(int pageIndex, int pageSize, Long channelId);
+
+    /**
+     * 获取分页数据(默认已制定页大小)
+     *
+     * @param pageIndex 页码
+     * @param channelId 频道编号
+     * @return
+     */
+    PageBean<Post> findByPage(int pageIndex, Long channelId);
 
     /**
      * 返回文章总数

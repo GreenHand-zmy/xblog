@@ -148,11 +148,16 @@ public class PostDaoTest {
 
     @Test
     public void findByOffsetAndLimit() {
-        List<Post> postList = pd.findByOffsetAndLimit(0, 3);
+        List<Post> postList = pd.findByOffsetAndLimit(1L, 0, 10);
     }
 
     @Test
     public void countByAuthorId() {
         Integer integer = pd.countByAuthorId(7L);
+    }
+
+    @Test
+    public void countByChannelId() {
+        Integer count = pd.countByChannelId(1L);
     }
 }

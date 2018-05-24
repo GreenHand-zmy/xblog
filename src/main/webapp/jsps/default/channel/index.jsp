@@ -7,7 +7,6 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'/>
-
     <jsp:include page="../include/include.jsp"/>
 </head>
 <!-- header -->
@@ -22,13 +21,13 @@
                     <div class="panel-heading">
                         <ul class="list-inline topic-filter">
                             <li data-toggle="tooltip" title="发布时间排序">
-                                <a href="${ctx}/ChannelServlet?order=newest&id=${id}">最近</a>
+                                <a href="${ctx}/ChannelServlet?op=toChannelPage&channelId=${channelId}&orderBy=date">最近</a>
                             </li>
                             <li data-toggle="tooltip" title="点赞数排序">
-                                <a href="${ctx}/ChannelServlet?order=favors&id=${id}">投票</a>
+                                <a href="${ctx}/ChannelServlet?op=toChannelPage&channelId=${channelId}&orderBy=favors">投票</a>
                             </li>
                             <li data-toggle="tooltip" title="评论次数排序">
-                                <a href="${ctx}/ChannelServlet?order=hottest&id=${id}">热门</a>
+                                <a href="${ctx}/ChannelServlet?op=toChannelPage&channelId=${channelId}&orderBy=comments">热门</a>
                             </li>
                         </ul>
                         <div class="clearfix"></div>
@@ -37,52 +36,85 @@
                     <div class="panel-body remove-padding-horizontal">
 
                         <ul class="list-group row topic-list">
-                            <c:forEach var="row" items="${postList}">
-                                <li class="list-group-item ">
-                                    <a class="reply_count_area hidden-xs pull-right" href="#">
-                                        <div class="count_set">
+                            <c:choose>
+                                <c:when test="${pageBean.data != null && fn:length(pageBean.data) > 0}">
+                                    <c:forEach var="post" items="${pageBean.data}">
+                                        <li class="list-group-item ">
+                                            <a class="reply_count_area hidden-xs pull-right" href="#">
+                                                <div class="count_set">
                                             <span class="count_of_votes" data-toggle="tooltip"
-                                                  title="阅读数">${row.views}</span>
-                                            <span class="count_seperator">/</span>
-                                            <span class="count_of_replies" data-toggle="tooltip"
-                                                  title="回复数">${row.comments}</span>
-                                            <span class="count_seperator">/</span>
-                                            <span class="count_of_visits" data-toggle="tooltip"
-                                                  title="点赞数">${row.favors}</span>
-                                            <span class="count_seperator">|</span>
-                                            <abbr class="timeago">${0}</abbr>
-                                        </div>
-                                    </a>
-                                    <div class="avatar pull-left">
-                                            <%--<a href="${base}/users/${row.author.id}">
-                                                <img class="media-object img-thumbnail avatar avatar-middle"
-                                                     src="${base + row.author.avatar}">
-                                            </a>--%>
-                                    </div>
-                                    <div class="infos">
-                                        <div class="media-heading">
-                                            <a href="${ctx}/UserServlet?op=toOtherUser&antherId=${row.id}">
-                                            <img class="img-circle" src="${ctx}/UserServlet?op=showUserAvatar&authorId=${row.authorId}" width="36px" height="36px">
+                                                  title="阅读数">${post.views}</span>
+                                                    <span class="count_seperator">/</span>
+                                                    <span class="count_of_replies" data-toggle="tooltip"
+                                                          title="回复数">${post.comments}</span>
+                                                    <span class="count_seperator">/</span>
+                                                    <span class="count_of_visits" data-toggle="tooltip"
+                                                          title="点赞数">${post.favors}</span>
+                                                    <span class="count_seperator">|</span>
+                                                    <abbr class="timeago">${0}</abbr>
+                                                </div>
                                             </a>
-                                            <a href="${ctx}/PostsServlet?op=toPostView&postId=${row.id}">${row.title}</a>
+                                            <div class="avatar pull-left">
+                                                    <%--<a href="${base}/users/${row.author.id}">
+                                                        <img class="media-object img-thumbnail avatar avatar-middle"
+                                                             src="${base + row.author.avatar}">
+                                                    </a>--%>
+                                            </div>
+                                            <div class="infos">
+                                                <div class="media-heading">
+                                                    <a href="${ctx}/UserServlet?op=toOtherUser&antherId=${post.id}">
+                                                        <img class="img-circle"
+                                                             src="${ctx}/UserServlet?op=showUserAvatar&authorId=${post.authorId}"
+                                                             width="36px" height="36px">
+                                                    </a>
+                                                    <a href="${ctx}/PostsServlet?op=toPostView&postId=${post.id}">${post.title}${pageBean.totalPages}</a>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </c:forEach>
+                                </c:when>
+                                <c:otherwise>
+                                    <li class="list-group-item ">
+                                        <div class="infos">
+                                            <div class="media-heading">该目录下还没有内容!</div>
                                         </div>
-                                    </div>
-                                </li>
-                            </c:forEach>
-
-                            <c:if test="${postList == null||fn:length(postList)==0}">
-                                <li class="list-group-item ">
-                                    <div class="infos">
-                                        <div class="media-heading">该目录下还没有内容!</div>
-                                    </div>
-                                </li>
-                            </c:if>
+                                    </li>
+                                </c:otherwise>
+                            </c:choose>
                         </ul>
                     </div>
 
                     <div class="panel-footer text-right remove-padding-horizontal pager-footer">
                         <!-- Pager -->
                         <%--todo:分页<@pager request.requestURI!"", results, 5/>--%>
+                        <ul class="pagination">
+                            <%-- 如果有上一页则显示可用的按钮,否则显示不可用的按钮--%>
+                            <c:choose>
+                                <c:when test="${pageBean.havePrePage}">
+                                    <li><a href="${0}${0}" pageNo="${0}" class="prev">上一页</a></li>
+                                </c:when>
+                                <c:otherwise>
+                                    <li class="disabled"><span>上一页</span></li>
+                                </c:otherwise>
+                            </c:choose>
+
+                            <%--打印页码--%>
+                            <c:forEach var="i" begin="1" step="1" end="${totalPages}" >
+                                <li>
+                                    <a href="${ctx}/ChannelServlet?op=toChannelPageWithPageIndex&channelId=${channelId}&orderBy=date&pageIndex=${i}">${i}</a>
+                                </li>
+                            </c:forEach>
+
+                            <%-- 如果有下一页则显示可用的按钮,否则显示不可用的按钮--%>
+                            <c:choose>
+                                <c:when test="${pageBean.haveNextPage}">
+                                    <li><a href="${0}${0}" pageNo="${0}" class="next">下一页</a></li>
+                                </c:when>
+                                <c:otherwise>
+                                    <li class="disabled"><span>下一页</span></li>
+                                </c:otherwise>
+                            </c:choose>
+                        </ul>
                     </div>
                 </div>
 

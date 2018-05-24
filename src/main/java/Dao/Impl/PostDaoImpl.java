@@ -13,6 +13,7 @@ import java.util.List;
 public class PostDaoImpl implements PostDao {
     /**
      * 添加文章
+     *
      * @param post 文章实体
      * @return
      */
@@ -25,6 +26,7 @@ public class PostDaoImpl implements PostDao {
 
     /**
      * 修改文章
+     *
      * @param post 文章实体
      * @return
      */
@@ -37,6 +39,7 @@ public class PostDaoImpl implements PostDao {
 
     /**
      * 按照文章id修改点赞数
+     *
      * @param post 文章实体
      * @return
      */
@@ -49,6 +52,7 @@ public class PostDaoImpl implements PostDao {
 
     /**
      * 按照文章id修改阅读数
+     *
      * @param post 文章实体
      * @return
      */
@@ -61,6 +65,7 @@ public class PostDaoImpl implements PostDao {
 
     /**
      * 按照文章id修改评论数
+     *
      * @param post 文章实体
      * @return
      */
@@ -73,6 +78,7 @@ public class PostDaoImpl implements PostDao {
 
     /**
      * 根据文章id删除文章
+     *
      * @param Id 文章编号
      * @return
      */
@@ -84,6 +90,7 @@ public class PostDaoImpl implements PostDao {
 
     /**
      * 根据作者编号查询
+     *
      * @param authorId 作者编号
      * @return
      */
@@ -95,6 +102,7 @@ public class PostDaoImpl implements PostDao {
 
     /**
      * 根据文章标题模糊查询
+     *
      * @param title 文章标题
      * @return
      */
@@ -106,6 +114,7 @@ public class PostDaoImpl implements PostDao {
 
     /**
      * 查询所有
+     *
      * @return
      */
     @Override
@@ -117,6 +126,7 @@ public class PostDaoImpl implements PostDao {
 
     /**
      * 根据频道id查询所有文章
+     *
      * @param channel 频道号
      * @return
      */
@@ -128,6 +138,7 @@ public class PostDaoImpl implements PostDao {
 
     /**
      * 查询id是否存在
+     *
      * @param id
      * @return
      */
@@ -138,9 +149,9 @@ public class PostDaoImpl implements PostDao {
     }
 
 
-
     /**
      * 根据id查询
+     *
      * @param id 文章编号
      * @return
      */
@@ -152,6 +163,7 @@ public class PostDaoImpl implements PostDao {
 
     /**
      * 根据时间查询前LIMIT条
+     *
      * @param LIMIT 条数
      * @return
      */
@@ -164,6 +176,7 @@ public class PostDaoImpl implements PostDao {
 
     /**
      * 根据点赞查询前LIMIT条
+     *
      * @param LIMIT 条数
      * @return
      */
@@ -175,6 +188,7 @@ public class PostDaoImpl implements PostDao {
 
     /**
      * 根据评论查询前LIMIT条
+     *
      * @param LIMIT 条数
      * @return
      */
@@ -187,6 +201,7 @@ public class PostDaoImpl implements PostDao {
 
     /**
      * 根据阅读数查询前LIMIT条
+     *
      * @param LIMIT 条数
      * @return
      */
@@ -198,12 +213,19 @@ public class PostDaoImpl implements PostDao {
 
     /**
      * 计算总
+     *
      * @return
      */
     @Override
     public Integer countAll() {
         String sql = "select count(*) from " + TableNameConstant.POST_TABLE;
         return DBUtil.getCount(sql, Integer.class);
+    }
+
+    @Override
+    public Integer countByChannelId(Long channelId) {
+        String sql = "select count(*) from " + TableNameConstant.POST_TABLE + " where channel_id = ?";
+        return DBUtil.getCount(sql, Integer.class, channelId);
     }
 
     @Override
@@ -215,11 +237,19 @@ public class PostDaoImpl implements PostDao {
     }
 
     @Override
-    public List<Post> findByOffsetAndLimit(Integer offset, Integer limit) {
-        String sql = "SELECT id,author_id authorId,channel_id channelId,title,content,views," +
-                "comments,favors,featured,created,status,weight " +
-                "from " + TableNameConstant.POST_TABLE + " limit ?,?";
+    public List<Post> findByOffsetAndLimit(Long channelId, Integer offset, Integer limit) {
+        String sql;
+        if (channelId != null) {
+            sql = "SELECT id,author_id authorId,channel_id channelId,title,content,views," +
+                    "comments,favors,featured,created,status,weight " +
+                    "from " + TableNameConstant.POST_TABLE + " where channel_id = ?" + " order by created desc limit ?,?";
+            return DBUtil.getObjects(sql, Post.class, channelId, offset, limit);
+        } else {
+            sql = "SELECT id,author_id authorId,channel_id channelId,title,content,views," +
+                    "comments,favors,featured,created,status,weight " +
+                    "from " + TableNameConstant.POST_TABLE + " order by created desc limit ?,?";
+            return DBUtil.getObjects(sql, Post.class, offset, limit);
+        }
 
-        return DBUtil.getObjects(sql, Post.class, offset, limit);
     }
 }

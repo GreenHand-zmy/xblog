@@ -18,6 +18,7 @@ public class PostsServiceImpl implements PostsService {
 
     /**
      * 添加文章
+     *
      * @param post 文章实体
      * @return
      */
@@ -36,6 +37,7 @@ public class PostsServiceImpl implements PostsService {
 
     /**
      * 更新文章
+     *
      * @param post 文章实体
      * @return
      */
@@ -52,6 +54,7 @@ public class PostsServiceImpl implements PostsService {
 
     /**
      * 删除文章
+     *
      * @param id
      * @return
      */
@@ -65,6 +68,7 @@ public class PostsServiceImpl implements PostsService {
 
     /**
      * 修改文章点赞数
+     *
      * @param post 文章实体
      * @return
      */
@@ -76,6 +80,7 @@ public class PostsServiceImpl implements PostsService {
 
     /**
      * 修改文章阅读数
+     *
      * @param post 文章实体
      * @return
      */
@@ -87,6 +92,7 @@ public class PostsServiceImpl implements PostsService {
 
     /**
      * 修改文章评论数
+     *
      * @param post 文章实体
      * @return
      */
@@ -98,6 +104,7 @@ public class PostsServiceImpl implements PostsService {
 
     /**
      * 按文章标题查找
+     *
      * @param title 标题
      * @return
      */
@@ -110,6 +117,7 @@ public class PostsServiceImpl implements PostsService {
 
     /**
      * 按文章作者id查找
+     *
      * @param authorId 作者id
      * @return
      */
@@ -122,6 +130,7 @@ public class PostsServiceImpl implements PostsService {
 
     /**
      * 按文章栏目查询
+     *
      * @param channel 栏目
      * @return
      */
@@ -134,6 +143,7 @@ public class PostsServiceImpl implements PostsService {
 
     /**
      * 查询所有文章
+     *
      * @return
      */
     @Override
@@ -145,6 +155,7 @@ public class PostsServiceImpl implements PostsService {
 
     /**
      * 按文章时间顺序查询
+     *
      * @param LIMIT 条数
      * @return
      */
@@ -157,6 +168,7 @@ public class PostsServiceImpl implements PostsService {
 
     /**
      * 按文章点赞数从多到少查询
+     *
      * @param LIMIT 条数
      * @return
      */
@@ -169,6 +181,7 @@ public class PostsServiceImpl implements PostsService {
 
     /**
      * 按文章评论数从多到少查询
+     *
      * @param LIMIT 条数
      * @return
      */
@@ -181,6 +194,7 @@ public class PostsServiceImpl implements PostsService {
 
     /**
      * 按文章阅读数数从多到少查询
+     *
      * @param LIMIT 条数
      * @return
      */
@@ -193,6 +207,7 @@ public class PostsServiceImpl implements PostsService {
 
     /**
      * 按文章id查询
+     *
      * @param id 文章id
      * @return
      */
@@ -203,22 +218,27 @@ public class PostsServiceImpl implements PostsService {
         return post;
     }
 
-    /**
-     * 分页
-     * @param pageIndex 页码
-     * @param pageSize  页大小
-     * @return
-     */
     @Override
-    public PageBean<Post> findByPage(int pageIndex, int pageSize) {
-        //todo 分页
-        // 查询数据总数
-        Integer totalRecords = postDao.countAll();
+    public PageBean<Post> findByPage(int pageIndex, int pageSize, Long channelId) {
+        Integer totalRecords;
+        // 如果频道不为空查找该频道下所有文章的数量
+        if (channelId != null) {
+            totalRecords = postDao.countByChannelId(channelId);
+        }
+        // 如果为空查询所有文章的数量
+        else {
+            totalRecords = postDao.countAll();
+        }
         // 构造分页对象
         PageBean<Post> pageBean = new PageBean<>(totalRecords, pageIndex, pageSize);
         // 查询数据库并将数据注入到分页对象中
-        pageBean.setData(postDao.findByOffsetAndLimit(pageBean.getOffset(), pageBean.getPageSize()));
+        pageBean.setData(postDao.findByOffsetAndLimit(channelId, pageBean.getOffset(), pageBean.getPageSize()));
         return pageBean;
+    }
+
+    @Override
+    public PageBean<Post> findByPage(int pageIndex, Long channelId) {
+        return findByPage(pageIndex, 2, channelId);
     }
 
     @Override
