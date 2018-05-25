@@ -67,9 +67,6 @@
                 confirm : function() {
                     return $(this).val() == $('#password').val();
                 },
-                email : function() {
-                    return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test($(this).val());
-                },
                 username : function() {
                     return /^[a-z][a-z_0-9]{4,18}$/i.test($(this).val());
                 }

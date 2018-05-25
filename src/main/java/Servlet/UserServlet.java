@@ -63,8 +63,8 @@ public class UserServlet extends HttpServlet {
         } else if ("toMyPage".equals(op)) {
             //到我的主页
             User user = (User) req.getSession().getAttribute("user");
-            List<Post> postsList = postsService.getPostAuthorId(user.getId());
-            req.setAttribute("postsList", postsList);
+            List<Post> postList = postsService.getPostAuthorId(user.getId());
+            req.setAttribute("postList", postList);
             req.getRequestDispatcher("jsps/default/user/method_posts.jsp").forward(req, resp);
         } else if ("toMyArticle".equals(op)) {
             //到我的文章

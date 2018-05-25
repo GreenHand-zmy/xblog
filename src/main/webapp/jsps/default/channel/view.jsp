@@ -96,7 +96,7 @@
                             </a>
                         </div>
                         <div class="user-info">
-                            <div class="nk mb10">${view.author.name}</div>
+                            <div class="nk mb10">${user.name}</div>
                             <div class="mb6">
                                 <a class="btn btn-default btn-xs" href="javascript:void(0);" data-id="${view.author.id}" rel="follow"><i class="icon icon-user-follow"></i> 关注</a>
                             </div>
@@ -106,8 +106,8 @@
                     <li class="list-group-item">
                         <div class="user-datas">
                             <ul>
-                                <li><strong>${view.author.post}</strong><span>发布</span></li>
-                                <li class="noborder"><strong>${view.author.comments}</strong><span>评论</span></li>
+                                <li><strong>${posts}</strong><span>发布</span></li>
+                                <li class="noborder"><strong>${comment}</strong><span>评论</span></li>
                             </ul>
                         </div>
                     </li>

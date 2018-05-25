@@ -24,7 +24,6 @@
                     <div class="panel-heading">
                         我的文章
                     </div>
-
                     <div class="panel-body">
                         <ul class="list-group">
                             <c:choose>

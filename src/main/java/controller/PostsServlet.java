@@ -11,10 +11,14 @@ import Service.CommentService;
 import Service.Impl.ChannelServiceImpl;
 import Service.Impl.CommentServiceImpl;
 import Service.Impl.PostsServiceImpl;
+import Service.Impl.UserServiceImpl;
 import Service.PostsService;
+import Service.UserService;
 import bean.Channel;
 import bean.Post;
 import bean.User;
+import utils.JsonUtil;
+import utils.ResultBean;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -36,6 +40,7 @@ public class PostsServlet extends HttpServlet {
     private PostsService postsService = new PostsServiceImpl();
     private CommentService commentService = new CommentServiceImpl();
     private ChannelService channelService = new ChannelServiceImpl();
+    private UserService userService = new UserServiceImpl();
     private PostDao postDao = new PostDaoImpl();
     private UserDao userDao = new UserDaoImpl();
     private ChannelDao channelDao = new ChannelDaoImpl();
@@ -173,7 +178,12 @@ public class PostsServlet extends HttpServlet {
             addPost(req, resp);
         } else if ("getPost".equals(op)) {
             getPost(req, resp);
-        } else if ("delPost".equals(op)) {
+        }else if("ajaxGetNewPosts".equals(op)){
+            getNewPosts(req,resp);
+        }else if("ajaxGetHostPosts".equals(op)){
+        getHostPosts(req,resp);
+        }
+        else if ("delPost".equals(op)) {
             long id = Integer.parseInt(req.getParameter("id"));
             postsService.deletePost(id);
             req.getRequestDispatcher("jsps/default/user/method_posts.jsp").forward(req, resp);
@@ -187,8 +197,12 @@ public class PostsServlet extends HttpServlet {
             post.setViews(post.getViews() + 1);
             req.setAttribute("post", post);
             Long id = post.getAuthorId();
+            User user = userService.getUser(id);
+            req.setAttribute("user",user);
             int comment = commentService.getCount1(id);
-            int posts = 0;
+            req.setAttribute("comment",comment);
+            int posts = postsService.countByAuthorId(id);
+            req.setAttribute("posts",posts);
             postDao.updatePostViews(post);
 
             // 转发到展示页面
@@ -219,6 +233,32 @@ public class PostsServlet extends HttpServlet {
             Channel channel = channelDao.findById(id);
             req.setAttribute("channel", channel);
             req.getRequestDispatcher("jsps/admin/channel/view.jsp").forward(req, resp);
+        }
+    }
+
+    private void getHostPosts(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        PrintWriter writer=null;
+        try {
+            int limit = Integer.parseInt(req.getParameter("limit"));
+            List<Post> postList = postsService.findNewPostsLimit3(limit);
+            resp.setContentType("application/json;charset=utf-8");
+            writer = resp.getWriter();
+            writer.write(JsonUtil.objectToJson(new ResultBean<>().success(postList)));
+        }catch (RuntimeException e){
+            writer.write(JsonUtil.objectToJson(new ResultBean<>().fail(e.getMessage())));
+        }
+    }
+
+    private void getNewPosts(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        PrintWriter writer = null;
+        try{
+            int  limit = Integer.parseInt(req.getParameter("limit"));
+            List<Post> postList = postsService.findNewPostsLimit(limit);
+            resp.setContentType("application/json;charset=utf-8");
+            writer = resp.getWriter();
+            writer.write(JsonUtil.objectToJson(new ResultBean<>().success(postList)));
+        }catch (RuntimeException e){
+            writer.write(JsonUtil.objectToJson(new ResultBean<>().fail(e.getMessage())));
         }
     }
 }
