@@ -41,4 +41,11 @@ public interface ChannelDao {
 
     //查询频道是否存在
     int isExits(String name);
+
+    /**
+     * 删除频道
+     * @param Id 频道id
+     * @return
+     */
+    int deleteChannel(Long Id);
 }

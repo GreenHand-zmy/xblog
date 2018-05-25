@@ -132,7 +132,8 @@ public class PostsServlet extends HttpServlet {
         post.setContent(content);
         // 写入到数据库中
         postsService.updatePost(post);
-        resp.sendRedirect("ChannelServlet?id=" + post.getChannelId());
+       /* resp.sendRedirect("ChannelServlet?id=" + post.getChannelId());*/
+        req.getRequestDispatcher("jsps/default/user/method_posts.jsp").forward(req,resp);
     }
 
     @Override
@@ -196,7 +197,7 @@ public class PostsServlet extends HttpServlet {
         // 后台修改文章
         else if ("toUpPoRootPage".equals(op)) {
             // 通过文章编号获取文章
-            long id = Integer.parseInt(req.getParameter("postId"));
+            long id = Integer.parseInt(req.getParameter("id"));
             Post post = postDao.getPost(id);
             req.setAttribute("post", post);
             req.getRequestDispatcher("jsps/admin/post/update.jsp").forward(req, resp);

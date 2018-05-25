@@ -12,27 +12,27 @@
             <div class="x_content">
                 <br>
 				<#include "/admin/message.ftl">
-                <form id="qForm" class="form-horizontal form-label-left" method="post" action="update">
+                <form id="qForm" class="form-horizontal form-label-left" method="post" action="${ctx}/BgServlet?op=updateChannel&id=${channel.id}">
                     <#if view??>
-                    <input type="hidden" name="id" value="${view.id}" />
+                    <input type="hidden" name="id" value="${channel.id}" />
                     </#if>
 
                     <div class="form-group">
                         <label class="col-lg-3 control-label">名称：</label>
                         <div class="col-lg-4">
-                            <input type="text" name="name" class="form-control" value="${view.name}">
+                            <input type="text" name="name" class="form-control" value="${channel.name}">
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-lg-3 control-label">唯一标识：</label>
                         <div class="col-lg-4">
-                            <input type="text" name="key" class="form-control" value="${view.key}">
+                            <input type="text" name="key" class="form-control" value="${channel.key}">
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-lg-3 control-label">导航栏状态：</label>
                         <div class="col-lg-4">
-                            <select name="status" class="form-control" data-select="${view.status}">
+                            <select name="status" class="form-control" data-select="${channel.status}">
                                 <option value="0">显示</option>
                                 <option value="1">隐藏</option>
                             </select>

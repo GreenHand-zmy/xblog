@@ -42,7 +42,7 @@
                                     <input type="checkbox" name="id" value="${row.id}">
                                 </td>
                                 <td>
-                                    <a href="${base}/view/${row.id}" target="_blank">${post.title}</a>
+                                    <a href="${ctx}/PostsServlet?op=getPost&id=${post.id}" target="_blank">${post.title}</a>
                                 </td>
                                 <td>${post.authorId}</td>
                                     <%--<td>${row.created?string('yyyy-MM-dd')}</td>--%>
@@ -86,11 +86,12 @@
                                             </a>
                                     </#if>
 
-                                    <a href="${ctx}/PostsServlet?op=toUpPoRootPage&postId=${5}"
+                                    <a href="${ctx}/PostsServlet?op=toUpPoRootPage&id=${post.id}"
                                        class="btn btn-xs btn-info">
                                         <i class="fa fa-edit"></i>
                                     </a>
-                                    <a href="javascript:void(0);" class="btn btn-xs btn-default" data-id="${row.id}"
+                                    <a href="${ctx}/PostsServlet?op=delPost&id=${post.id}"
+                                       class="btn btn-xs btn-default" data-id="${row.id}"
                                        rel="delete">
                                         <i class="fa fa-trash-o"></i>
                                     </a>

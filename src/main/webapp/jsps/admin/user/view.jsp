@@ -13,12 +13,12 @@
                 <br>
 				<#include "/admin/message.ftl">
                 <form id="qForm" class="form-horizontal form-label-left" method="post" action="update_role">
-                    <input type="hidden" name="id" value="${view.id}" />
+                    <input type="hidden" name="id" value="${user.id}" />
 
                     <div class="form-group">
                         <label class="col-lg-2 control-label">用户名</label>
                         <div class="col-lg-8">
-                            <input class="form-control" type="text" value="${view.username}" disabled style="width:200px;">
+                            <input class="form-control" type="text" value="${user.username}" disabled style="width:200px;">
                         </div>
                     </div>
                     <div class="form-group">

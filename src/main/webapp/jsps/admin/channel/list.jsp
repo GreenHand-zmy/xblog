@@ -46,11 +46,12 @@
                                 </#if>
                             </td>
                             <td class="text-center">
-                                <a href="${ctx}/PostsServlet?op=toUpChannelPage&channelId=${1}"
+                                <a href="${ctx}/PostsServlet?op=toUpChannelPage&channelId=${channel.id}"
                                    class="btn btn-xs btn-success">
                                     <i class="fa fa-edit"></i> 修改
                                 </a>
-                                <a href="javascript:void(0);" class="btn btn-xs btn-white" data-id="${row.id}"
+                                <a href="${ctx}/BgServlet?op=delChannel&id=${channel.id}"
+                                   class="btn btn-xs btn-white" data-id="${row.id}"
                                    data-action="delete">
                                     <i class="fa fa-bitbucket"></i> 删除
                                 </a>

@@ -12,11 +12,11 @@
             <div class="x_content">
                 <br>
 				<#include "/admin/message.ftl">
-                <form id="qForm" class="form-horizontal form-label-left" method="post">
+                <form id="qForm" class="form-horizontal form-label-left" method="post" action="${ctx}/BgServlet?op=updatePwdUser&id=${user.id}>
                     <div class="form-group">
-                        <p>设置  ${view.username} 的新密码:</p>
+                        <p>设置  ${user.username} 的新密码:</p>
                         <div style="width: 260px;">
-                            <input type="text" class="input-small form-control" data-required="true" name="newPassword" placeholder="新密码">
+                            <input type="text" class="input-small form-control" data-required="true" name="newPassword" placeholder="新密码" value="${user.password}">
                         </div>
                     </div>
                     <div class="actions m-t">
