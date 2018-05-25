@@ -5,6 +5,7 @@ import Service.Impl.PostsServiceImpl;
 import Service.PostsService;
 import bean.Post;
 import utils.PageBean;
+import utils.StringUtil;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -27,54 +28,17 @@ public class ChannelServlet extends HttpServlet {
 
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        //得到所选频道的内容并按需求排序
-//        long id = Long.parseLong(req.getParameter("id"));
-        long id = 1;
-        String order = req.getParameter("order");
+
         String op = req.getParameter("op");
 
-        if ("newest".equals(order)) {
-            List<Post> postList = postsService.getChannelPosts(id);
-            Collections.sort(postList, new Comparator<Post>() {
-                @Override
-                public int compare(Post o1, Post o2) {
-                    return o2.getCreated().compareTo(o1.getCreated());
-                }
-            });
-            req.setAttribute("postList", postList);
-            req.setAttribute("id", id);
-            req.getRequestDispatcher("jsps/default/channel/index.jsp").forward(req, resp);
-        } else if ("favors".equals(order)) {
-            List<Post> postList = postsService.getChannelPosts(id);
-            Collections.sort(postList, new Comparator<Post>() {
-                @Override
-                public int compare(Post o1, Post o2) {
-                    return o2.getFavors() - o1.getFavors();
-                }
-            });
-            req.setAttribute("postList", postList);
-            req.setAttribute("id", id);
-            req.getRequestDispatcher("jsps/default/channel/index.jsp").forward(req, resp);
-        } else if ("hottest".equals(order)) {
-            List<Post> postList = postsService.getChannelPosts(id);
-            Collections.sort(postList, new Comparator<Post>() {
-                @Override
-                public int compare(Post o1, Post o2) {
-                    return o2.getComments() - o1.getComments();
-                }
-            });
-            req.setAttribute("postList", postList);
-            req.setAttribute("id", id);
-            req.getRequestDispatcher("jsps/default/channel/index.jsp").forward(req, resp);
-        } else if ("toPage".equals(op)) {
-            int pageIndex = Integer.parseInt(req.getParameter("pageIndex"));
-            PageBean<Post> pageBean = postsService.findByPage(pageIndex, 10, id);
-            req.setAttribute("pageBean", pageBean);
-            req.getRequestDispatcher("jsps/default/channel/index.jsp").forward(req, resp);
-        } else if ("toChannelPage".equals(op)) {
+        if ("toChannelPage".equals(op)) {
             // /ChannelServlet?op=toChannelPage&channelId=${channel.id}&orderBy=date
+            Long channelId = null;
             // 获取频道编号
-            long channelId = Long.parseLong(req.getParameter("channelId"));
+            String channelIdAsString = req.getParameter("channelId");
+            if (StringUtil.isNotEmpty(channelIdAsString)){
+                channelId = Long.parseLong(channelIdAsString);
+            }
 
             // 获取分页对象
             PageBean<Post> pageBean = postsService.findByPage(1, channelId);
@@ -90,8 +54,13 @@ public class ChannelServlet extends HttpServlet {
             req.setAttribute("totalPages", pageBean.getTotalPages());
             req.getRequestDispatcher("jsps/default/channel/index.jsp").forward(req, resp);
         } else if ("toChannelPageWithPageIndex".equals(op)) {
+            Long channelId = null;
             // 获取频道编号
-            long channelId = Long.parseLong(req.getParameter("channelId"));
+            String channelIdAsString = req.getParameter("channelId");
+            if (StringUtil.isNotEmpty(channelIdAsString)){
+                channelId = Long.parseLong(channelIdAsString);
+            }
+
             // 获取页码
             int pageIndex = Integer.parseInt(req.getParameter("pageIndex"));
 
@@ -106,6 +75,7 @@ public class ChannelServlet extends HttpServlet {
             req.setAttribute("channelId", channelId);
             req.setAttribute("orderBy", orderBy);
             req.setAttribute("pageBean", pageBean);
+            req.setAttribute("totalPages", pageBean.getTotalPages());
             req.getRequestDispatcher("jsps/default/channel/index.jsp").forward(req, resp);
         }
     }

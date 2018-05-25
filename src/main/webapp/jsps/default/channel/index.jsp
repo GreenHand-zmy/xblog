@@ -1,5 +1,3 @@
-<%@ page import="Service.UserService" %>
-<%@ page import="Service.Impl.UserServiceImpl" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="zh-CN">
@@ -67,7 +65,7 @@
                                                              src="${ctx}/UserServlet?op=showUserAvatar&authorId=${post.authorId}"
                                                              width="36px" height="36px">
                                                     </a>
-                                                    <a href="${ctx}/PostsServlet?op=toPostView&postId=${post.id}">${post.title}${pageBean.totalPages}</a>
+                                                    <a href="${ctx}/PostsServlet?op=toPostView&postId=${post.id}">${post.title}</a>
                                                 </div>
                                             </div>
                                         </li>
@@ -86,12 +84,11 @@
 
                     <div class="panel-footer text-right remove-padding-horizontal pager-footer">
                         <!-- Pager -->
-                        <%--todo:分页<@pager request.requestURI!"", results, 5/>--%>
                         <ul class="pagination">
                             <%-- 如果有上一页则显示可用的按钮,否则显示不可用的按钮--%>
                             <c:choose>
                                 <c:when test="${pageBean.havePrePage}">
-                                    <li><a href="${0}${0}" pageNo="${0}" class="prev">上一页</a></li>
+                                    <li><a href="${ctx}/ChannelServlet?op=toChannelPageWithPageIndex&channelId=${channelId}&orderBy=${orderBy}&pageIndex=${pageBean.pageIndex - 1}" pageNo="${0}" class="prev">上一页</a></li>
                                 </c:when>
                                 <c:otherwise>
                                     <li class="disabled"><span>上一页</span></li>
@@ -99,16 +96,17 @@
                             </c:choose>
 
                             <%--打印页码--%>
-                            <c:forEach var="i" begin="1" step="1" end="${totalPages}" >
-                                <li>
-                                    <a href="${ctx}/ChannelServlet?op=toChannelPageWithPageIndex&channelId=${channelId}&orderBy=date&pageIndex=${i}">${i}</a>
+                            <c:forEach var="i" begin="1" step="1" end="${totalPages}">
+
+                                <li <c:if test="${i == pageBean.pageIndex}">class="active"</c:if>>
+                                    <a href="${ctx}/ChannelServlet?op=toChannelPageWithPageIndex&channelId=${channelId}&orderBy=${orderBy}&pageIndex=${i}">${i}</a>
                                 </li>
                             </c:forEach>
 
                             <%-- 如果有下一页则显示可用的按钮,否则显示不可用的按钮--%>
                             <c:choose>
                                 <c:when test="${pageBean.haveNextPage}">
-                                    <li><a href="${0}${0}" pageNo="${0}" class="next">下一页</a></li>
+                                    <li><a href="${ctx}/ChannelServlet?op=toChannelPageWithPageIndex&channelId=${channelId}&orderBy=${orderBy}&pageIndex=${pageBean.pageIndex + 1}" pageNo="${0}" class="next">下一页</a></li>
                                 </c:when>
                                 <c:otherwise>
                                     <li class="disabled"><span>下一页</span></li>
