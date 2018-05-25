@@ -67,7 +67,7 @@
                                             <i class="fa fa-check"></i> 激活
                                             </a>
                                     </#if>
-                                    <a href="${ctx}/PostsServlet?op=toUpUserPwdPage&userId=${1}"
+                                    <a href="${ctx}/PostsServlet?op=toUpUserPwdPage&userId=${user.id}"
                                        class="btn btn-xs btn-white">
                                         <i class="fa fa-unlock-alt"></i> 修改密码
                                     </a>

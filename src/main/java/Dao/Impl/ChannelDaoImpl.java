@@ -56,4 +56,10 @@ public class ChannelDaoImpl implements ChannelDao {
         String sql="select count(*) from mto_channels where name=? ";
         return DBUtil.getCount(sql,Channel.class,name);
     }
+
+    @Override
+    public int deleteChannel(Long Id) {
+        String sql = "delete from mto_channels where id=?";
+        return DBUtil.executeUpdate(sql, Id);
+    }
 }

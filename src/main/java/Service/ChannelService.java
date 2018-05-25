@@ -35,4 +35,8 @@ public interface ChannelService {
      * @return 所有频道
      */
     List<Channel> findAll();
+    /**
+     * 删除频道
+     */
+    int deleteChannel(Long id);
 }

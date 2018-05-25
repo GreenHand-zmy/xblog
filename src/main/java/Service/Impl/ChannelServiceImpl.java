@@ -4,6 +4,7 @@ import Dao.ChannelDao;
 import Dao.Impl.ChannelDaoImpl;
 import Service.ChannelService;
 import bean.Channel;
+import bean.Post;
 
 import java.util.List;
 
@@ -40,5 +41,13 @@ public class ChannelServiceImpl implements ChannelService {
         List<Channel> list=cd.findAll();
         check(list!=null,"无查询结果");
         return list;
+    }
+
+    @Override
+    public int deleteChannel(Long id) {
+        Channel channel = cd.findById(id);
+        check(channel != null, "该用户不存在");
+        int num = cd.deleteChannel(id);
+        return num;
     }
 }
