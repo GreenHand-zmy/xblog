@@ -123,6 +123,11 @@ public class BgServlet extends HttpServlet {
            List<Post> postsList2 = postDao.getPostTitle(title);
             req.setAttribute("postsList", postsList2);
             req.getRequestDispatcher("jsps/admin/post/list.jsp").forward(req, resp);
+        }else if("getComment".equals(op)){
+            String content = req.getParameter("content");
+            List<Comment> commentList2 = commentDao.getCommentContent(content);
+            req.setAttribute("commentList", commentList2);
+            req.getRequestDispatcher("jsps/admin/comment/list.jsp").forward(req, resp);
         }
     }
 }
