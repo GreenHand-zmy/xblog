@@ -63,7 +63,7 @@
     seajs.use('sidebox', function (sidebox) {
         sidebox.init({
             latestUrl: '${ctx}/api/latests',
-            hotUrl: '${ctx}/api/hots',
+            hotUrl: '${ctx}/UserServlet?op=ajaxGetHotUser',
             hotTagUrl: '${ctx}/api/hot_tags',
             hotUserUrl: '${ctx}/api/hotusers',
 

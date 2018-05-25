@@ -26,10 +26,12 @@ define(function(require, exports, module) {
         doPostLogin: function () {
             var un = $('#ajax_login_username').val();
             var pw = $('#ajax_login_password').val();
-            jQuery.post(app.base + '/api/login', {'username': un, 'password': pw}, function (ret) {
+            jQuery.post(app.base + '/UserServlet?op=ajaxLogin', {'username': un, 'password': pw}, function (ret) {
+                console.log(ret);
                 if (ret && ret.code == 0) {
                     window.location.reload();
                 } else {
+                    ret = JSON.parse(ret);
                     $('#ajax_login_message').text(ret.message).show();
                 }
             });

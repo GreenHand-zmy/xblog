@@ -8,6 +8,9 @@ import Service.PostsService;
 import Service.UserService;
 import bean.Post;
 import bean.User;
+import constant.ChannelStatusConstant;
+import utils.JsonUtil;
+import utils.ResultBean;
 import vo.PostCommentVo;
 
 import javax.servlet.ServletException;
@@ -27,6 +30,7 @@ public class UserServlet extends HttpServlet {
     private UserService userService = new UserServiceImpl();
     private PostsService postsService = new PostsServiceImpl();
     private CommentService commentService = new CommentServiceImpl();
+
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String op = req.getParameter("op");
@@ -39,13 +43,17 @@ public class UserServlet extends HttpServlet {
             // 用户登录
             login(req, resp);
 
+        } else if ("ajaxLogin".equals(op)) {
+            // ajax登录
+            ajaxLogin(req, resp);
         } else if ("logout".equals(op)) {
             // 用户注销
             logout(req, resp);
         } else if ("update".equals(op)) {
             // 用户更新
             update(req, resp);
-
+        } else if ("ajaxGetHotUser".equals(op)) {
+            ajaxGetHotUser(req, resp);
         } else if ("toLogin".equals(op)) {
             //到登录页面
             req.getRequestDispatcher("jsps/default/auth/login.jsp").forward(req, resp);
@@ -56,7 +64,7 @@ public class UserServlet extends HttpServlet {
             //到我的主页
             User user = (User) req.getSession().getAttribute("user");
             List<Post> postsList = postsService.getPostAuthorId(user.getId());
-            req.setAttribute("postsList",postsList);
+            req.setAttribute("postsList", postsList);
             req.getRequestDispatcher("jsps/default/user/method_posts.jsp").forward(req, resp);
         } else if ("toMyArticle".equals(op)) {
             //到我的文章
@@ -68,7 +76,7 @@ public class UserServlet extends HttpServlet {
             //到我的评论
             User user = (User) req.getSession().getAttribute("user");
             List<PostCommentVo> postCommentVoList = commentService.getPostCommentVoByAuthorId(user.getId());
-            req.setAttribute("postCommentVoList",postCommentVoList);
+            req.setAttribute("postCommentVoList", postCommentVoList);
             req.getRequestDispatcher("jsps/default/user/method_comments.jsp").forward(req, resp);
         } else if ("toUpdate".equals(op)) {
             //到编辑信息页面
@@ -80,19 +88,19 @@ public class UserServlet extends HttpServlet {
         } else if ("toUpdatePassword".equals(op)) {
             //到编辑密码页面
             req.getRequestDispatcher("jsps/default/user/password.jsp").forward(req, resp);
-        }else if("toOtherUser".equals(op)){
+        } else if ("toOtherUser".equals(op)) {
             //查看他人主页
-            Long  id= Long.parseLong(req.getParameter("antherId"));
+            Long id = Long.parseLong(req.getParameter("antherId"));
             User user = userService.getUser(id);
-            req.setAttribute("user",user);
+            req.setAttribute("user", user);
             Post post = postsService.getPost(id);
-            req.setAttribute("posts",post);
-            req.getRequestDispatcher("jsps/default/view/view.jsp").forward(req,resp);
-        }else if ("showUserAvatar".equals(op)){
+            req.setAttribute("posts", post);
+            req.getRequestDispatcher("jsps/default/view/view.jsp").forward(req, resp);
+        } else if ("showUserAvatar".equals(op)) {
             // 输出图片
             long authorId = Long.parseLong(req.getParameter("authorId"));
             User user = userService.getUser(authorId);
-            File file = new File("D:\\JSPWork\\xblog\\xblog\\target\\xblog"+user.getAvatar());
+            File file = new File("D:\\JSPWork\\xblog\\xblog\\target\\xblog" + user.getAvatar());
             resp.setContentType("image/jpeg");
             OutputStream out = resp.getOutputStream();
             FileInputStream input = new FileInputStream(file);
@@ -102,6 +110,35 @@ public class UserServlet extends HttpServlet {
                 out.write(buffer, 0, count);
             }
             input.close();
+        }
+    }
+
+    private void ajaxGetHotUser(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        PrintWriter writer = null;
+        try {
+            int limit = Integer.parseInt(req.getParameter("limit"));
+            List<User> userList = userService.getNewUsers(limit);
+            resp.setContentType("application/json;charset=utf-8");
+            writer = resp.getWriter();
+            writer.write(JsonUtil.objectToJson(new ResultBean<>().success(userList)));
+        } catch (RuntimeException e) {
+            writer.write(JsonUtil.objectToJson(new ResultBean<>().fail(e.getMessage())));
+        }
+    }
+
+    private void ajaxLogin(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        PrintWriter writer = resp.getWriter();
+        try {
+            String username = req.getParameter("username");
+            String password = req.getParameter("password");
+            User user = userService.login(username, password);
+            req.getSession().setAttribute("user", user);
+            resp.setContentType("application/json;charset=utf-8");
+            writer.write(JsonUtil.objectToJson(new ResultBean<>().success()));
+        } catch (RuntimeException e) {
+            writer.write(JsonUtil.objectToJson(new ResultBean<>().fail(e.getMessage())));
+        } finally {
+            writer.close();
         }
     }
 
@@ -151,9 +188,9 @@ public class UserServlet extends HttpServlet {
             userService.updateUser(user);
         }
         req.getSession().setAttribute("user", user);
-        User user1= (User) req.getSession().getAttribute("user");
+        User user1 = (User) req.getSession().getAttribute("user");
         List<Post> postsList = postsService.getPostAuthorId(user1.getId());
-        req.setAttribute("postsList",postsList);
+        req.setAttribute("postsList", postsList);
         req.getRequestDispatcher("jsps/default/user/method_posts.jsp").forward(req, resp);
     }
 

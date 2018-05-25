@@ -14,4 +14,5 @@ public interface ChannelStatusConstant {
      * 频道关闭
      */
     Integer CLOSED_STATUS = 1;
+
 }
