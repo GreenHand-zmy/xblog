@@ -97,4 +97,11 @@ public class CommentServiceImpl implements CommentService {
         int  num = commentDao.getCount1(authorId);
         return num;
     }
+
+    @Override
+    public List<Comment> getCommentContent(String content) {
+        List<Comment> list = commentDao.getCommentContent(content);
+        check(list != null, "无查询结果");
+        return list;
+    }
 }

@@ -73,4 +73,11 @@ public interface CommentService {
      * @return int
      */
     int getCount1(long authorId);
+
+    /**
+     * 根据评论内容模糊查询
+     * @param content 评论内容
+     * @return
+     */
+    List<Comment> getCommentContent(String content);
 }

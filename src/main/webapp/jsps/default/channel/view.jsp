@@ -44,7 +44,8 @@
                     </div>
                     <div class="panel-footer operate">
                         <div class="hidden-xs">
-                            <div class="social-share" data-sites="weibo, wechat, facebook, twitter, google, qzone, qq"></div>
+                            <div class="social-share"
+                                 data-sites="weibo, wechat, facebook, twitter, google, qzone, qq"></div>
                         </div>
                         <div class="clearfix"></div>
                     </div>
@@ -55,7 +56,30 @@
                     <div class="chat_other">
                         <h4>全部评论: <i id="chat_count">0</i> 条</h4>
                     </div>
-                    <ul id="chat_container" class="its"></ul>
+                    <%--评论展示区--%>
+                    <ul id="chat_container" class="its">
+                        <li id="chat1">
+                            <%--用户头像--%>
+                            <a class="avt fl" target="_blank" href="/users/2">
+                                <img src="/dist/images/ava/default.png">
+                            </a>
+                            <div class="chat_body">
+                                <%--用户姓名--%>
+                                <h5>
+                                    <div class="fl">
+                                        <a class="chat_name" href="/users/2">jiu</a>
+                                        <span>2018-05-23</span>
+                                    </div>
+                                    <div class="clear"></div>
+                                </h5>
+                                <%--回复内容--%>
+                                <div class="chat_p">
+                                    <div class="chat_pct">111</div>
+                                </div>
+                            </div>
+                            <div class="clear"></div>
+                        </li>
+                    </ul>
                     <div id="pager" class="text-center"></div>
                     <div class="cbox-wrap">
                         <div class="cbox-title">我有话说: <span id="chat_reply" style="display:none;">@<i
@@ -89,16 +113,18 @@
             </div>
             <div class="col-xs-12 col-md-3 side-right hidden-xs hidden-sm">
                 <ul class="list-group about-user">
-                    <li class="list-group-item user-card" >
+                    <li class="list-group-item user-card">
                         <div class="ava">
                             <a href="${ctx}/UserServlet?op=toOtherUser&antherId=${post.authorId}">
-                                <img class="img-circle" src="${ctx}/UserServlet?op=showUserAvatar&authorId=${post.authorId}">
+                                <img class="img-circle"
+                                     src="${ctx}/UserServlet?op=showUserAvatar&authorId=${post.authorId}">
                             </a>
                         </div>
                         <div class="user-info">
                             <div class="nk mb10">${user.name}</div>
                             <div class="mb6">
-                                <a class="btn btn-default btn-xs" href="javascript:void(0);" data-id="${view.author.id}" rel="follow"><i class="icon icon-user-follow"></i> 关注</a>
+                                <a class="btn btn-default btn-xs" href="javascript:void(0);" data-id="${view.author.id}"
+                                   rel="follow"><i class="icon icon-user-follow"></i> 关注</a>
                             </div>
                         </div>
                     </li>
@@ -113,7 +139,8 @@
                     </li>
                     <li class="list-group-item">
                         <div class="text-center padding-md">
-                            <a class="btn btn-default btn-sm" href="javascript:void(0);" data-id="${view.id}" rel="favor">
+                            <a class="btn btn-default btn-sm" href="javascript:void(0);" data-id="${view.id}"
+                               rel="favor">
                                 <i class="icon icon-like"></i> 喜欢
                             </a>
                             <strong id="favors">${view.favors}</strong> 喜欢
@@ -124,7 +151,7 @@
             </div>
         </div>
 
-        <script type="text/plain" id="chat_template">
+        <%--<script type="text/plain" id="chat_template">
     <li id="chat{5}">
         <a class="avt fl" target="_blank" href="${base}/users/{0}">
             <img src="${base}{1}">
@@ -142,9 +169,9 @@
         <div class="clear"></div>
         <div class="chat_reply"></div>
     </li>
-</script>
+</script>--%>
 
-        <script type="text/javascript">
+        <%--<script type="text/javascript">
             function goto(pid, user) {
                 document.getElementById('chat_text').scrollIntoView();
                 $('#chat_text').focus();
@@ -186,13 +213,64 @@
 
             seajs.use(['phiz', 'view'], function (phiz) {
                 $("#c-btn").jphiz({
-                    base: '${base}/dist',
+                    base: '${ctx}/static/dist',
                     textId: 'chat_text',
                     lnkBoxId: 'c-lnk',
                     phizBoxId: 'c-phiz'
                 });
             });
 
+        </script>--%>
+        <script>
+            var Authc = {
+                isAuthced: function () {
+                    return (typeof(window.app.LOGIN_TOKEN) != 'undefined' && window.app.LOGIN_TOKEN.length > 0);
+                },
+                showLogin: function () {
+                    var that = this;
+                    $('#login_alert').modal();
+
+                    $('#ajax_login_submit').unbind().click(function () {
+                        that.doPostLogin();
+                    });
+                },
+                doPostLogin: function () {
+                    var un = $('#ajax_login_username').val();
+                    var pw = $('#ajax_login_password').val();
+                    jQuery.post(app.base + '/UserServlet?op=ajaxLogin', {
+                        'username': un,
+                        'password': pw
+                    }, function (ret) {
+                        console.log(ret);
+                        if (ret && ret.code == 0) {
+                            window.location.reload();
+                        } else {
+                            ret = JSON.parse(ret);
+                            $('#ajax_login_message').text(ret.message).show();
+                        }
+                    });
+                }
+            };
+        </script>
+        <script>
+            $(function () {
+                // 给按钮绑定事件
+                var btn = $("#btn-chat");
+                btn.click(function () {
+                    if (!Authc.isAuthced()) {
+                        Authc.showLogin();
+                    }
+                });
+
+                seajs.use(['phiz', 'view'], function (phiz) {
+                    $("#c-btn").jphiz({
+                        base: '${ctx}/static/dist',
+                        textId: 'chat_text',
+                        lnkBoxId: 'c-lnk',
+                        phizBoxId: 'c-phiz'
+                    });
+                });
+            });
         </script>
     </div>
 </div>

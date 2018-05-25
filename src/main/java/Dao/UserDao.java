@@ -1,5 +1,6 @@
 package Dao;
 
+import bean.Post;
 import bean.User;
 import com.sun.org.apache.xalan.internal.utils.XMLSecurityManager;
 
@@ -20,6 +21,7 @@ public interface UserDao {
 
     User getUser(long id);
 
+    List<User> getUsername(String username);
 
     User getUser1(String username);
 
