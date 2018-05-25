@@ -47,7 +47,8 @@
                                 <td>${row.author.username}</td>
                                     <%--<td>${row.created?string('yyyy-MM-dd')}</td>--%>
                                 <td class="text-center" align="left">
-                                    <a href="javascript:void(0);" class="btn btn-xs btn-white" data-id="${row.id}"
+                                    <a href="${ctx}/BgServlet?op=delComment&id=${comment.id}"
+                                       class="btn btn-xs btn-white" data-id="${row.id}"
                                        data-action="delete">
                                         <i class="fa fa-bitbucket"></i> 删除
                                     </a>

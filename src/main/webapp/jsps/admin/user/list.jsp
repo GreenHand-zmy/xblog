@@ -39,7 +39,9 @@
                     <c:forEach items="${userList}" var="user">
                         <tr>
                             <td class="text-center">${user.id}</td>
-                            <td>${user.username}</td>
+                            <td>
+                                <a href="${ctx}/UserServlet?op=toOtherUser&antherId=${user.id}">${user.username}</a>
+                            </td>
                             <td>${user.name}</td>
                             <td>${user.mobile}</td>
                             <td>
@@ -57,7 +59,8 @@
                             <td class="text-center">
                                 <#if user.id != 1>
                                     <#if user.status == 0>
-                                        <a href="javascript:void(0);" class="btn btn-xs btn-default" data-id="${user.id}"
+                                        <a href="${ctx}/PostsServlet?op=delUser&id=${user.id}"
+                                           class="btn btn-xs btn-default" data-id="${user.id}"
                                            data-action="close">
                                             <i class="fa fa-close"></i> 关闭
                                         </a>

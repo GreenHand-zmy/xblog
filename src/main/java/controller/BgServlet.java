@@ -1,7 +1,9 @@
 package controller;
 
 import Dao.ChannelDao;
+import Dao.CommentDao;
 import Dao.Impl.ChannelDaoImpl;
+import Dao.Impl.CommentDaoImpl;
 import Dao.Impl.PostDaoImpl;
 import Dao.Impl.UserDaoImpl;
 import Dao.PostDao;
@@ -19,6 +21,10 @@ import bean.Comment;
 import bean.Post;
 import bean.Post;
 import bean.User;
+import constant.ChannelStatusConstant;
+import constant.CommentStatusConstant;
+import constant.PostStatusConstant;
+import constant.UserStatusConstant;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -40,6 +46,7 @@ public class BgServlet extends HttpServlet {
     PostDao postDao = new PostDaoImpl();
     ChannelDao channelDao = new ChannelDaoImpl();
     UserDao userDao =new UserDaoImpl();
+    CommentDao commentDao = new CommentDaoImpl();
 
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String op = req.getParameter("op");
@@ -62,27 +69,19 @@ public class BgServlet extends HttpServlet {
         }else if("index".equals(op)){
             req.getRequestDispatcher("jsps/admin/index.jsp").forward(req,resp);
         }else if("updatePost".equals(op)){
-            // 通过文章编号获取文章
             long id = Integer.parseInt(req.getParameter("id"));
             Post post = postDao.getPost(id);
-
-            // 获取修改后的属性
-
-            // 文章标题
             String title = req.getParameter("title");
-            // 文章频道
             int channelId = Integer.parseInt(req.getParameter("channelId"));
-            // 设置到对象中
             post.setTitle(title);
             post.setChannelId(channelId);
-            // 写入到数据库中
             postsService.updatePost(post);
-       /* resp.sendRedirect("ChannelServlet?id=" + post.getChannelId());*/
-            req.getRequestDispatcher("jsps/admin/post/list.jsp").forward(req,resp);
+            req.getRequestDispatcher("jsps/admin/index.jsp").forward(req,resp);
         }else if ("delPost".equals(op)) {
             long id = Integer.parseInt(req.getParameter("id"));
-            postsService.deletePost(id);
-            req.getRequestDispatcher("jsps/admin/post/list.jsp").forward(req, resp);
+            Post post = postDao.getPost(id);
+            post.setStatus(PostStatusConstant.DELETED_STATUS);
+            req.getRequestDispatcher("jsps/admin/index.jsp").forward(req, resp);
         }else if ("updateChannel".equals(op)) {
             long id = Integer.parseInt(req.getParameter("id"));
             Channel channel = channelDao.findById(id);
@@ -91,18 +90,29 @@ public class BgServlet extends HttpServlet {
             channel.setName(name);
             channel.setKey(key);
             channelService.update(channel);
-            req.getRequestDispatcher("jsps/admin/channel/list.jsp").forward(req, resp);
+            req.getRequestDispatcher("jsps/admin/index.jsp").forward(req, resp);
         }else if ("delChannel".equals(op)) {
             long id = Integer.parseInt(req.getParameter("id"));
-            channelService.deleteChannel(id);
-            req.getRequestDispatcher("jsps/admin/channel/list.jsp").forward(req, resp);
+            Channel channel = channelDao.findById(id);
+            channel.setStatus(ChannelStatusConstant.CLOSED_STATUS);
+            req.getRequestDispatcher("jsps/admin/index.jsp").forward(req, resp);
         }else if ("updatePwsUser".equals(op)) {
             long id = Integer.parseInt(req.getParameter("id"));
             User user = userDao.getUser(id);
             String password = req.getParameter("password");
             user.setPassword(password);
             userService.updateUser(user);
-            req.getRequestDispatcher("jsps/admin/user/list.jsp").forward(req, resp);
+            req.getRequestDispatcher("jsps/admin/index.jsp").forward(req, resp);
+        }else if ("delUser".equals(op)) {
+            long id = Integer.parseInt(req.getParameter("id"));
+            User user = userDao.getUser(id);
+            user.setStatus(UserStatusConstant.DELETED_STATUS);
+            req.getRequestDispatcher("jsps/admin/index.jsp").forward(req, resp);
+        }else if ("delComment".equals(op)) {
+            long id = Integer.parseInt(req.getParameter("id"));
+            Comment comment = commentDao.getCommentById(id);
+            comment.setStatus(CommentStatusConstant.DELETED_STATUS);
+            req.getRequestDispatcher("jsps/admin/index.jsp").forward(req, resp);
         }
     }
 }

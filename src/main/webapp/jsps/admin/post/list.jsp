@@ -42,7 +42,7 @@
                                     <input type="checkbox" name="id" value="${row.id}">
                                 </td>
                                 <td>
-                                    <a href="${ctx}/PostsServlet?op=getPost&id=${post.id}" target="_blank">${post.title}</a>
+                                    <a href="${ctx}/PostsServlet?op=toPostView&postId=${post.id}" target="_blank">${post.title}</a>
                                 </td>
                                 <td>${post.authorId}</td>
                                     <%--<td>${row.created?string('yyyy-MM-dd')}</td>--%>
