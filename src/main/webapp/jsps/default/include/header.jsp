@@ -102,7 +102,7 @@
                                     <li>
                                         <a href="${ctx}/UserServlet?op=toUpdate">编辑资料</a>
                                     </li>
-                                    <li><a href="${ctx}/admin">后台管理</a></li>
+                                    <li><a href="${ctx}/jsps/admin/index.jsp">后台管理</a></li>
                                     <li><a href="${ctx}/UserServlet?op=logout">退出</a></li>
                                 </ul>
                             </li>
