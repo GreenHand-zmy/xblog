@@ -92,11 +92,4 @@ public class PageBean<T> {
     public void setData(List<T> data) {
         this.data = data;
     }
-
-
-    public static void main(String[] args) {
-        PageBean<Integer> pageBean = new PageBean<>(1, 1, 9);
-        System.out.println(pageBean.getTotalPages());
-        System.out.println(pageBean.isHavePrePage());
-    }
 }

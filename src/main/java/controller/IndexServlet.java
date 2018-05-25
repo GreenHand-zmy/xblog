@@ -32,6 +32,5 @@ public class IndexServlet extends HttpServlet {
         req.setAttribute("postList", postList);
         req.getSession().setAttribute("channelList", channelList);
         req.getRequestDispatcher("/ChannelServlet?op=toChannelPage&orderBy=created").forward(req,resp);
-//        req.getRequestDispatcher("jsps/default/index.jsp").forward(req, resp);
     }
 }

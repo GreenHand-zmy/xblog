@@ -4,6 +4,7 @@ import Dao.Impl.PostDaoImpl;
 import Dao.PostDao;
 import Service.PostsService;
 import bean.Post;
+import constant.XBlogConstant;
 import utils.PageBean;
 
 import java.util.List;
@@ -238,7 +239,7 @@ public class PostsServiceImpl implements PostsService {
 
     @Override
     public PageBean<Post> findByPage(int pageIndex, Long channelId, String orderBy) {
-        return findByPage(pageIndex, 2, channelId, orderBy);
+        return findByPage(pageIndex, XBlogConstant.DEFAULT_PAGE_SIZE, channelId, orderBy);
     }
 
     @Override

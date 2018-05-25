@@ -26,7 +26,7 @@
 
     window.app = {
         base: '${ctx}',
-        <%--LOGIN_TOKEN: '${profile.id}'--%>
+        LOGIN_TOKEN: '${sessionScope.user.id}'
     };
 
     //window.UEDITOR_HOME_URL = '${ctx}/dist/vendors/ueditor/';
