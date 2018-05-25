@@ -47,16 +47,17 @@ public interface PostsService {
      * @param channelId 频道编号
      * @return
      */
-    PageBean<Post> findByPage(int pageIndex, int pageSize, Long channelId);
+    PageBean<Post> findByPage(int pageIndex, int pageSize, Long channelId, String orderBy);
 
     /**
      * 获取分页数据(默认已制定页大小)
      *
      * @param pageIndex 页码
      * @param channelId 频道编号
+     * @param orderBy   根据指定字段排序
      * @return
      */
-    PageBean<Post> findByPage(int pageIndex, Long channelId);
+    PageBean<Post> findByPage(int pageIndex, Long channelId, String orderBy);
 
     /**
      * 返回文章总数

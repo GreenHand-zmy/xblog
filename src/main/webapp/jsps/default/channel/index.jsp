@@ -19,7 +19,7 @@
                     <div class="panel-heading">
                         <ul class="list-inline topic-filter">
                             <li data-toggle="tooltip" title="发布时间排序">
-                                <a href="${ctx}/ChannelServlet?op=toChannelPage&channelId=${channelId}&orderBy=date">最近</a>
+                                <a href="${ctx}/ChannelServlet?op=toChannelPage&channelId=${channelId}&orderBy=created">最近</a>
                             </li>
                             <li data-toggle="tooltip" title="点赞数排序">
                                 <a href="${ctx}/ChannelServlet?op=toChannelPage&channelId=${channelId}&orderBy=favors">投票</a>

@@ -88,9 +88,10 @@ public interface PostDao {
      * @param channelId 频道编号
      * @param offset    偏移量
      * @param limit     限制大小
+     * @param orderBy
      * @return
      */
-    List<Post> findByOffsetAndLimit(Long channelId, Integer offset, Integer limit);
+    List<Post> findByOffsetAndLimit(Long channelId, Integer offset, Integer limit, String orderBy);
 
     /**
      * 查询所有

@@ -219,7 +219,7 @@ public class PostsServiceImpl implements PostsService {
     }
 
     @Override
-    public PageBean<Post> findByPage(int pageIndex, int pageSize, Long channelId) {
+    public PageBean<Post> findByPage(int pageIndex, int pageSize, Long channelId, String orderBy) {
         Integer totalRecords;
         // 如果频道不为空查找该频道下所有文章的数量
         if (channelId != null) {
@@ -232,13 +232,13 @@ public class PostsServiceImpl implements PostsService {
         // 构造分页对象
         PageBean<Post> pageBean = new PageBean<>(totalRecords, pageIndex, pageSize);
         // 查询数据库并将数据注入到分页对象中
-        pageBean.setData(postDao.findByOffsetAndLimit(channelId, pageBean.getOffset(), pageBean.getPageSize()));
+        pageBean.setData(postDao.findByOffsetAndLimit(channelId, pageBean.getOffset(), pageBean.getPageSize(),orderBy));
         return pageBean;
     }
 
     @Override
-    public PageBean<Post> findByPage(int pageIndex, Long channelId) {
-        return findByPage(pageIndex, 2, channelId);
+    public PageBean<Post> findByPage(int pageIndex, Long channelId, String orderBy) {
+        return findByPage(pageIndex, 2, channelId, orderBy);
     }
 
     @Override

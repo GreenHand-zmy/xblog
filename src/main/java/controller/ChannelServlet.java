@@ -36,16 +36,16 @@ public class ChannelServlet extends HttpServlet {
             Long channelId = null;
             // 获取频道编号
             String channelIdAsString = req.getParameter("channelId");
-            if (StringUtil.isNotEmpty(channelIdAsString)){
+            if (StringUtil.isNotEmpty(channelIdAsString)) {
                 channelId = Long.parseLong(channelIdAsString);
             }
-
-            // 获取分页对象
-            PageBean<Post> pageBean = postsService.findByPage(1, channelId);
-
             // 根据orderBy字段排序
             String orderBy = req.getParameter("orderBy");
-            orderBy(pageBean.getData(), orderBy);
+
+            // 获取分页对象
+            PageBean<Post> pageBean = postsService.findByPage(1, channelId, orderBy);
+
+//            orderBy(pageBean.getData(), orderBy);
 
             // 将需要的字段再次转发出去
             req.setAttribute("channelId", channelId);
@@ -57,19 +57,20 @@ public class ChannelServlet extends HttpServlet {
             Long channelId = null;
             // 获取频道编号
             String channelIdAsString = req.getParameter("channelId");
-            if (StringUtil.isNotEmpty(channelIdAsString)){
+            if (StringUtil.isNotEmpty(channelIdAsString)) {
                 channelId = Long.parseLong(channelIdAsString);
             }
 
             // 获取页码
             int pageIndex = Integer.parseInt(req.getParameter("pageIndex"));
 
-            // 获取分页对象
-            PageBean<Post> pageBean = postsService.findByPage(pageIndex, channelId);
-
             // 根据orderBy字段排序
             String orderBy = req.getParameter("orderBy");
-            orderBy(pageBean.getData(), orderBy);
+
+            // 获取分页对象
+            PageBean<Post> pageBean = postsService.findByPage(pageIndex, channelId,orderBy);
+
+//            orderBy(pageBean.getData(), orderBy);
 
             // 将需要的字段再次转发出去
             req.setAttribute("channelId", channelId);

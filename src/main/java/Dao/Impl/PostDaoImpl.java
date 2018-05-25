@@ -237,17 +237,17 @@ public class PostDaoImpl implements PostDao {
     }
 
     @Override
-    public List<Post> findByOffsetAndLimit(Long channelId, Integer offset, Integer limit) {
+    public List<Post> findByOffsetAndLimit(Long channelId, Integer offset, Integer limit, String orderBy) {
         String sql;
         if (channelId != null) {
             sql = "SELECT id,author_id authorId,channel_id channelId,title,content,views," +
                     "comments,favors,featured,created,status,weight " +
-                    "from " + TableNameConstant.POST_TABLE + " where channel_id = ?" + " order by created desc limit ?,?";
+                    "from " + TableNameConstant.POST_TABLE + " where channel_id = ?" + " order by " + orderBy + " desc limit ?,?";
             return DBUtil.getObjects(sql, Post.class, channelId, offset, limit);
         } else {
             sql = "SELECT id,author_id authorId,channel_id channelId,title,content,views," +
                     "comments,favors,featured,created,status,weight " +
-                    "from " + TableNameConstant.POST_TABLE + " order by created desc limit ?,?";
+                    "from " + TableNameConstant.POST_TABLE + " order by " + orderBy + " desc limit ?,?";
             return DBUtil.getObjects(sql, Post.class, offset, limit);
         }
 

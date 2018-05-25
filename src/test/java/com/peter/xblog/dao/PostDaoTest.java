@@ -148,7 +148,7 @@ public class PostDaoTest {
 
     @Test
     public void findByOffsetAndLimit() {
-        List<Post> postList = pd.findByOffsetAndLimit(1L, 0, 10);
+        List<Post> postList = pd.findByOffsetAndLimit(1L, 0, 10, "created");
     }
 
     @Test

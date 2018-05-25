@@ -79,7 +79,7 @@
                     </c:if>
                     <c:forEach var="channel" items="${channelList}">
                         <li>
-                            <a href="${ctx}/ChannelServlet?op=toChannelPage&channelId=${channel.id}&orderBy=date"
+                            <a href="${ctx}/ChannelServlet?op=toChannelPage&channelId=${channel.id}&orderBy=created"
                                nav="${channel.name}">${channel.name}</a>
                         </li>
                     </c:forEach>
