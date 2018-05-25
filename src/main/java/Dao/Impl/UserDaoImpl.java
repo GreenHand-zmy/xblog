@@ -36,6 +36,12 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
+    public List<User> getUsername(String username){
+        String sql = "select * from mto_users where username like '%" + username + "%'";
+        return DBUtil.getObjects(sql, User.class);
+    }
+
+    @Override
     public List<User> getAll() {
         String sql = "select * from mto_users";
         return DBUtil.getObjects(sql, User.class);

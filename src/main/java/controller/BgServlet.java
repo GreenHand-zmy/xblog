@@ -113,6 +113,16 @@ public class BgServlet extends HttpServlet {
             Comment comment = commentDao.getCommentById(id);
             comment.setStatus(CommentStatusConstant.DELETED_STATUS);
             req.getRequestDispatcher("jsps/admin/index.jsp").forward(req, resp);
+        }else if("getUser".equals(op)){
+            String name = req.getParameter("name");
+            List<User> userList2 = userDao.getUsername(name);
+            req.setAttribute("userList", userList2);
+            req.getRequestDispatcher("jsps/admin/user/list.jsp").forward(req, resp);
+        }else if("getPost".equals(op)){
+            String title = req.getParameter("title");
+           List<Post> postsList2 = postDao.getPostTitle(title);
+            req.setAttribute("postsList", postsList2);
+            req.getRequestDispatcher("jsps/admin/post/list.jsp").forward(req, resp);
         }
     }
 }
