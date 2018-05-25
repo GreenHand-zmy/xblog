@@ -35,8 +35,14 @@
                     <#list list as row>
                         <c:forEach items="${channelList}" var="channel">
                         <tr>
-                            <td class="text-center">${channel.id}</td>
-                            <td>${channel.name}</td>
+                            <td class="text-center">
+                                ${channel.id}
+                            </td>
+                            <td>
+                                <a href="/ChannelServlet?op=toChannelPage&channelId=${channel.id}">
+                                    ${channel.name}
+                                </a>
+                            </td>
                             <td>${channel.key}</td>
                             <td>
                                 <#if (row.status == 0)>

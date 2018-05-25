@@ -1,6 +1,7 @@
 package Dao.Impl;
 
 import Dao.CommentDao;
+import bean.Post;
 import utils.DBUtil;
 import bean.Comment;
 
@@ -14,6 +15,12 @@ public class CommentDaoImpl implements CommentDao {
     public List<Comment> getAllComments() {
         String sql="SELECT id,author_id authorId,content,created,status,to_id toId FROM mto_comments";
         return DBUtil.getObjects(sql,Comment.class);
+    }
+
+    @Override
+    public List<Comment> getCommentContent(String content) {
+        String sql = "select * from mto_comments where content like '%" + content + "%'";
+        return DBUtil.getObjects(sql, Comment.class);
     }
 
     //根据评论编号得到评论

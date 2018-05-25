@@ -14,9 +14,9 @@
         </div>
         <div class="x_content">
             <form id="qForm" class="form-inline">
-                <input type="hidden" name="pn" value="${page.pageNo}"/>
+                <input type="hidden" name="op" value="getUser"/>
                 <div class="form-group">
-                    <input type="text" name="key" class="form-control" value="${key}" placeholder="请输入关键字">
+                    <input type="text" name="name" class="form-control" value="${key}" placeholder="请输入关键字">
                 </div>
                 <button type="submit" class="btn btn-default">查询</button>
             </form>
@@ -39,7 +39,9 @@
                     <c:forEach items="${userList}" var="user">
                         <tr>
                             <td class="text-center">${user.id}</td>
-                            <td>${user.username}</td>
+                            <td>
+                                <a href="${ctx}/UserServlet?op=toOtherUser&antherId=${user.id}">${user.username}</a>
+                            </td>
                             <td>${user.name}</td>
                             <td>${user.mobile}</td>
                             <td>
@@ -57,7 +59,8 @@
                             <td class="text-center">
                                 <#if user.id != 1>
                                     <#if user.status == 0>
-                                        <a href="javascript:void(0);" class="btn btn-xs btn-default" data-id="${user.id}"
+                                        <a href="${ctx}/PostsServlet?op=delUser&id=${user.id}"
+                                           class="btn btn-xs btn-default" data-id="${user.id}"
                                            data-action="close">
                                             <i class="fa fa-close"></i> 关闭
                                         </a>

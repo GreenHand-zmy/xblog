@@ -14,7 +14,7 @@
             </div>
             <div class="x_content">
                 <form id="qForm" class="form-inline">
-                    <input type="hidden" name="pn" value="${page.pageNo}"/>
+                    <input type="hidden" name="op" value="getPost"/>
                     <div class="form-group">
                         <input type="text" name="title" class="form-control" value="${title}" placeholder="请输入标题关键字">
                     </div>
@@ -42,7 +42,7 @@
                                     <input type="checkbox" name="id" value="${row.id}">
                                 </td>
                                 <td>
-                                    <a href="${ctx}/PostsServlet?op=getPost&id=${post.id}" target="_blank">${post.title}</a>
+                                    <a href="${ctx}/PostsServlet?op=toPostView&postId=${post.id}" target="_blank">${post.title}</a>
                                 </td>
                                 <td>${post.authorId}</td>
                                     <%--<td>${row.created?string('yyyy-MM-dd')}</td>--%>

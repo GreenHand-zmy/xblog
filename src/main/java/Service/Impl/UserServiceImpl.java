@@ -74,6 +74,11 @@ public class UserServiceImpl implements UserService {
         return user;
     }
 
+    public List<User> getUsername(String username){
+        List<User> userList = userDao.getUsername(username);
+        check(userList != null, "无查询结果");
+        return userList;
+    }
     @Override
     public List<User> getAll() {
         List<User> list = userDao.getAll();

@@ -24,8 +24,7 @@ public class ChannelServiceImpl implements ChannelService {
 
     @Override
     public int update(Channel channel) {
-        int num = cd.isExits(channel.getName());
-        check(num==0,"频道已存在");
+        check(channel!= null&&channel.getId()!=null,"频道不能为空");
         return cd.update(channel);
     }
 

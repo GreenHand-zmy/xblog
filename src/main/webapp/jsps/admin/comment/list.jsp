@@ -14,9 +14,9 @@
             </div>
             <div class="x_content">
                 <form id="qForm" class="form-inline">
-                    <input type="hidden" name="pn" value="${page.pageNo}"/>
+                    <input type="hidden" name="op" value="getComment"/>
                     <div class="form-group">
-                        <input type="text" name="key" class="form-control" value="${key}" placeholder="请输入关键字">
+                        <input type="text" name="content" class="form-control" value="${key}" placeholder="请输入关键字">
                     </div>
                     <button type="submit" class="btn btn-default">查询</button>
                 </form>
@@ -47,7 +47,8 @@
                                 <td>${row.author.username}</td>
                                     <%--<td>${row.created?string('yyyy-MM-dd')}</td>--%>
                                 <td class="text-center" align="left">
-                                    <a href="javascript:void(0);" class="btn btn-xs btn-white" data-id="${row.id}"
+                                    <a href="${ctx}/BgServlet?op=delComment&id=${comment.id}"
+                                       class="btn btn-xs btn-white" data-id="${row.id}"
                                        data-action="delete">
                                         <i class="fa fa-bitbucket"></i> 删除
                                     </a>

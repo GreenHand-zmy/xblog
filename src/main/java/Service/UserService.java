@@ -57,6 +57,14 @@ public interface UserService {
     User getUser1(String username);
 
     /**
+     * 根据用户名模糊查用户
+     *
+     * @param username 用户名
+     * @return
+     */
+    List<User> getUsername(String username);
+
+    /**
      * 查询所有用户
      *
      * @return
