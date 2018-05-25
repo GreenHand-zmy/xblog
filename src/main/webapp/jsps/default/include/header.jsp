@@ -9,7 +9,7 @@
                 <h4 class="modal-title">请登录</h4>
             </div>
             <div class="modal-body">
-                <form method="POST" action="${ctx}/login" accept-charset="UTF-8">
+                <form method="POST" action="${ctx}/UserServlet?op=ajaxLogin" accept-charset="UTF-8">
                     <div class="form-group ">
                         <label class="control-label" for="username">账号</label>
                         <input class="form-control" id="ajax_login_username" name="username" type="text" required>
