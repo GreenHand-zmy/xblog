@@ -1,4 +1,4 @@
-package Servlet;
+package controller;
 
 import Service.CommentService;
 import Service.Impl.CommentServiceImpl;
@@ -10,7 +10,9 @@ import bean.Post;
 import bean.User;
 import constant.ChannelStatusConstant;
 import utils.JsonUtil;
+import utils.MD5Utils;
 import utils.ResultBean;
+import utils.StringUtil;
 import vo.PostCommentVo;
 
 import javax.servlet.ServletException;
@@ -19,6 +21,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -42,7 +45,8 @@ public class UserServlet extends HttpServlet {
         } else if ("login".equals(op)) {
             // 用户登录
             login(req, resp);
-
+        } else if ("ajaxUserExisted".equals(op)) {
+            ajaxUserExisted(req, resp);
         } else if ("ajaxLogin".equals(op)) {
             // ajax登录
             ajaxLogin(req, resp);
@@ -62,20 +66,22 @@ public class UserServlet extends HttpServlet {
             req.getRequestDispatcher("jsps/default/auth/register.jsp").forward(req, resp);
         } else if ("toMyPage".equals(op)) {
             //到我的主页
-            User user = (User) req.getSession().getAttribute("user");
-            List<Post> postList = postsService.getPostAuthorId(user.getId());
-            req.setAttribute("postList", postList);
-            req.getRequestDispatcher("jsps/default/user/method_posts.jsp").forward(req, resp);
+            req.getRequestDispatcher("/UserServlet?op=toMyArticle").forward(req, resp);
         } else if ("toMyArticle".equals(op)) {
             //到我的文章
             User user = (User) req.getSession().getAttribute("user");
             List<Post> postList = postsService.getPostAuthorId(user.getId());
+            postList.sort((post1, post2) -> post2.getCreated().compareTo(post1.getCreated()));
             req.setAttribute("postList", postList);
             req.getRequestDispatcher("jsps/default/user/method_posts.jsp").forward(req, resp);
         } else if ("toMyComment".equals(op)) {
             //到我的评论
             User user = (User) req.getSession().getAttribute("user");
             List<PostCommentVo> postCommentVoList = commentService.getPostCommentVoByAuthorId(user.getId());
+            // 将评论按照时间降序排序
+            postCommentVoList.sort((postCommentVo1, postCommentVo2) ->
+                    postCommentVo2.getComment().getCreated().compareTo(postCommentVo1.getComment().getCreated()));
+
             req.setAttribute("postCommentVoList", postCommentVoList);
             req.getRequestDispatcher("jsps/default/user/method_comments.jsp").forward(req, resp);
         } else if ("toUpdate".equals(op)) {
@@ -90,26 +96,60 @@ public class UserServlet extends HttpServlet {
             req.getRequestDispatcher("jsps/default/user/password.jsp").forward(req, resp);
         } else if ("toOtherUser".equals(op)) {
             //查看他人主页
+            // 获取指定用户编号
             Long id = Long.parseLong(req.getParameter("antherId"));
             User user = userService.getUser(id);
             req.setAttribute("user", user);
-            Post post = postsService.getPost(id);
-            req.setAttribute("posts", post);
+
+            // 获取指定用户文章
+            List<Post> postList = postsService.getPostAuthorId(user.getId());
+            // 对用户文章按照发表日期降序排序
+            postList.sort((post1, post2) -> post2.getCreated().compareTo(post1.getCreated()));
+
+            req.setAttribute("postList", postList);
+
+            // 转入展示页面
             req.getRequestDispatcher("jsps/default/view/view.jsp").forward(req, resp);
         } else if ("showUserAvatar".equals(op)) {
             // 输出图片
-            long authorId = Long.parseLong(req.getParameter("authorId"));
-            User user = userService.getUser(authorId);
-            File file = new File("D:\\JSPWork\\xblog\\xblog\\target\\xblog" + user.getAvatar());
-            resp.setContentType("image/jpeg");
-            OutputStream out = resp.getOutputStream();
-            FileInputStream input = new FileInputStream(file);
-            byte[] buffer = new byte[1024];
-            int count;
-            while ((count = input.read(buffer)) > 0) {
-                out.write(buffer, 0, count);
+            showUserAvatar(req, resp);
+        }
+    }
+
+    private void showUserAvatar(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        long authorId = Long.parseLong(req.getParameter("authorId"));
+        User user = userService.getUser(authorId);
+        String path = this.getServletContext().getRealPath("/upload");
+        File file = new File(path + "/" + user.getAvatar());
+        String mimeType = req.getServletContext().getMimeType(user.getAvatar());
+        resp.setContentType(mimeType);
+        OutputStream out = resp.getOutputStream();
+        FileInputStream input = new FileInputStream(file);
+        byte[] buffer = new byte[1024];
+        int count;
+        while ((count = input.read(buffer)) > 0) {
+            out.write(buffer, 0, count);
+        }
+        input.close();
+    }
+
+    private void ajaxUserExisted(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        PrintWriter writer = null;
+        try {
+            resp.setContentType("application/json;charset=utf-8");
+            writer = resp.getWriter();
+            // 获取用户名,并通过用户名查找数据库是否存在
+            String username = req.getParameter("username");
+            User existedUser = userService.getUser1(username);
+
+            // 如果此用户名不存在,则允许添加
+            if (existedUser == null) {
+                writer.write(JsonUtil.objectToJson(new ResultBean<>().success()));
+            } else {
+                writer.write(JsonUtil.objectToJson(new ResultBean<>().fail("用户已存在")));
             }
-            input.close();
+        } catch (RuntimeException e) {
+            writer.write(JsonUtil.objectToJson(new ResultBean<>().fail(e.getMessage())));
         }
     }
 
@@ -130,7 +170,7 @@ public class UserServlet extends HttpServlet {
         PrintWriter writer = resp.getWriter();
         try {
             String username = req.getParameter("username");
-            String password = req.getParameter("password");
+            String password = MD5Utils.md5(req.getParameter("password"));
             User user = userService.login(username, password);
             req.getSession().setAttribute("user", user);
             resp.setContentType("application/json;charset=utf-8");
@@ -144,7 +184,8 @@ public class UserServlet extends HttpServlet {
 
     private void login(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         String username = req.getParameter("username");
-        String password = req.getParameter("password");
+        String password = MD5Utils.md5(req.getParameter("password"));
+
         int num = userService.isTrue(username, password);
         if (num > 0) {
             User user = userService.getUser1(username);
@@ -160,7 +201,10 @@ public class UserServlet extends HttpServlet {
     private void register(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         String username = req.getParameter("username");
         String name = req.getParameter("name");
-        String password = req.getParameter("password");
+        // 将密码加密为md5字符串
+        String password = MD5Utils.md5(req.getParameter("password"));
+
+        // 构造用户对象,并写入数据库
         User user = new User();
         user.setPassword(password);
         user.setName(name);
@@ -174,24 +218,28 @@ public class UserServlet extends HttpServlet {
         User user = userService.getUser(id);
         String name = req.getParameter("name");
         String signature = req.getParameter("signature");
-        String file = req.getParameter("file");
         String password = req.getParameter("password");
-        if (file == null && password == null) {
+
+        if (StringUtil.isNotEmpty(name) && StringUtil.isNotEmpty(signature)) {
             user.setName(name);
             user.setSignature(signature);
             userService.updateUser(user);
-        } else if (name == null && password == null) {
-            user.setAvatar(file);
-            userService.updateUser(user);
-        } else if (name == null && file == null) {
-            user.setPassword(password);
+        } else if (StringUtil.isNotEmpty(password)) {
+            String oldPassword = MD5Utils.md5(req.getParameter("oldPassword"));
+            // 与原密码不同则不允许修改
+            if (!oldPassword.equals(user.getPassword())) {
+                resp.getWriter().print("<script>alert('原密错误');history.go('-1');</script>");
+                return;
+            }
+
+            // 与原密码相同则更改
+            user.setPassword(MD5Utils.md5(password));
             userService.updateUser(user);
         }
+        // 更新Session
         req.getSession().setAttribute("user", user);
-        User user1 = (User) req.getSession().getAttribute("user");
-        List<Post> postsList = postsService.getPostAuthorId(user1.getId());
-        req.setAttribute("postsList", postsList);
-        req.getRequestDispatcher("jsps/default/user/method_posts.jsp").forward(req, resp);
+
+        req.getRequestDispatcher("UserServlet?op=toMyArticle").forward(req, resp);
     }
 
     private void logout(HttpServletRequest req, HttpServletResponse resp) throws IOException {

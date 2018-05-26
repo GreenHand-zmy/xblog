@@ -17,9 +17,9 @@
         <div class="panel panel-default stacked">
             <div class="panel-heading">
                 <ul class="nav nav-pills account-tab">
-                    <li><a href="/UserServlet?op=toUpdate">基本信息</a></li>
-                    <li class="active"><a href="/UserServlet?op=toUpdateAvatar">修改头像</a></li>
-                    <li><a href="/UserServlet?op=toUpdatePassword">修改密码</a></li>
+                    <li><a href="${ctx}/UserServlet?op=toUpdate">基本信息</a></li>
+                    <li class="active"><a href="${ctx}/UserServlet?op=toUpdateAvatar">修改头像</a></li>
+                    <li><a href="${ctx}/UserServlet?op=toUpdatePassword">修改密码</a></li>
                 </ul>
             </div>
             <div class="panel-body">
@@ -40,7 +40,8 @@
                         </label>
                     </div>
                     <div class="update_ava">
-                        <img src="${sessionScope.user.avatar}" id="target" alt="[Example]"/>
+                        <img src="${ctx}/UserServlet?op=showUserAvatar&authorId=${sessionScope.user.id}" id="target"
+                             alt="[Example]" width="180" height="180"/>
                     </div>
 
                     <div class="form-group">
@@ -49,8 +50,8 @@
                         </div>
                     </div>
                 </form>
-            </div><!-- /panel-content -->
-        </div><!-- /panel -->
+            </div>
+        </div>
 
         <script type="text/javascript">
             seajs.use('avatar');

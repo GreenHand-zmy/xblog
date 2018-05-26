@@ -32,8 +32,9 @@
                                     <c:forEach items="${postCommentVoList}" var="postComment">
                                         <li class="list-group-item">
                                         <c:choose>
-                                            <c:when test="${postComment.post != null}">
-                                                <a href="" class="remove-padding-left">${postComment.post.title}</a>
+                                            <c:when test="${postComment.post.status == NORMAL_STATUS}">
+                                                <a href="${ctx}/PostsServlet?op=toPostView&postId=${postComment.post.id}"
+                                                   class="remove-padding-left">${postComment.post.title}</a>
                                             </c:when>
                                             <c:otherwise>
                                                 <a href="javascript:;" class="remove-padding-left">文章已删除</a>
@@ -41,7 +42,8 @@
                                         </c:choose>
 
                                         <span class="meta">
-								            <span class="timeago">${"多少小时前"}</span>
+								            <span class="timeago"><fmt:formatDate
+                                                    value="${postComment.post.created}"/></span>
                                         </span>
 
                                         <div class="pull-right hidden-xs">
@@ -86,18 +88,9 @@
                 btn: ['确定', '取消'], //按钮
                 shade: false //不显示遮罩
             }, function () {
-                jQuery.getJSON('${base}/comment/delete', {'id': id}, function (ret) {
-                    layer.msg(ret.message, {icon: 1});
-                    if (ret.code >= 0) {
-                        var el = $('li[el=loop-' + id + ']');
-                        el.next().remove();
-                        el.next().remove();
-                        el.remove();
-                    }
+                $.post("${ctx}/CommentServlet?op=deleteComment", {commentId: id}, function () {
+                    window.location.reload();
                 });
-
-            }, function () {
-
             });
         });
     })

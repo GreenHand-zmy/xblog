@@ -9,27 +9,34 @@
 
     <link href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        html { height: 100%; }
+        html {
+            height: 100%;
+        }
+
         body {
             height: 100%;
             position: relative;
             padding: 0;
             background-color: #f6f6f6;
-            font-family: "Open Sans",sans-serif;
+            font-family: "Open Sans", sans-serif;
             font-size: 12px;
             color: #555;
             margin-left: -20px;
         }
+
         body.texture {
-            background: url("/assets/images/bg.jpg");
+            background: url("/static/dist/images/bg.jpg");
         }
+
         h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
-            font-family: 'Open Sans',sans-serif;
+            font-family: 'Open Sans', sans-serif;
             font-weight: 300;
         }
+
         h2, h1:first-child {
             margin-top: 0;
         }
+
         .wrapper {
             display: table;
             width: 100%;
@@ -44,25 +51,28 @@
             margin-top: 50px;
             margin-bottom: 40px;
         }
+
         .page-error .number {
             color: #fff;
             font-size: 150px;
             font-family: Arial;
-            text-shadow: 1px 1px 5px rgba(0,0,0,0.6);
+            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.6);
         }
+
         .page-error .description {
             color: #fff;
             font-size: 40px;
-            text-shadow: 1px 1px 5px rgba(0,0,0,0.6);
+            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.6);
         }
+
         .page-error h3 {
             color: #fff;
-            text-shadow: 1px 1px 5px rgba(0,0,0,0.6);
+            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.6);
         }
 
         .copy, .copy a {
             color: #c9d4f6;
-            text-shadow: 1px 1px 0 rgba(0,0,0,0.3);
+            text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.3);
         }
     </style>
 </head>
@@ -70,10 +80,10 @@
 <div class="wrapper container">
     <div class="page-error">
         <h1 class="number text-center">404</h1>
-        <h2 class="description text-center">抱歉, 您访问的页面不存在!</h2>
+        <h2 class="description text-center">抱歉, 您访问的页面不存在,后期会陆续实现!</h2>
         <h3 class="text-center">您可以从这里返回首页 <a href="/index">index</a></h3>
     </div>
-    <div class="text-center copy">© 2015 <a href="#">Mtons</a></div>
+    <div class="text-center copy">© 2018 <a href="#">XBlog</a></div>
 </div>
 </body>
 </html>

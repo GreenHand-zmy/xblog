@@ -33,14 +33,6 @@
                 <div class="form-group">
                     <%@include file="editor/ueditor.jsp" %>
                 </div>
-                <div class="form-group">
-                    <div>
-                        <input type="hidden" name="tags" id="fieldTags" value="${tags}"
-                               placeholder="添加相关标签，用逗号或空格分隔 (最多4个)">
-                        <ul id="tags"></ul>
-                        <p class="help-block" style="font-size: 12px;">添加相关标签，用逗号或空格分隔 (最多4个).</p>
-                    </div>
-                </div>
                 <div class="row">
                     <div class="form-group">
                         <div class="text-center">

@@ -21,8 +21,8 @@
                             <li data-toggle="tooltip" title="发布时间排序">
                                 <a href="${ctx}/ChannelServlet?op=toChannelPage&channelId=${channelId}&orderBy=created">最近</a>
                             </li>
-                            <li data-toggle="tooltip" title="点赞数排序">
-                                <a href="${ctx}/ChannelServlet?op=toChannelPage&channelId=${channelId}&orderBy=favors">投票</a>
+                            <li data-toggle="tooltip" title="阅读数排序">
+                                <a href="${ctx}/ChannelServlet?op=toChannelPage&channelId=${channelId}&orderBy=views">阅读</a>
                             </li>
                             <li data-toggle="tooltip" title="评论次数排序">
                                 <a href="${ctx}/ChannelServlet?op=toChannelPage&channelId=${channelId}&orderBy=comments">热门</a>
@@ -45,26 +45,19 @@
                                                     <span class="count_seperator">/</span>
                                                     <span class="count_of_replies" data-toggle="tooltip"
                                                           title="回复数">${post.comments}</span>
-                                                    <span class="count_seperator">/</span>
-                                                    <span class="count_of_visits" data-toggle="tooltip"
-                                                          title="点赞数">${post.favors}</span>
                                                     <span class="count_seperator">|</span>
-                                                    <abbr class="timeago">${0}</abbr>
+                                                    <abbr class="timeago"><fmt:formatDate value="${post.created}"/></abbr>
                                                 </div>
                                             </a>
                                             <div class="avatar pull-left">
-                                                    <%--<a href="${base}/users/${row.author.id}">
-                                                        <img class="media-object img-thumbnail avatar avatar-middle"
-                                                             src="${base + row.author.avatar}">
-                                                    </a>--%>
+                                                <a href="${ctx}/UserServlet?op=toOtherUser&antherId=${post.authorId}">
+                                                    <img class="img-circle"
+                                                         src="${ctx}/UserServlet?op=showUserAvatar&authorId=${post.authorId}"
+                                                         width="36px" height="36px">
+                                                </a>
                                             </div>
                                             <div class="infos">
                                                 <div class="media-heading">
-                                                    <a href="${ctx}/UserServlet?op=toOtherUser&antherId=${post.id}">
-                                                        <img class="img-circle"
-                                                             src="${ctx}/UserServlet?op=showUserAvatar&authorId=${post.authorId}"
-                                                             width="36px" height="36px">
-                                                    </a>
                                                     <a href="${ctx}/PostsServlet?op=toPostView&postId=${post.id}">${post.title}</a>
                                                 </div>
                                             </div>
@@ -88,7 +81,9 @@
                             <%-- 如果有上一页则显示可用的按钮,否则显示不可用的按钮--%>
                             <c:choose>
                                 <c:when test="${pageBean.havePrePage}">
-                                    <li><a href="${ctx}/ChannelServlet?op=toChannelPageWithPageIndex&channelId=${channelId}&orderBy=${orderBy}&pageIndex=${pageBean.pageIndex - 1}" pageNo="${0}" class="prev">上一页</a></li>
+                                    <li>
+                                        <a href="${ctx}/ChannelServlet?op=toChannelPageWithPageIndex&channelId=${channelId}&orderBy=${orderBy}&pageIndex=${pageBean.pageIndex - 1}"
+                                           pageNo="${0}" class="prev">上一页</a></li>
                                 </c:when>
                                 <c:otherwise>
                                     <li class="disabled"><span>上一页</span></li>
@@ -106,7 +101,9 @@
                             <%-- 如果有下一页则显示可用的按钮,否则显示不可用的按钮--%>
                             <c:choose>
                                 <c:when test="${pageBean.haveNextPage}">
-                                    <li><a href="${ctx}/ChannelServlet?op=toChannelPageWithPageIndex&channelId=${channelId}&orderBy=${orderBy}&pageIndex=${pageBean.pageIndex + 1}" pageNo="${0}" class="next">下一页</a></li>
+                                    <li>
+                                        <a href="${ctx}/ChannelServlet?op=toChannelPageWithPageIndex&channelId=${channelId}&orderBy=${orderBy}&pageIndex=${pageBean.pageIndex + 1}"
+                                           pageNo="${0}" class="next">下一页</a></li>
                                 </c:when>
                                 <c:otherwise>
                                     <li class="disabled"><span>下一页</span></li>

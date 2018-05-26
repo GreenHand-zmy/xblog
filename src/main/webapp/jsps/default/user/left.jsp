@@ -3,13 +3,13 @@
     <li class="list-group-item user-card" >
         <div class="ava">
             <a href="${ctx}/UserServlet?op=toOtherUser&antherId=${sessionScope.user.id}">
-                <img src="${sessionScope.user.avatar}" >
+                <img src="${ctx}/UserServlet?op=showUserAvatar&authorId=${sessionScope.user.id}" >
             </a>
         </div>
         <div class="user-info">
             <div class="nk mb10">${sessionScope.user.name}</div>
             <div class="mb6">
-                <a class="btn btn-success btn-xs" href="/UserServlet?op=toUpdate"><i class="icon icon-note"></i> 修改账户</a>
+                <a class="btn btn-success btn-xs" href="${ctx}/UserServlet?op=toUpdate"><i class="icon icon-note"></i> 修改账户</a>
             </div>
         </div>
     </li>
@@ -30,10 +30,10 @@
     <div id="home-navbar" class="collapse navbar-collapse">
         <ul class="list-group user-nav first">
             <li class="list-group-item">
-                <a href="/UserServlet?op=toMyArticle"><i class="icon icon-list"></i> 我的文章</a>
+                <a href="${ctx}/UserServlet?op=toMyArticle"><i class="icon icon-list"></i> 我的文章</a>
             </li>
             <li class="list-group-item">
-                <a href="/UserServlet?op=toMyComment"><i class="icon icon-speech"></i> 我的评论</a>
+                <a href="${ctx}/UserServlet?op=toMyComment"><i class="icon icon-speech"></i> 我的评论</a>
             </li>
         </ul>
 

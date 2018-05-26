@@ -29,31 +29,31 @@
                             <c:choose>
                                 <c:when test="${postList!=null && fn:length(postList) > 0}">
                                     <c:forEach items="${postList}" var="post">
-                                        <li class="list-group-item">
-                                            <a href="${ctx}/PostsServlet?op=toPostView&postId=${post.id}"
-                                               class="remove-padding-left">${post.title}</a>
-                                            <span class="meta">
-                                                ${post.favors} 点赞
-                                                <span> ⋅ </span>
+                                        <c:if test="${post.status == NORMAL_STATUS}">
+                                            <li class="list-group-item">
+                                                <a href="${ctx}/PostsServlet?op=toPostView&postId=${post.id}"
+                                                   class="remove-padding-left">${post.title}</a>
+                                                <span class="meta">
                                                 ${post.comments} 回复
                                                 <span> ⋅ </span>
                                                     ${post.views} 阅读数
-								                <span class="timeago">${0}</span>
+								                <span class="timeago"><fmt:formatDate value="${post.created}"/></span>
       						                </span>
 
-                                            <div class="pull-right hidden-xs">
-                                                <a class="act_edit" href="javascript:void(0);" data-evt="edit"
-                                                   data-id="${post.id}"
-                                                   data-toggle="tooltip" title="编辑文章">
-                                                    <i class="icon icon-note"></i>
-                                                </a>
-                                                <a class="act_delete" href="javascript:void(0);" data-evt="trash"
-                                                   data-id="${post.id}"
-                                                   data-toggle="tooltip" title="删除文章">
-                                                    <i class="icon icon-close"></i>
-                                                </a>
-                                            </div>
-                                        </li>
+                                                <div class="pull-right hidden-xs">
+                                                    <a class="act_edit" href="javascript:void(0);" data-evt="edit"
+                                                       data-id="${post.id}"
+                                                       data-toggle="tooltip" title="编辑文章">
+                                                        <i class="icon icon-note"></i>
+                                                    </a>
+                                                    <a class="act_delete" href="javascript:void(0);" data-evt="trash"
+                                                       data-id="${post.id}"
+                                                       data-toggle="tooltip" title="删除文章">
+                                                        <i class="icon icon-close"></i>
+                                                    </a>
+                                                </div>
+                                            </li>
+                                        </c:if>
                                     </c:forEach>
                                 </c:when>
                                 <c:otherwise>
@@ -86,15 +86,9 @@
                 btn: ['确定', '取消'], //按钮
                 shade: false //不显示遮罩
             }, function () {
-                jQuery.getJSON('${ctx}/PostsServlet?op=delPost&id=' + id, function (ret) {
-                    layer.msg(ret.message, {icon: 1});
-                    if (ret.code >= 0) {
-                        location.reload();
-                    }
+                $.post("${ctx}/PostsServlet?op=delPost", {postId: id}, function () {
+                    window.location.reload();
                 });
-
-            }, function () {
-
             });
         });
 

@@ -1,6 +1,7 @@
 package Service;
 
 import bean.Comment;
+import vo.CommentVo;
 import vo.PostCommentVo;
 
 import java.util.List;
@@ -11,6 +12,7 @@ import java.util.List;
 public interface CommentService {
     /**
      * 根据评论编号得到评论
+     *
      * @param id 评论编号
      * @return Comment 评论
      */
@@ -18,6 +20,7 @@ public interface CommentService {
 
     /**
      * 得到该Post下的所有评论
+     *
      * @param toid 评论属性to_id可对应于所评论Post的id
      * @return List<Comment> 该Post下的所有评论
      */
@@ -25,6 +28,7 @@ public interface CommentService {
 
     /**
      * 得到一个用户的所有评论
+     *
      * @param authorId 评论者ID
      * @return List<Comment> 评论
      */
@@ -32,6 +36,7 @@ public interface CommentService {
 
     /**
      * 根据评论编号删除评论
+     *
      * @param id 评论编号
      * @return int
      */
@@ -39,6 +44,7 @@ public interface CommentService {
 
     /**
      * 增加一条评论
+     *
      * @param comment 评论（对象）
      * @return int
      */
@@ -46,6 +52,7 @@ public interface CommentService {
 
     /**
      * 根据所评论的toId(对应于当前Post的id)得到该Post的评论数
+     *
      * @param toid 评论的toId(对应于Post的id)
      * @return int 对应Post的评论数
      */
@@ -54,21 +61,38 @@ public interface CommentService {
 
     /**
      * 查询所有评论
+     *
      * @return List<Comment>
      */
     List<Comment> getAllComments();
 
     /**
      * 涉嫌违规禁用评论
+     *
      * @param id 评论编号
      * @return int
      */
     int DisComment(long id);
 
+    /**
+     * 通过文章编号查找(评论+文章)组合对象
+     *
+     * @param authorId 作者编号
+     * @return
+     */
     List<PostCommentVo> getPostCommentVoByAuthorId(Long authorId);
 
     /**
+     * 通过文章编号查找(评论+用户)组合对象
+     *
+     * @param postId 文章编号
+     * @return
+     */
+    List<CommentVo> getCommentVoByPostId(Long postId);
+
+    /**
      * 查看一人的所有评论数
+     *
      * @param authorId 评论者ID（对应于用户Id）
      * @return int
      */
@@ -76,6 +100,7 @@ public interface CommentService {
 
     /**
      * 根据评论内容模糊查询
+     *
      * @param content 评论内容
      * @return
      */

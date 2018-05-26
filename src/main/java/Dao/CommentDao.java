@@ -26,4 +26,12 @@ public interface CommentDao {
     List<Comment> getAllComments();//查询所有评论
 
     List<Comment> getCommentContent(String content);//根据评论内容模糊查询
+
+    /**
+     * 更新一个评论
+     *
+     * @param comment 更新评论
+     * @return
+     */
+    int update(Comment comment);
 }

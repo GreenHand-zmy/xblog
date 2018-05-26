@@ -36,18 +36,18 @@
                     </thead>
                     <tbody>
                     <#list page.content as row>
-                        <c:forEach items="${commentList}" var="comment">
+                        <c:forEach items="${commentList}" var="commentVo">
                             <tr>
                                 <td>
-                                    <input type="checkbox" name="id" value="${comment.id}">
+                                    <input type="checkbox" name="id" value="${commentVo.id}">
                                 </td>
-                                <td class="text-center">${comment.content}</td>
-                                <td>${comment.content}</td>
-                                <td>${comment.authorId}</td>
+                                <td class="text-center">${commentVo.content}</td>
+                                <td>${commentVo.content}</td>
+                                <td>${commentVo.authorId}</td>
                                 <td>${row.author.username}</td>
                                     <%--<td>${row.created?string('yyyy-MM-dd')}</td>--%>
                                 <td class="text-center" align="left">
-                                    <a href="${ctx}/BgServlet?op=delComment&id=${comment.id}"
+                                    <a href="${ctx}/BgServlet?op=delComment&id=${commentVo.id}"
                                        class="btn btn-xs btn-white" data-id="${row.id}"
                                        data-action="delete">
                                         <i class="fa fa-bitbucket"></i> 删除

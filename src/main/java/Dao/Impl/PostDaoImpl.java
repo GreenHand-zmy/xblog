@@ -2,6 +2,7 @@ package Dao.Impl;
 
 import Dao.PostDao;
 import bean.Post;
+import constant.PostStatusConstant;
 import constant.TableNameConstant;
 import utils.DBUtil;
 
@@ -231,7 +232,7 @@ public class PostDaoImpl implements PostDao {
     @Override
     public Integer countByAuthorId(Long authorId) {
         String sql = "select count(*) from " + TableNameConstant.POST_TABLE +
-                " where author_id = ?";
+                " where author_id = ? and status = " + PostStatusConstant.NORMAL_STATUS;
 
         return DBUtil.getCount(sql, Integer.class, authorId);
     }

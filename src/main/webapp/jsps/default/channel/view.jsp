@@ -24,10 +24,10 @@
 
                         <div class="meta inline-block">
 
-                            <a class="author" href="${base}/users/${view.author.id}">
-                                ${view.author.name}
+                            <a class="author" href="${ctx}/UserServlet?op=toOtherUser&antherId=${post.authorId}">
+                                ${user.name}
                             </a>
-                            <abbr class="timeago">${0}</abbr>
+                            <abbr class="timeago"><fmt:formatDate value="${post.created}" type="both"/>&nbsp;/</abbr>
                             ${post.views} 阅读数
 
                         </div>
@@ -54,31 +54,37 @@
                 <!-- Comments -->
                 <div id="chat" class="chats shadow-box">
                     <div class="chat_other">
-                        <h4>全部评论: <i id="chat_count">0</i> 条</h4>
+                        <h4>全部评论: <i id="chat_count">${fn:length(commentVoList)}</i> 条</h4>
                     </div>
                     <%--评论展示区--%>
                     <ul id="chat_container" class="its">
-                        <li id="chat1">
-                            <%--用户头像--%>
-                            <a class="avt fl" target="_blank" href="/users/2">
-                                <img src="/dist/images/ava/default.png">
-                            </a>
-                            <div class="chat_body">
-                                <%--用户姓名--%>
-                                <h5>
-                                    <div class="fl">
-                                        <a class="chat_name" href="/users/2">jiu</a>
-                                        <span>2018-05-23</span>
+                        <c:forEach items="${commentVoList}" var="commentVo">
+                            <c:if test="${commentVo.comment.status == NORMAL_STATUS}">
+                                <li>
+                                        <%--用户头像--%>
+                                    <a class="avt fl" target="_blank"
+                                       href="${ctx}/UserServlet?op=toOtherUser&antherId=${commentVo.user.id}">
+                                        <img src="${ctx}/UserServlet?op=showUserAvatar&authorId=${commentVo.user.id}">
+                                    </a>
+                                    <div class="chat_body">
+                                            <%--用户姓名--%>
+                                        <h5>
+                                            <div class="fl">
+                                                <a class="chat_name"
+                                                   href="${ctx}/UserServlet?op=toOtherUser&antherId=${commentVo.user.id}">${commentVo.user.name}</a>
+                                                <span><fmt:formatDate value="${commentVo.comment.created}"/></span>
+                                            </div>
+                                            <div class="clear"></div>
+                                        </h5>
+                                            <%--回复内容--%>
+                                        <div class="chat_p">
+                                            <div class="chat_pct">${commentVo.comment.content}</div>
+                                        </div>
                                     </div>
                                     <div class="clear"></div>
-                                </h5>
-                                <%--回复内容--%>
-                                <div class="chat_p">
-                                    <div class="chat_pct">111</div>
-                                </div>
-                            </div>
-                            <div class="clear"></div>
-                        </li>
+                                </li>
+                            </c:if>
+                        </c:forEach>
                     </ul>
                     <div id="pager" class="text-center"></div>
                     <div class="cbox-wrap">
@@ -122,18 +128,14 @@
                         </div>
                         <div class="user-info">
                             <div class="nk mb10">${user.name}</div>
-                            <div class="mb6">
-                                <a class="btn btn-default btn-xs" href="javascript:void(0);" data-id="${view.author.id}"
-                                   rel="follow"><i class="icon icon-user-follow"></i> 关注</a>
-                            </div>
                         </div>
                     </li>
 
                     <li class="list-group-item">
                         <div class="user-datas">
                             <ul>
-                                <li><strong>${posts}</strong><span>发布</span></li>
-                                <li class="noborder"><strong>${comment}</strong><span>评论</span></li>
+                                <li><strong>${postedNumber}</strong><span>发布</span></li>
+                                <li class="noborder"><strong>${commentNumber}</strong><span>评论</span></li>
                             </ul>
                         </div>
                     </li>
@@ -150,77 +152,6 @@
                 <jsp:include page="../include/right.jsp"/>
             </div>
         </div>
-
-        <%--<script type="text/plain" id="chat_template">
-    <li id="chat{5}">
-        <a class="avt fl" target="_blank" href="${base}/users/{0}">
-            <img src="${base}{1}">
-        </a>
-        <div class="chat_body">
-            <h5>
-                <div class="fl"><a class="chat_name" href="${base}/users/{0}">{2}</a><span>{3}</span></div>
-                <div class="fr reply_this"><a href="javascript:void(0);" onclick="goto('{5}', '{2}')">[回复]</a></div>
-                <div class="clear"></div>
-            </h5>
-            <div class="chat_p">
-                <div class="chat_pct">{4}</div> {6}
-            </div>
-        </div>
-        <div class="clear"></div>
-        <div class="chat_reply"></div>
-    </li>
-</script>--%>
-
-        <%--<script type="text/javascript">
-            function goto(pid, user) {
-                document.getElementById('chat_text').scrollIntoView();
-                $('#chat_text').focus();
-                $('#chat_text').val('');
-                $('#chat_to').text(user);
-                $('#chat_pid').val(pid);
-
-                $('#chat_reply').show();
-            }
-            var container = $("#chat_container");
-            var template = $('#chat_template')[0].text;
-
-            seajs.use('comment', function (comment) {
-                comment.init({
-                    load_url: '${base}/comment/list/${view.id}',
-                    post_url: '${base}/comment/submit',
-                    toId: '${view.id}',
-                    onLoad: function (i, data) {
-
-                        var content = ContentRender.wrapItem(data.content);
-
-                        var quoto = '';
-                        if (data.pid > 0 && !(data.parent === null)) {
-                            var pat = data.parent;
-                            var pcontent = ContentRender.wrapItem(pat.content);
-                            quoto = '<div class="quote"><a href="${base}/users/' + pat.author.id + '">@' + pat.author.name + '</a>: ' + pcontent + '</div>';
-                        }
-                        var item = jQuery.format(template,
-                            data.author.id,
-                            data.author.avatar,
-                            data.author.name,
-                            data.created,
-                            content,
-                            data.id, quoto);
-                        return item;
-                    }
-                });
-            });
-
-            seajs.use(['phiz', 'view'], function (phiz) {
-                $("#c-btn").jphiz({
-                    base: '${ctx}/static/dist',
-                    textId: 'chat_text',
-                    lnkBoxId: 'c-lnk',
-                    phizBoxId: 'c-phiz'
-                });
-            });
-
-        </script>--%>
         <script>
             var Authc = {
                 isAuthced: function () {
@@ -257,8 +188,20 @@
                 // 给按钮绑定事件
                 var btn = $("#btn-chat");
                 btn.click(function () {
+                    var chatText = $("#chat_text").val();
                     if (!Authc.isAuthced()) {
                         Authc.showLogin();
+                        return false;
+                    } else if (chatText.length == 0) {
+                        layer.msg('请输入内容再提交!', {icon: 2});
+                        return false;
+                    } else {
+                        $.post("${ctx}/CommentServlet?op=addComment", {
+                            content: chatText,
+                            toId:${post.id}
+                        }, function () {
+                            window.location.reload();
+                        })
                     }
                 });
 

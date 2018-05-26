@@ -42,12 +42,12 @@
 
                             <fieldset class="form-group">
                                 <div class="alert alert-info">
-                                    使用以下方法注册或者登录（<a class="forget-password" href="${base}/forgot/apply">忘记密码？</a>）
+                                    使用以下方法注册或者登录（<a class="forget-password" href="#">忘记密码？</a>）
                                 </div>
-                                <a class="btn btn-default btn-block" href="${base}/oauth/callback/call_weibo">
+                                <a class="btn btn-default btn-block" href="#">
                                     <i class="fa fa-weibo"></i> 微博帐号登录
                                 </a>
-                                <a class="btn btn-default btn-block" href="${base}/oauth/callback/call_qq">
+                                <a class="btn btn-default btn-block" href="#">
                                     <i class="fa fa-qq"></i> QQ帐号登录
                                 </a>
                             </fieldset>

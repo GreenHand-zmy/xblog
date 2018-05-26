@@ -2,11 +2,13 @@ package vo;
 
 import bean.Comment;
 import bean.Post;
+import bean.User;
 
 /**
  * Created by zmy on 2018/5/23.
  */
 public class PostCommentVo {
+
     // 文章
     private Post post;
 

@@ -4,10 +4,12 @@ import Dao.Impl.PostDaoImpl;
 import Dao.PostDao;
 import Service.PostsService;
 import bean.Post;
+import constant.PostStatusConstant;
 import constant.XBlogConstant;
 import utils.PageBean;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static utils.CheckUtil.check;
 
@@ -62,9 +64,9 @@ public class PostsServiceImpl implements PostsService {
     @Override
     public int deletePost(Long id) {
         Post post = postDao.getPost(id);
-        check(post != null, "该用户不存在");
-        int num = postDao.deletePost(id);
-        return num;
+        check(post != null, "该文章不存在");
+        post.setStatus(PostStatusConstant.DELETED_STATUS);
+        return postDao.updatePost(post);
     }
 
     /**
@@ -234,7 +236,13 @@ public class PostsServiceImpl implements PostsService {
         // 构造分页对象
         PageBean<Post> pageBean = new PageBean<>(totalRecords, pageIndex, pageSize);
         // 查询数据库并将数据注入到分页对象中
-        pageBean.setData(postDao.findByOffsetAndLimit(channelId, pageBean.getOffset(), pageBean.getPageSize(),orderBy));
+        // 筛选出状态为正常的文章
+        List<Post> postList = postDao.findByOffsetAndLimit(channelId, pageBean.getOffset(), pageBean.getPageSize(), orderBy)
+                .stream()
+                .filter(post -> PostStatusConstant.NORMAL_STATUS.equals(post.getStatus()))
+                .collect(Collectors.toList());
+
+        pageBean.setData(postList);
         return pageBean;
     }
 

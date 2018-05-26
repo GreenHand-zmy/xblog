@@ -4,6 +4,7 @@ import Service.CommentService;
 import Service.Impl.CommentServiceImpl;
 import bean.Comment;
 import org.junit.Test;
+import vo.CommentVo;
 import vo.PostCommentVo;
 
 import java.util.Date;
@@ -14,6 +15,7 @@ import java.util.List;
  */
 public class CommentServiceTest {
     CommentService commentService = new CommentServiceImpl();
+
     //测试添加评论
     @Test
     public void testAdd() {
@@ -22,11 +24,13 @@ public class CommentServiceTest {
         int num = commentService.addComment(comment);
         System.out.println(num);
     }
+
     //测试数据库连接
     @Test
     public void testgetCount() {
         System.out.println(commentService.getCount(3));
     }
+
     //测试根据所评论文章toId(对应于当前文章的id)得到该文章的评论数
     @Test
     public void testgetCommentById() {
@@ -34,6 +38,7 @@ public class CommentServiceTest {
         Comment comment = commentService.getCommentById(id);
         System.out.println(comment.getContent());
     }
+
     //测试根据id查询评论
     @Test
     public void getComments() {
@@ -43,6 +48,7 @@ public class CommentServiceTest {
             System.out.println(c.getContent());
         }
     }
+
     //测试根据所评论的文章toid（对应于当前文章的Id）得到该文章的所有评论
     @Test
     public void testgetCommentsByAuthor() {
@@ -52,15 +58,22 @@ public class CommentServiceTest {
             System.out.println(c.getContent());
         }
     }
+
     //测试根据用户Id查询评论
     @Test
     public void testDel() {
         int num = commentService.delComment(1);
         System.out.println(num);
     }
+
     //测试删除评论
     @Test
     public void getPostCommentVoByAuthorId() {
         List<PostCommentVo> postCommentVoByAuthorId = commentService.getPostCommentVoByAuthorId(6L);
+    }
+
+    @Test
+    public void getCommentVoByPostId() {
+        List<CommentVo> commentVoList = commentService.getCommentVoByPostId(12L);
     }
 }

@@ -66,8 +66,8 @@
                 <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="${ctx}/" >
-                    <img src="${ctx}/static/theme/default/images/logo.png" />
+                <a class="navbar-brand" href="${ctx}/">
+                    <img src="${ctx}/static/theme/default/images/logo.png"/>
                 </a>
             </div>
             <div class="collapse navbar-collapse">
@@ -87,12 +87,14 @@
                 <ul class="navbar-button list-inline" id="header_user">
                     <c:choose>
                         <c:when test="${sessionScope.user!=null}">
-                            <li>
-                                <a href="${ctx}/PostsServlet?op=toAddPostPage" class="plus"><i class="icon icon-note"></i> 写文章</a>
+                            <li style="margin-top: 15px;">
+                                <a href="${ctx}/PostsServlet?op=toAddPostPage" class="plus"><i
+                                        class="icon icon-note"></i> 写文章</a>
                             </li>
                             <li class="dropdown">
                                 <a href="#" class="user dropdown-toggle" data-toggle="dropdown">
-                                    <img class="img-circle" src="${ctx}${sessionScope.user.avatar}">
+                                    <img class="img-circle"
+                                         src="${ctx}/UserServlet?op=showUserAvatar&authorId=${sessionScope.user.id}">
                                     <span>${sessionScope.user.name}</span>
                                 </a>
                                 <ul class="dropdown-menu" role="menu">
@@ -102,7 +104,10 @@
                                     <li>
                                         <a href="${ctx}/UserServlet?op=toUpdate">编辑资料</a>
                                     </li>
-                                    <li><a href="${ctx}/jsps/admin/index.jsp">后台管理</a></li>
+                                        <%--管理员才允许使用后台管理--%>
+                                    <c:if test="${sessionScope.user.status == ADMIN_STATUS}">
+                                        <li><a href="${ctx}/jsps/admin/index.jsp">后台管理</a></li>
+                                    </c:if>
                                     <li><a href="${ctx}/UserServlet?op=logout">退出</a></li>
                                 </ul>
                             </li>

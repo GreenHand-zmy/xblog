@@ -22,22 +22,27 @@
                     <div class="panel-body">
                         <div id="message">
                         </div>
-                        <form method="POST" action="/UserServlet?op=register" accept-charset="UTF-8">
+                        <form method="POST" action="${ctx}/UserServlet?op=register" accept-charset="UTF-8">
                             <div class="form-group ">
                                 <label class="control-label" for="username">用户名</label>
-                                <input class="form-control" name="username" type="text" data-required data-conditional="username" data-description="username" data-describedby="message">
+                                <input class="form-control" id="username" name="username" type="text" data-required
+                                       data-conditional="username" data-description="username"
+                                       data-describedby="message">
                             </div>
                             <div class="form-group ">
                                 <label class="control-label" for="name">昵称</label>
-                                <input class="form-control" name="name" type="text" data-required>
+                                <input class="form-control" id="name" name="name" type="text" data-required>
                             </div>
                             <div class="form-group ">
                                 <label class="control-label" for="username">密码</label>
-                                <input class="form-control" id="password" name="password" type="password" maxlength="18" placeholder="新密码" data-required>
+                                <input class="form-control" id="password" name="password" type="password" maxlength="18"
+                                       placeholder="新密码" data-required>
                             </div>
                             <div class="form-group ">
                                 <label class="control-label" for="username">确认密码</label>
-                                <input class="form-control" name="password2" type="password" maxlength="18" placeholder="请再输入一次密码" data-required data-conditional="confirm" data-describedby="message" data-description="confirm">
+                                <input class="form-control" name="password2" type="password" maxlength="18"
+                                       placeholder="请再输入一次密码" data-required data-conditional="confirm"
+                                       data-describedby="message" data-description="confirm">
                             </div>
                             <button type="submit" class="btn btn-success btn-block">
                                 提交
@@ -53,30 +58,44 @@
 <!-- footer -->
 <%@include file="../include/footer.jsp" %>
 <script type="text/javascript">
-    $(function(){
+    $(function () {
+        var usernameInput = $("#username");
+        usernameInput.blur(function () {
+            $.ajax({
+                url: "${ctx}/UserServlet?op=ajaxUserExisted",
+                method: "GET",
+                data: {username: $(this).val()},
+                success: function (data) {
+                    if (data.code != 0) {
+                        alert(data.message);
+                    }
+                }
+            })
+        });
+
         $('form').validate({
-            onKeyup : true,
-            onChange : true,
-            eachValidField : function() {
+            onKeyup: true,
+            onChange: true,
+            eachValidField: function () {
                 $(this).closest('div').removeClass('has-error').addClass('has-success');
             },
-            eachInvalidField : function() {
+            eachInvalidField: function () {
                 $(this).closest('div').removeClass('has-success').addClass('has-error');
             },
-            conditional : {
-                confirm : function() {
+            conditional: {
+                confirm: function () {
                     return $(this).val() == $('#password').val();
                 },
-                username : function() {
+                username: function () {
                     return /^[a-z][a-z_0-9]{4,18}$/i.test($(this).val());
                 }
             },
-            description : {
-                confirm : {
-                    conditional : '<div class="alert alert-danger">两次输入的密码不一致</div>'
+            description: {
+                confirm: {
+                    conditional: '<div class="alert alert-danger">两次输入的密码不一致</div>'
                 },
-                username : {
-                    conditional : '<div class="alert alert-danger">只能是字母/字母+数字的组合,不少于5位</div>'
+                username: {
+                    conditional: '<div class="alert alert-danger">只能是字母/字母+数字的组合,不少于5位</div>'
                 }
             }
         });

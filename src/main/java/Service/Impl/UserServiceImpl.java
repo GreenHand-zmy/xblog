@@ -48,8 +48,8 @@ public class UserServiceImpl implements UserService {
         User user = userDao.getUser(id);
         check(user != null, "该用户不存在");
         user.setStatus(DELETED_STATUS);
-        int num = userDao.updateUser(user);
-        return num;
+        return userDao.updateUser(user);
+
     }
 
     @Override
@@ -70,15 +70,15 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getUser1(String username) {
         User user = userDao.getUser1(username);
-        check(user != null, "该用户不存在");
         return user;
     }
 
-    public List<User> getUsername(String username){
+    public List<User> getUsername(String username) {
         List<User> userList = userDao.getUsername(username);
         check(userList != null, "无查询结果");
         return userList;
     }
+
     @Override
     public List<User> getAll() {
         List<User> list = userDao.getAll();

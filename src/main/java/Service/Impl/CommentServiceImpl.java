@@ -2,16 +2,21 @@ package Service.Impl;
 
 import Dao.CommentDao;
 import Dao.Impl.CommentDaoImpl;
+import Dao.Impl.UserDaoImpl;
+import Dao.UserDao;
 import Service.CommentService;
 import Service.PostsService;
 import bean.Comment;
 import bean.Post;
+import bean.User;
 import constant.CommentStatusConstant;
 import utils.DBUtil;
+import vo.CommentVo;
 import vo.PostCommentVo;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static utils.CheckUtil.check;
 
@@ -21,6 +26,8 @@ import static utils.CheckUtil.check;
 public class CommentServiceImpl implements CommentService {
     private CommentDao commentDao = new CommentDaoImpl();
     private PostsService postsService = new PostsServiceImpl();
+    private UserDao userDao = new UserDaoImpl();
+
     //根据评论编号得到评论
     @Override
     public Comment getCommentById(long id) {
@@ -28,36 +35,59 @@ public class CommentServiceImpl implements CommentService {
         check(comment != null, "没有符合id的评论！");
         return comment;
     }
+
     //根据所评论的文章（toid）得到该文章的所有评论
     @Override
     public List<Comment> getComments(long toid) {
         List<Comment> commentList = commentDao.getComments(toid);
-        check(commentList != null, "暂无评论！");
         return commentList;
     }
+
     //得到一个用户的所有评论
     @Override
     public List<Comment> getCommentsByAuthor(long authorId) {
         List<Comment> commentList = commentDao.getCommentsByAuthor(authorId);
-        check(commentList != null, "用户暂无评论！");
-        return commentList;
+
+        // 筛选出评论状态为正常的评论集合
+        return commentList
+                .stream()
+                .filter(comment -> CommentStatusConstant.NORMAL_STATUS.equals(comment.getStatus()))
+                .collect(Collectors.toList());
     }
+
     //根据评论编号删除评论
     @Override
     public int delComment(long id) {
-        String sql="UPDATE mto_comments SET `status`=? WHERE id=?";
-        int num = DBUtil.executeUpdate(sql, CommentStatusConstant.DELETED_STATUS,id);
-        check(num != 0, "删除评论失败！");
-        return num;
+        // 将评论状态更新为已删除
+        Comment comment = commentDao.getCommentById(id);
+        comment.setStatus(CommentStatusConstant.DELETED_STATUS);
+
+        // 获取被评论文章编号,将评论数减1,并更新
+        Post post = postsService.getPost(comment.getToId());
+        post.setComments(post.getComments() - 1);
+        postsService.updatePostComments(post);
+        return commentDao.update(comment);
     }
+
     //增加一条评论
     @Override
     public int addComment(Comment comment) {
+        // 设置评论状态为普通状态,并添加到数据库中
+        comment.setStatus(CommentStatusConstant.NORMAL_STATUS);
         int num = commentDao.addComment(comment);
-        check(comment.getStatus() != null, "评论状态不能为空");
-        check(num != 0, "评论失败！");
+
+        // 获取被评论的文章编号
+        Long toId = comment.getToId();
+
+        // 将被评论的文章,评论数+1
+        Post post = postsService.getPost(toId);
+        post.setComments(post.getComments() + 1);
+
+        // 将更新后的文章添加到数据库中
+        postsService.updatePostComments(post);
         return num;
     }
+
     //根据所评论文章toId(对应于当前文章的id)得到该文章的评论数
     @Override
     public int getCount(long toid) {
@@ -74,8 +104,8 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public int DisComment(long id) {
-        String sql="UPDATE mto_comments SET `status`=? WHERE id=?";
-        return DBUtil.executeUpdate(sql,CommentStatusConstant.DISABLED_STATUS,id);
+        String sql = "UPDATE mto_comments SET `status`=? WHERE id=?";
+        return DBUtil.executeUpdate(sql, CommentStatusConstant.DISABLED_STATUS, id);
     }
 
     @Override
@@ -93,8 +123,25 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
+    public List<CommentVo> getCommentVoByPostId(Long postId) {
+        List<CommentVo> commentVoList = new ArrayList<>();
+
+        Post post = postsService.getPost(postId);
+        List<Comment> comments = getComments(post.getId());
+        for (Comment comment : comments) {
+            // 筛选出正常状态的评论
+            if (CommentStatusConstant.NORMAL_STATUS.equals(comment.getStatus())) {
+                User user = userDao.getUser(comment.getAuthorId());
+                CommentVo commentVo = new CommentVo(user, comment);
+                commentVoList.add(commentVo);
+            }
+        }
+        return commentVoList;
+    }
+
+    @Override
     public int getCount1(long authorId) {
-        int  num = commentDao.getCount1(authorId);
+        int num = commentDao.getCount1(authorId);
         return num;
     }
 

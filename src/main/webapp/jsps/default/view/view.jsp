@@ -21,25 +21,23 @@
                     <li class="list-group-item user-card">
                         <div class="ava">
                             <a>
-                                <img class="img-circle" src="${ctx}${user.avatar}" width="70px" height="60px" style="margin-top: 15px;">
+                                <img class="img-circle" src="${ctx}/UserServlet?op=showUserAvatar&authorId=${user.id}" width="70px" height="60px"
+                                     style="margin-top: 15px;">
                             </a>
                         </div>
                         <div class="user-info">
-                            <div class="nk mb10" >${user.name}</div><br>
-                            <div class="mb6">
-                                <a class="btn btn-success btn-xs" href="javascript:void(0);" data-id=""
-                                   rel="follow">+ 关注</a>
-                            </div>
+                            <div class="nk mb10">${user.name}</div>
+                            <br>
                         </div>
                     </li>
                     <li class="list-group-item">
                 <span>
                     <c:choose>
-                    <c:when test="${user.signature!=null}">
-                        ${user.signature}
-                    </c:when>
+                        <c:when test="${user.signature!=null}">
+                            ${user.signature}
+                        </c:when>
                         <c:otherwise>
-                        什么都没留下
+                            什么都没留下
                         </c:otherwise>
                     </c:choose>
                 </span>
@@ -54,31 +52,30 @@
 
                     <div class="panel-body">
                         <ul class="list-group">
-                           <c:choose>
-                               <c:when test="${posts!=null}">
-                            <li class="list-group-item">
-                                <a href="#" class="remove-padding-left">${posts.title}</a>
-                                <span class="meta">
-								${posts.favors} 点赞
-								<span> ⋅ </span>
-                                ${0} 回复
-								<span> ⋅ </span>
-								<span class="timeago">${0}</span>
-      						</span>
-                            </li>
-                               </c:when>
-                               <c:otherwise>
-                            <li class="list-group-item ">
-                                <div class="infos">
-                                    <div class="media-heading">该目录下还没有内容!</div>
-                                </div>
-                            </li>
-                               </c:otherwise>
-                           </c:choose>
+                            <c:choose>
+                                <c:when test="${postList!=null && fn:length(postList) > 0}">
+                                    <c:forEach items="${postList}" var="post">
+                                        <li class="list-group-item">
+                                            <a href="${ctx}/PostsServlet?op=toPostView&postId=${post.id}" class="remove-padding-left">${post.title}</a>
+                                            <span class="meta">
+                                            ${post.views} 阅读
+                                            <span> ⋅ </span>
+                                            ${post.comments} 回复
+                                            <span> ⋅ </span>
+                                            <span class="timeago"><fmt:formatDate value="${post.created}"/></span>
+      						            </span>
+                                        </li>
+                                    </c:forEach>
+                                </c:when>
+                                <c:otherwise>
+                                    <li class="list-group-item ">
+                                        <div class="infos">
+                                            <div class="media-heading">该目录下还没有内容!</div>
+                                        </div>
+                                    </li>
+                                </c:otherwise>
+                            </c:choose>
                         </ul>
-                    </div>
-                    <div class="panel-footer">
-                        <%--<@pager request.requestURI!"", results, 5/>--%>
                     </div>
                 </div>
             </div>

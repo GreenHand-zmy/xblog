@@ -23,13 +23,6 @@ public class MD5Utils {
     }
 
     public static void main(String[] args) {
-//		String uname="zs";
-//		String upwd="a123";
-        if (md5("zsa12345").equals("a40e44b9678fdba0bfcd3ab7e2ca94be")) {
-            System.out.println("密码正确！！");
-        } else {
-            System.out.println("密码错误！！");
-        }
-        //System.out.println(md5("zsa123"));
+        System.out.println(md5("123"));
     }
 }
