@@ -7,5 +7,5 @@ public interface XBlogConstant {
     /**
      * 默认一页的大小
      */
-    Integer DEFAULT_PAGE_SIZE = 5;
+    Integer DEFAULT_PAGE_SIZE = 10;
 }
