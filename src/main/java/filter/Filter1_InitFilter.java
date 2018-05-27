@@ -1,7 +1,7 @@
 package filter;
 
-import Service.ChannelService;
-import Service.Impl.ChannelServiceImpl;
+import service.ChannelService;
+import service.Impl.ChannelServiceImpl;
 import bean.Channel;
 
 import javax.servlet.*;

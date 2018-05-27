@@ -1,9 +1,8 @@
-package Dao.Impl;
+package dao.Impl;
 
-import Dao.ChannelDao;
+import dao.ChannelDao;
 import bean.Channel;
 import constant.TableNameConstant;
-import org.apache.commons.dbutils.DbUtils;
 import utils.DBUtil;
 
 import java.util.List;

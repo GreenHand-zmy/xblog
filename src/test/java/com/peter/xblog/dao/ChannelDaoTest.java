@@ -1,14 +1,12 @@
 package com.peter.xblog.dao;
 
-import Dao.ChannelDao;
-import Dao.Impl.ChannelDaoImpl;
+import dao.ChannelDao;
+import dao.Impl.ChannelDaoImpl;
 import bean.Channel;
 import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.List;
-
-import static org.junit.Assert.*;
 
 /**
  * Created by zmy on 2018/5/21.

@@ -1,13 +1,11 @@
 package com.peter.xblog.service;
 
-import Service.ChannelService;
-import Service.Impl.ChannelServiceImpl;
+import service.ChannelService;
+import service.Impl.ChannelServiceImpl;
 import bean.Channel;
 import org.junit.Test;
 
 import java.util.List;
-
-import static org.junit.Assert.*;
 
 /**
  * Created by zmy on 2018/5/22.

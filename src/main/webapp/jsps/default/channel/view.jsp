@@ -58,27 +58,27 @@
                     </div>
                     <%--评论展示区--%>
                     <ul id="chat_container" class="its">
-                        <c:forEach items="${commentVoList}" var="commentVo">
-                            <c:if test="${commentVo.comment.status == NORMAL_STATUS}">
+                        <c:forEach items="${commentVoList}" var="comment">
+                            <c:if test="${comment.comment.status == NORMAL_STATUS}">
                                 <li>
                                         <%--用户头像--%>
                                     <a class="avt fl" target="_blank"
-                                       href="${ctx}/UserServlet?op=toOtherUser&antherId=${commentVo.user.id}">
-                                        <img src="${ctx}/UserServlet?op=showUserAvatar&authorId=${commentVo.user.id}">
+                                       href="${ctx}/UserServlet?op=toOtherUser&antherId=${comment.user.id}">
+                                        <img src="${ctx}/UserServlet?op=showUserAvatar&authorId=${comment.user.id}">
                                     </a>
                                     <div class="chat_body">
                                             <%--用户姓名--%>
                                         <h5>
                                             <div class="fl">
                                                 <a class="chat_name"
-                                                   href="${ctx}/UserServlet?op=toOtherUser&antherId=${commentVo.user.id}">${commentVo.user.name}</a>
-                                                <span><fmt:formatDate value="${commentVo.comment.created}"/></span>
+                                                   href="${ctx}/UserServlet?op=toOtherUser&antherId=${comment.user.id}">${comment.user.name}</a>
+                                                <span><fmt:formatDate value="${comment.comment.created}"/></span>
                                             </div>
                                             <div class="clear"></div>
                                         </h5>
                                             <%--回复内容--%>
                                         <div class="chat_p">
-                                            <div class="chat_pct">${commentVo.comment.content}</div>
+                                            <div class="chat_pct">${comment.comment.content}</div>
                                         </div>
                                     </div>
                                     <div class="clear"></div>

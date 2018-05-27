@@ -1,7 +1,6 @@
-package Dao;
+package dao;
 
 import bean.Comment;
-import bean.Post;
 
 import java.util.List;
 

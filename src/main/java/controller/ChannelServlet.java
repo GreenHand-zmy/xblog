@@ -1,8 +1,8 @@
 package controller;
 
 
-import Service.Impl.PostsServiceImpl;
-import Service.PostsService;
+import service.Impl.PostsServiceImpl;
+import service.PostsService;
 import bean.Post;
 import utils.PageBean;
 import utils.StringUtil;
@@ -13,11 +13,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-
-
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
 
 /**
  * Created by lfy on 2018/5/22.

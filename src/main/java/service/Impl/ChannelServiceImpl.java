@@ -1,8 +1,8 @@
-package Service.Impl;
+package service.Impl;
 
-import Dao.ChannelDao;
-import Dao.Impl.ChannelDaoImpl;
-import Service.ChannelService;
+import dao.ChannelDao;
+import dao.Impl.ChannelDaoImpl;
+import service.ChannelService;
 import bean.Channel;
 import constant.ChannelStatusConstant;
 

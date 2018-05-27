@@ -1,7 +1,7 @@
 package com.peter.xblog.service;
 
-import Service.CommentService;
-import Service.Impl.CommentServiceImpl;
+import service.CommentService;
+import service.Impl.CommentServiceImpl;
 import bean.Comment;
 import org.junit.Test;
 import vo.CommentVo;

@@ -9,7 +9,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>${site_name} - 后台管理</title>
+    <title>XBlog - 后台管理</title>
 
     <!-- Bootstrap -->
     <link href="${ctx}/static/dist/vendors/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -39,7 +39,7 @@
         <div class="col-md-3 left_col">
             <div class="left_col scroll-view">
                 <div class="navbar nav_title" style="border: 0;">
-                    <a href="${base}/index" class="site_title"><span>Mtons</span></a>
+                    <a href="${ctx}/index" class="site_title"><span>XBlog</span></a>
                 </div>
 
                 <div class="clearfix"></div>
@@ -55,25 +55,14 @@
                                 <a href="${ctx}/BgServlet?op=index">
                                     <i class="fa fa-home"></i> Home
                                 </a>
-                            <li><a href="${ctx}/BgServlet?op=posts"><i class="fa fa-home"></i> 文章管理</a>
-                            <li><a href="${ctx}/BgServlet?op=user"><i class="fa fa-home"></i> 用户管理</a>
-                            <li><a href="${ctx}/BgServlet?op=comment"><i class="fa fa-home"></i> 评论管理</a>
-                            <li><a href="${ctx}/BgServlet?op=channel"><i class="fa fa-home"></i> 栏目管理</a>
                             </li>
-                            <%--<@menus>
-                                <#list results as menu>
-                                    <li>
-                                        <a href="${base}/${menu.url}" nav="${menu.url}">
-                                            <i class="${menu.icon}"></i>
-                                            文章管理
-                                        </a>
-                                    </li>
-                                </#list>
-                            </@menus>--%>
+                            <li><a href="${ctx}/BgServlet?op=posts"><i class="fa fa-home"></i> 文章管理</a></li>
+                            <li><a href="${ctx}/BgServlet?op=user"><i class="fa fa-home"></i> 用户管理</a></li>
+                            <li><a href="${ctx}/BgServlet?op=comment"><i class="fa fa-home"></i> 评论管理</a></li>
+                            <li><a href="${ctx}/BgServlet?op=channel"><i class="fa fa-home"></i> 栏目管理</a></li>
                         </ul>
                     </div>
                 </div>
-                <!-- /sidebar menu -->
             </div>
         </div>
 
@@ -89,12 +78,11 @@
                         <li class="">
                             <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown"
                                aria-expanded="false">
-                                <img src="${base}${profile.avatar}" alt="">${profile.username}
+                                <img src="${ctx}/UserServlet?op=showUserAvatar&authorId=${sessionScope.user.id}" alt="">${sessionScope.user.name}
                                 <span class=" fa fa-angle-down"></span>
                             </a>
                             <ul class="dropdown-menu dropdown-usermenu pull-right">
-                                <li><a href="${base}/user/profile"> Profile</a></li>
-                                <li><a href="${base}/logout"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
+                                <li><a href="${ctx}/UserServlet?op=logout"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -125,72 +113,3 @@
     <script src="${ctx}/static/theme/admin/js/app.data.js"></script>
 </body>
 </html>
-<%--</#macro>--%>
-
-<%--
-<#macro pager url p spans>
-    <#local span = (spans - 3)/2 />
-    <#local pageNo = p.number + 1 />
-    <#if (url?index_of("?") != -1)>
-        <#local cURL = (url + "&pn=") />
-    <#else>
-        <#local cURL = (url + "?pn=") />
-    </#if>
-
-<ul class="pagination">
-    <#if (pageNo > 1)>
-        <#local prev = pageNo - 1 />
-        <li><a class="prev" href="${cURL}${prev}" pageNo="1">&nbsp;<i class="fa fa-angle-left"></i>&nbsp;</a></li>
-    </#if>
-
-    <#local totalNo = span * 2 + 3 />
-    <#local totalNo1 = totalNo - 1 />
-    <#if (p.totalPages > totalNo)>
-        <#if (pageNo <= span + 2)>
-            <#list 1..totalNo1 as i>
-                <@pagelink pageNo, i, cURL/>
-            </#list>
-            <@pagelink 0, 0, "#"/>
-            <@pagelink pageNo, p.totalPages, cURL />
-        <#elseif (pageNo > (p.totalPages - (span + 2)))>
-            <@pagelink pageNo, 1, cURL />
-            <@pagelink 0, 0, "#"/>
-            <#local num = p.totalPages - totalNo + 2 />
-            <#list num..p.totalPages as i>
-                <@pagelink pageNo, i, cURL/>
-            </#list>
-        <#else>
-            <@pagelink pageNo, 1, cURL />
-            <@pagelink 0 0 "#" />
-            <#local num = pageNo - span />
-            <#local num2 = pageNo + span />
-            <#list num..num2 as i>
-                <@pagelink pageNo, i, cURL />
-            </#list>
-            <@pagelink 0, 0, "#"/>
-            <@pagelink pageNo, p.totalPages, cURL />
-        </#if>
-    <#elseif (p.totalPages > 1)>
-        <#list 1..p.totalPages as i>
-            <@pagelink pageNo, i, cURL />
-        </#list>
-    <#else>
-        <@pagelink 1, 1, cURL/>
-    </#if>
-
-    <#if (pageNo lt p.totalPages)>
-        <#local next = pageNo + 1/>
-        <li><a href="${cURL}${next}" pageNo="${next}">&nbsp;<i class="fa fa-angle-right"></i>&nbsp;</a></li>
-    </#if>
-</ul>
-</#macro>
-
-<#macro pagelink pageNo idx url>
-    <#if (idx == 0)>
-    <li><span>...</span></li>
-    <#elseif (pageNo == idx)>
-    <li class="active"><a href="javascript:void(0);"><span>${idx}</span></a></li>
-    <#else>
-    <li><a href="${url}${idx}">${idx}</a></li>
-    </#if>
-</#macro>--%>

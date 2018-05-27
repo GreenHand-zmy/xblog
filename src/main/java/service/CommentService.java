@@ -1,4 +1,4 @@
-package Service;
+package service;
 
 import bean.Comment;
 import vo.CommentVo;

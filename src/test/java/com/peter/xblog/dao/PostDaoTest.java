@@ -1,7 +1,7 @@
 package com.peter.xblog.dao;
 
-import Dao.Impl.PostDaoImpl;
-import Dao.PostDao;
+import dao.Impl.PostDaoImpl;
+import dao.PostDao;
 import bean.Post;
 import org.junit.Test;
 

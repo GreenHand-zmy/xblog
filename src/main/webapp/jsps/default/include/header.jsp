@@ -11,11 +11,11 @@
             <div class="modal-body">
                 <form method="POST" action="${ctx}/UserServlet?op=ajaxLogin" accept-charset="UTF-8">
                     <div class="form-group ">
-                        <label class="control-label" for="username">账号</label>
+                        <label class="control-label" for="ajax_login_username">账号</label>
                         <input class="form-control" id="ajax_login_username" name="username" type="text" required>
                     </div>
                     <div class="form-group ">
-                        <label class="control-label" for="password">密码</label>
+                        <label class="control-label" for="ajax_login_password">密码</label>
                         <input class="form-control" id="ajax_login_password" name="password" type="password" required>
                     </div>
                     <button id="ajax_login_submit" class="btn btn-success btn-block btn-sm" type="button">
@@ -25,12 +25,12 @@
                     <hr>
                     <fieldset class="form-group">
                         <div class="alert alert-info">
-                            使用以下方法注册或者登录（<a class="forget-password" href="${ctx}/forgot/apply">忘记密码？</a>）
+                            使用以下方法注册或者登录（<a class="forget-password" href="#">忘记密码？</a>
                         </div>
-                        <a class="btn btn-default btn-block" href="${ctx}/oauth/callback/call_weibo">
+                        <a class="btn btn-default btn-block" href="#">
                             <i class="fa fa-weibo"></i> 微博帐号登录
                         </a>
-                        <a class="btn btn-default btn-block" href="${ctx}/oauth/callback/call_qq">
+                        <a class="btn btn-default btn-block" href="#">
                             <i class="fa fa-qq"></i> QQ帐号登录
                         </a>
                     </fieldset>
@@ -67,7 +67,7 @@
                     <span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
                 </button>
                 <a class="navbar-brand" href="${ctx}/">
-                    <img src="${ctx}/static/theme/default/images/logo.png"/>
+                    <img src="${ctx}/static/theme/default/images/logo1.png" width="150" height="90"/>
                 </a>
             </div>
             <div class="collapse navbar-collapse">
@@ -78,10 +78,12 @@
                         </li>
                     </c:if>
                     <c:forEach var="channel" items="${channelList}">
-                        <li>
-                            <a href="${ctx}/ChannelServlet?op=toChannelPage&channelId=${channel.id}&orderBy=created"
-                               nav="${channel.name}">${channel.name}</a>
-                        </li>
+                        <c:if test="${channel.status == NORMAL_STATUS}">
+                            <li>
+                                <a href="${ctx}/ChannelServlet?op=toChannelPage&channelId=${channel.id}&orderBy=created"
+                                   nav="${channel.name}">${channel.name}</a>
+                            </li>
+                        </c:if>
                     </c:forEach>
                 </ul>
                 <ul class="navbar-button list-inline" id="header_user">
@@ -106,7 +108,7 @@
                                     </li>
                                         <%--管理员才允许使用后台管理--%>
                                     <c:if test="${sessionScope.user.status == ADMIN_STATUS}">
-                                        <li><a href="${ctx}/jsps/admin/index.jsp">后台管理</a></li>
+                                        <li><a href="${ctx}/BgServlet?op=toAdminPage">后台管理</a></li>
                                     </c:if>
                                     <li><a href="${ctx}/UserServlet?op=logout">退出</a></li>
                                 </ul>

@@ -1,4 +1,4 @@
-package Service;
+package service;
 
 import bean.Post;
 import utils.PageBean;

@@ -1,8 +1,6 @@
-package Dao;
+package dao;
 
-import bean.Post;
 import bean.User;
-import com.sun.org.apache.xalan.internal.utils.XMLSecurityManager;
 
 import java.util.List;
 

@@ -1,6 +1,6 @@
-package Dao.Impl;
+package dao.Impl;
 
-import Dao.PostDao;
+import dao.PostDao;
 import bean.Post;
 import constant.PostStatusConstant;
 import constant.TableNameConstant;

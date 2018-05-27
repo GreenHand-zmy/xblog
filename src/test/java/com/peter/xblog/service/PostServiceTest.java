@@ -1,8 +1,8 @@
 package com.peter.xblog.service;
 
 
-import Service.Impl.PostsServiceImpl;
-import Service.PostsService;
+import service.Impl.PostsServiceImpl;
+import service.PostsService;
 import bean.Post;
 import org.junit.Test;
 

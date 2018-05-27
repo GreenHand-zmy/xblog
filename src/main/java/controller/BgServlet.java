@@ -1,30 +1,32 @@
 package controller;
 
-import Dao.ChannelDao;
-import Dao.CommentDao;
-import Dao.Impl.ChannelDaoImpl;
-import Dao.Impl.CommentDaoImpl;
-import Dao.Impl.PostDaoImpl;
-import Dao.Impl.UserDaoImpl;
-import Dao.PostDao;
-import Dao.UserDao;
-import Service.ChannelService;
-import Service.CommentService;
-import Service.Impl.ChannelServiceImpl;
-import Service.Impl.CommentServiceImpl;
-import Service.Impl.PostsServiceImpl;
-import Service.Impl.UserServiceImpl;
-import Service.PostsService;
-import Service.UserService;
+import dao.ChannelDao;
+import dao.CommentDao;
+import dao.Impl.ChannelDaoImpl;
+import dao.Impl.CommentDaoImpl;
+import dao.Impl.PostDaoImpl;
+import dao.Impl.UserDaoImpl;
+import dao.PostDao;
+import dao.UserDao;
+import service.ChannelService;
+import service.CommentService;
+import service.Impl.ChannelServiceImpl;
+import service.Impl.CommentServiceImpl;
+import service.Impl.PostsServiceImpl;
+import service.Impl.UserServiceImpl;
+import service.PostsService;
+import service.UserService;
 import bean.Channel;
 import bean.Comment;
-import bean.Post;
 import bean.Post;
 import bean.User;
 import constant.ChannelStatusConstant;
 import constant.CommentStatusConstant;
 import constant.PostStatusConstant;
 import constant.UserStatusConstant;
+import sun.security.provider.MD5;
+import utils.MD5Utils;
+import utils.StringUtil;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -95,7 +97,6 @@ public class BgServlet extends HttpServlet {
             long id = Integer.parseInt(req.getParameter("id"));
             Channel channel = channelDao.findById(id);
             channel.setStatus(ChannelStatusConstant.CLOSED_STATUS);
-            req.getRequestDispatcher("jsps/admin/index.jsp").forward(req, resp);
         } else if ("updatePwsUser".equals(op)) {
             long id = Integer.parseInt(req.getParameter("id"));
             User user = userDao.getUser(id);
@@ -106,13 +107,15 @@ public class BgServlet extends HttpServlet {
         } else if ("delUser".equals(op)) {
             long id = Integer.parseInt(req.getParameter("id"));
             User user = userDao.getUser(id);
+            // 设置用户为被删除状态,并更新到数据库中
             user.setStatus(UserStatusConstant.DELETED_STATUS);
-            req.getRequestDispatcher("jsps/admin/index.jsp").forward(req, resp);
+            userService.updateUser(user);
         } else if ("delComment".equals(op)) {
             long id = Integer.parseInt(req.getParameter("id"));
             Comment comment = commentDao.getCommentById(id);
             comment.setStatus(CommentStatusConstant.DELETED_STATUS);
-            req.getRequestDispatcher("jsps/admin/index.jsp").forward(req, resp);
+            commentDao.update(comment);
+
         } else if ("getUser".equals(op)) {
             String name = req.getParameter("name");
             List<User> userList2 = userDao.getUsername(name);
@@ -128,6 +131,58 @@ public class BgServlet extends HttpServlet {
             List<Comment> commentList2 = commentDao.getCommentContent(content);
             req.setAttribute("commentList", commentList2);
             req.getRequestDispatcher("jsps/admin/comment/list.jsp").forward(req, resp);
+        } else if ("toAdminPage".equals(op)) {
+            User user = (User) req.getSession().getAttribute("user");
+            if (!UserStatusConstant.ADMIN_STATUS.equals(user.getStatus())) {
+                resp.getWriter().print("<script>alert('您不是管理员用户,无权进入后台页面');history.go('-1');</script>");
+                return;
+            }
+            req.getRequestDispatcher("jsps/admin/index.jsp").forward(req, resp);
+        } else if ("activeUser".equals(op)) {
+            long id = Integer.parseInt(req.getParameter("id"));
+            User user = userDao.getUser(id);
+
+            // 设置用户为正常状态,并更新到数据库中
+            user.setStatus(UserStatusConstant.NORMAL_STATUS);
+            userService.updateUser(user);
+        } else if ("updatePwdUser".equals(op)) {
+            int id = Integer.parseInt(req.getParameter("id"));
+            User user = userService.getUser(id);
+
+            // 设置新密码
+            String newPassword = MD5Utils.md5(req.getParameter("newPassword"));
+            user.setPassword(newPassword);
+            userService.updateUser(user);
+
+            resp.sendRedirect("BgServlet?op=user");
+        } else if ("toAddChannelPage".equals(op)) {
+            req.getRequestDispatcher("jsps/admin/channel/view.jsp").forward(req, resp);
+        } else if ("addChannel".equals(op)) {
+            // 获取频道必须参数
+            String channelName = req.getParameter("name");
+            String key = req.getParameter("key");
+            String channelId = req.getParameter("id");
+            String status = req.getParameter("status");
+
+            // 如果频道编号为空,则进行插入
+            if (StringUtil.isEmpty(channelId)) {
+                // 构造频道对象,并保存到数据库
+                Channel channel = new Channel();
+                channel.setName(channelName);
+                channel.setKey(key);
+                channel.setStatus(ChannelStatusConstant.NORMAL_STATUS);
+                channelService.save(channel);
+            } else {
+                // 如果频道编号不为空,则进行更新
+                long channelIdL = Long.parseLong(channelId);
+                int lStatus = Integer.parseInt(status);
+                Channel channel = channelService.findById(channelIdL);
+                channel.setName(channelName);
+                channel.setKey(key);
+                channel.setStatus(lStatus);
+                channelService.update(channel);
+            }
+            resp.sendRedirect("BgServlet?op=channel");
         }
     }
 }

@@ -1,8 +1,8 @@
-package Service.Impl;
+package service.Impl;
 
-import Dao.Impl.PostDaoImpl;
-import Dao.PostDao;
-import Service.PostsService;
+import dao.Impl.PostDaoImpl;
+import dao.PostDao;
+import service.PostsService;
 import bean.Post;
 import constant.PostStatusConstant;
 import constant.XBlogConstant;

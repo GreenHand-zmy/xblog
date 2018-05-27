@@ -2,13 +2,13 @@
 <footer class="footer">
     <div class="container">
         <div class="footer-col footer-col-logo hidden-xs hidden-sm">
-            <img src="${ctx}/static/theme/default/images/logo.png" alt="Mblog"/>
+            <img src="${ctx}/static/theme/default/images/logo1.png" alt="XBlog" width="150" height="42"/>
         </div>
         <div class="footer-col footer-col-copy">
             <ul class="footer-nav hidden-xs">
-                <li class="menu-item"><a href="${base}/about">关于我们</a></li>
-                <li class="menu-item"><a href="${base}/joinus">联系我们</a></li>
-                <li class="menu-item"><a href="${base}/faqs">常见问题</a></li>
+                <li class="menu-item"><a href="${ctx}/about">关于我们</a></li>
+                <li class="menu-item"><a href="${ctx}/joinus">联系我们</a></li>
+                <li class="menu-item"><a href="${ctx}/faqs">常见问题</a></li>
                 <li>
                     <script>
                         var _hmt = _hmt || [];
@@ -22,12 +22,12 @@
                 </li>
             </ul>
             <div class="copyright">
-				<span>${site_copyright}. ${site_icp}</span>
+				<span>Copyright © XBlog</span>
 			</div>
         </div>
         <div class="footer-col footer-col-sns hidden-xs hidden-sm">
             <div class="footer-sns">
-                <span>Powered By <a href="http://mtons.com/?copyright" target="_blank">Mtons</a></span>
+                <span>Powered By <a href="#" target="_blank">XBlog</a></span>
             </div>
         </div>
     </div>

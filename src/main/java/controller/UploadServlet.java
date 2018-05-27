@@ -1,12 +1,11 @@
 package controller;
 
-import Service.Impl.PostsServiceImpl;
-import Service.Impl.UserServiceImpl;
-import Service.PostsService;
-import Service.UserService;
+import service.Impl.PostsServiceImpl;
+import service.Impl.UserServiceImpl;
+import service.PostsService;
+import service.UserService;
 import bean.Post;
 import bean.User;
-import constant.XBlogConstant;
 import utils.UUIDUtils;
 
 import javax.servlet.ServletException;

@@ -1,7 +1,7 @@
 package com.peter.xblog.dao;
 
-import Dao.Impl.UserDaoImpl;
-import Dao.UserDao;
+import dao.Impl.UserDaoImpl;
+import dao.UserDao;
 import bean.User;
 import org.junit.Test;
 

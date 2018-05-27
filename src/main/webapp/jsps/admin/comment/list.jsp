@@ -1,124 +1,97 @@
-<%--<#include "/admin/utils/ui.ftl"/>--%>
-<%--<@layout>--%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<jsp:include page="/jsps/admin/utils/ui.jsp"/>
-<div class="row">
-    <div class="col-md-12 col-sm-12 col-xs-12">
-        <div class="x_panel">
-            <div class="x_title">
-                <h2>评论管理</h2>
-                <ul class="nav navbar-right panel_toolbox">
-                    <li><a href="javascrit:void(0);" data-action="batch_del">批量删除</a></li>
-                </ul>
-                <div class="clearfix"></div>
-            </div>
-            <div class="x_content">
-                <form id="qForm" class="form-inline">
-                    <input type="hidden" name="op" value="getComment"/>
-                    <div class="form-group">
-                        <input type="text" name="content" class="form-control" value="${key}" placeholder="请输入关键字">
+<!DOCTYPE html>
+<html lang="en" class="app">
+<head>
+    <jsp:include page="../include/header.jsp"/>
+</head>
+<body class="nav-md">
+<div class="container body">
+    <div class="main_container">
+        <jsp:include page="../include/left.jsp"/>
+
+        <!-- page content -->
+        <div class="right_col" role="main">
+            <div>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="x_panel">
+                            <div class="x_title">
+                                <h2>评论管理</h2>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="x_content">
+                                <form id="qForm" class="form-inline">
+                                    <input type="hidden" name="op" value="getComment"/>
+                                    <div class="form-group">
+                                        <input type="text" name="content" class="form-control" value="${key}"
+                                               placeholder="请输入关键字">
+                                    </div>
+                                    <button type="submit" class="btn btn-default">查询</button>
+                                </form>
+                            </div>
+                            <div class="x_content">
+                                <table id="dataGrid" class="table table-striped table-bordered b-t">
+                                    <thead>
+                                    <tr>
+
+                                        <th width="80">#</th>
+                                        <th>内容</th>
+                                        <th>目标文章</th>
+                                        <th>作者</th>
+                                        <th>发表日期</th>
+                                        <th width="200"></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <c:forEach items="${commentList}" var="comment">
+                                        <c:if test="${comment.status == NORMAL_STATUS}">
+                                            <tr>
+                                                <td>${comment.id}</td>
+                                                <td class="text-center">${comment.content}</td>
+                                                <td>${comment.toId}</td>
+                                                <td>${comment.authorId}</td>
+                                                <td><fmt:formatDate value="${comment.created}" type="both"/></td>
+                                                <td class="text-center" align="left">
+                                                    <a href="javascript:void(0);"
+                                                       class="btn btn-xs btn-white" data-id="${comment.id}"
+                                                       data-action="delete">
+                                                        <i class="fa fa-bitbucket"></i> 删除
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        </c:if>
+                                    </c:forEach>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
-                    <button type="submit" class="btn btn-default">查询</button>
-                </form>
-            </div>
-            <div class="x_content">
-                <table id="dataGrid" class="table table-striped table-bordered b-t">
-                    <thead>
-                    <tr>
-                        <th width="50"><input type="checkbox" class="checkall"></th>
-                        <th width="80">#</th>
-                        <th>内容</th>
-                        <th>目标Id</th>
-                        <th>作者</th>
-                        <th>发表日期</th>
-                        <th width="200"></th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <#list page.content as row>
-                        <c:forEach items="${commentList}" var="commentVo">
-                            <tr>
-                                <td>
-                                    <input type="checkbox" name="id" value="${commentVo.id}">
-                                </td>
-                                <td class="text-center">${commentVo.content}</td>
-                                <td>${commentVo.content}</td>
-                                <td>${commentVo.authorId}</td>
-                                <td>${row.author.username}</td>
-                                    <%--<td>${row.created?string('yyyy-MM-dd')}</td>--%>
-                                <td class="text-center" align="left">
-                                    <a href="${ctx}/BgServlet?op=delComment&id=${commentVo.id}"
-                                       class="btn btn-xs btn-white" data-id="${row.id}"
-                                       data-action="delete">
-                                        <i class="fa fa-bitbucket"></i> 删除
-                                    </a>
-                                </td>
-                            </tr>
-                        </c:forEach>
-                    </#list>
-                    </tbody>
-                </table>
-                <@pager "list" page 5 />
+                </div>
             </div>
         </div>
+        <jsp:include page="../include/footer.jsp"/>
     </div>
-</div>
-
-
-<script type="text/javascript">
-    var J = jQuery;
-
-    function ajaxReload(json) {
-        if (json.code >= 0) {
-            if (json.message != null && json.message != '') {
-                layer.msg(json.message, {icon: 1});
-            }
-            $('#qForm').submit();
-        } else {
-            layer.msg(json.message, {icon: 2});
-        }
-    }
-
-    function doDelete(ids) {
-        J.getJSON('${base}/admin/comment/delete', J.param({'id': ids}, true), ajaxReload);
-    }
-
-    $(function () {
-        // 删除
-        $('#dataGrid a[data-action="delete"]').bind('click', function () {
-            var that = $(this);
-            layer.confirm('确定删除此项吗?', {
-                btn: ['确定', '取消'], //按钮
-                shade: false //不显示遮罩
-            }, function () {
-                doDelete(that.attr('data-id'));
-            }, function () {
-            });
-            return false;
-        });
-
-        $('a[data-action="batch_del"]').click(function () {
-            var check_length = $("input[type=checkbox][name=id]:checked").length;
-
-            if (check_length == 0) {
-                layer.msg("请至少选择一项", {icon: 2});
+    <!-- Custom Theme Scripts -->
+    <script src="${ctx}/static/theme/admin/js/custom.min.js"></script>
+    <script src="${ctx}/static/theme/admin/js/app.data.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            // 删除
+            $('#dataGrid a[data-action="delete"]').bind('click', function () {
+                var that = $(this);
+                layer.confirm('确定删除此项吗?', {
+                    btn: ['确定', '取消'], //按钮
+                    shade: false //不显示遮罩
+                }, function () {
+                    $.post("${ctx}/BgServlet?op=delComment", {id: that.attr('data-id')}, function () {
+                        window.location.reload();
+                    });
+                });
                 return false;
-            }
-
-            var ids = [];
-            $("input[type=checkbox][name=id]:checked").each(function () {
-                ids.push($(this).val());
             });
+        })
+    </script>
+</body>
+</html>
 
-            layer.confirm('确定删除此项吗?', {
-                btn: ['确定', '取消'], //按钮
-                shade: false //不显示遮罩
-            }, function () {
-                doDelete(ids);
-            }, function () {
-            });
-        });
-    })
-</script>
-<%--
-</@layout>--%>
+

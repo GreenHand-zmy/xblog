@@ -1,7 +1,7 @@
-package Dao.Impl;
+package dao.Impl;
 
 import utils.DBUtil;
-import Dao.UserDao;
+import dao.UserDao;
 import bean.User;
 
 import java.util.List;

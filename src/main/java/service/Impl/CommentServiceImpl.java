@@ -1,11 +1,11 @@
-package Service.Impl;
+package service.Impl;
 
-import Dao.CommentDao;
-import Dao.Impl.CommentDaoImpl;
-import Dao.Impl.UserDaoImpl;
-import Dao.UserDao;
-import Service.CommentService;
-import Service.PostsService;
+import dao.CommentDao;
+import dao.Impl.CommentDaoImpl;
+import dao.Impl.UserDaoImpl;
+import dao.UserDao;
+import service.CommentService;
+import service.PostsService;
 import bean.Comment;
 import bean.Post;
 import bean.User;

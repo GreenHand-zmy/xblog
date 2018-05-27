@@ -1,7 +1,7 @@
 package com.peter.xblog.service;
 
-import Service.Impl.UserServiceImpl;
-import Service.UserService;
+import service.Impl.UserServiceImpl;
+import service.UserService;
 import bean.User;
 import org.junit.Test;
 

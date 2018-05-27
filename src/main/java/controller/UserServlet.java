@@ -1,14 +1,13 @@
 package controller;
 
-import Service.CommentService;
-import Service.Impl.CommentServiceImpl;
-import Service.Impl.PostsServiceImpl;
-import Service.Impl.UserServiceImpl;
-import Service.PostsService;
-import Service.UserService;
+import service.CommentService;
+import service.Impl.CommentServiceImpl;
+import service.Impl.PostsServiceImpl;
+import service.Impl.UserServiceImpl;
+import service.PostsService;
+import service.UserService;
 import bean.Post;
 import bean.User;
-import constant.ChannelStatusConstant;
 import utils.JsonUtil;
 import utils.MD5Utils;
 import utils.ResultBean;
@@ -21,7 +20,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
-import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 

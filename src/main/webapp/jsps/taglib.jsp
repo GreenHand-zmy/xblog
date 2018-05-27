@@ -16,6 +16,7 @@
 <c:set var="hotUserLimit" value="${10}"/>
 
 <%--用户常量--%>
+<c:set var="USER_DELETED_STATUS" value="${2}"/>
 <c:set var="ADMIN_STATUS" value="${3}"/>
 
 <%--频道常量--%>

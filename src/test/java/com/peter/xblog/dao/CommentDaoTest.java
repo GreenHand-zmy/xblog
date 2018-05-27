@@ -1,12 +1,11 @@
 package com.peter.xblog.dao;
 
-import Dao.CommentDao;
-import Dao.Impl.CommentDaoImpl;
+import dao.CommentDao;
+import dao.Impl.CommentDaoImpl;
 import utils.DBUtil;
 import bean.Comment;
 import org.junit.Test;
 
-import javax.xml.crypto.Data;
 import java.util.Date;
 import java.util.List;
 

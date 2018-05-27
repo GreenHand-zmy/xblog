@@ -1,8 +1,8 @@
-package Service.Impl;
+package service.Impl;
 
-import Dao.Impl.UserDaoImpl;
-import Dao.UserDao;
-import Service.UserService;
+import dao.Impl.UserDaoImpl;
+import dao.UserDao;
+import service.UserService;
 import bean.User;
 
 import static constant.UserStatusConstant.ADMIN_STATUS;

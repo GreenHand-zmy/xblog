@@ -1,7 +1,6 @@
-package Dao.Impl;
+package dao.Impl;
 
-import Dao.CommentDao;
-import bean.Post;
+import dao.CommentDao;
 import constant.CommentStatusConstant;
 import utils.DBUtil;
 import bean.Comment;
