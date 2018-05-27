@@ -51,7 +51,10 @@
                     <div class="menu_section">
                         <h3>系统菜单</h3>
                         <ul class="nav side-menu">
-                            <li><a href="${ctx}/BgServlet?op=index"><i class="fa fa-home"></i> Home</a>
+                            <li>
+                                <a href="${ctx}/BgServlet?op=index">
+                                    <i class="fa fa-home"></i> Home
+                                </a>
                             <li><a href="${ctx}/BgServlet?op=posts"><i class="fa fa-home"></i> 文章管理</a>
                             <li><a href="${ctx}/BgServlet?op=user"><i class="fa fa-home"></i> 用户管理</a>
                             <li><a href="${ctx}/BgServlet?op=comment"><i class="fa fa-home"></i> 评论管理</a>

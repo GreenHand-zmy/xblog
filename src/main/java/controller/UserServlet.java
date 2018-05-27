@@ -119,7 +119,7 @@ public class UserServlet extends HttpServlet {
     private void showUserAvatar(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         long authorId = Long.parseLong(req.getParameter("authorId"));
         User user = userService.getUser(authorId);
-        String path = this.getServletContext().getRealPath("/upload");
+        String path = this.getServletContext().getRealPath("/upload/avatar");
         File file = new File(path + "/" + user.getAvatar());
         String mimeType = req.getServletContext().getMimeType(user.getAvatar());
         resp.setContentType(mimeType);

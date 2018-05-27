@@ -19,7 +19,7 @@ define(function(require, exports, module) {
             tinymce.init({
                 selector: "#content",
                 theme: 'modern',
-                upload_image_url: window.app.base + "/post/upload", //配置的上传图片的路由
+                upload_image_url: window.app.base + "/editor/upload", //配置的上传图片的路由
                 height: 400,
                 plugins: [
                     'advlist autolink autosave lists link image print anchor codesample',

@@ -25,13 +25,13 @@ import java.util.List;
  */
 @WebServlet("/upload")
 @MultipartConfig(maxFileSize = 3L * 1024 * 1024)
-public class uploadServlet extends HttpServlet {
+public class UploadServlet extends HttpServlet {
     UserService userservice = new UserServiceImpl();
     private PostsService postsService = new PostsServiceImpl();
 
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String path = this.getServletContext().getRealPath("/upload");
+        String path = this.getServletContext().getRealPath("/upload/avatar");
         File paths = new File(path);
         Part part = req.getPart("file");
         String fileName = part.getSubmittedFileName();
