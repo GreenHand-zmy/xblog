@@ -26,10 +26,10 @@
                             <i class="fa fa-home"></i> Home
                         </a>
                     </li>
-                    <li><a href="${ctx}/BgServlet?op=posts"><i class="fa fa-home"></i> 文章管理</a></li>
-                    <li><a href="${ctx}/BgServlet?op=user"><i class="fa fa-home"></i> 用户管理</a></li>
-                    <li><a href="${ctx}/BgServlet?op=comment"><i class="fa fa-home"></i> 评论管理</a></li>
-                    <li><a href="${ctx}/BgServlet?op=channel"><i class="fa fa-home"></i> 栏目管理</a></li>
+                    <li><a href="${ctx}/BgServlet?op=posts"><i class="fa fa-clone icon-xlarge"></i> 文章管理</a></li>
+                    <li><a href="${ctx}/BgServlet?op=user"><i class="fa fa-user icon-xlarge"></i> 用户管理</a></li>
+                    <li><a href="${ctx}/BgServlet?op=comment"><i class="fa fa-comments-o icon-xlarge"></i> 评论管理</a></li>
+                    <li><a href="${ctx}/BgServlet?op=channel"><i class="fa fa-tags icon-xlarge"></i> 栏目管理</a></li>
                 </ul>
             </div>
         </div>
