@@ -1,5 +1,7 @@
 package controller;
 
+import bean.vo.UserVo;
+import org.apache.commons.beanutils.BeanUtils;
 import service.CommentService;
 import service.Impl.CommentServiceImpl;
 import service.Impl.PostsServiceImpl;
@@ -20,6 +22,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
+import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -156,10 +160,18 @@ public class UserServlet extends HttpServlet {
         try {
             int limit = Integer.parseInt(req.getParameter("limit"));
             List<User> userList = userService.getNewUsers(limit);
+            List<UserVo> userVoList = new ArrayList<>();
+            // 转换成vo防止将隐私提交给前台
+            for (User user : userList) {
+                UserVo userVo = new UserVo();
+                BeanUtils.copyProperties(userVo, user);
+                userVoList.add(userVo);
+            }
+
             resp.setContentType("application/json;charset=utf-8");
             writer = resp.getWriter();
-            writer.write(JsonUtil.objectToJson(new ResultBean<>().success(userList)));
-        } catch (RuntimeException e) {
+            writer.write(JsonUtil.objectToJson(new ResultBean<>().success(userVoList)));
+        } catch (RuntimeException | IllegalAccessException | InvocationTargetException e) {
             writer.write(JsonUtil.objectToJson(new ResultBean<>().fail(e.getMessage())));
         }
     }
