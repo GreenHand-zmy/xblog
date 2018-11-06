@@ -1,8 +1,8 @@
 package service;
 
 import bean.Comment;
-import vo.CommentVo;
-import vo.PostCommentVo;
+import bean.vo.CommentVo;
+import bean.vo.PostCommentVo;
 
 import java.util.List;
 

@@ -11,8 +11,8 @@ import bean.Post;
 import bean.User;
 import constant.CommentStatusConstant;
 import utils.DBUtil;
-import vo.CommentVo;
-import vo.PostCommentVo;
+import bean.vo.CommentVo;
+import bean.vo.PostCommentVo;
 
 import java.util.ArrayList;
 import java.util.List;

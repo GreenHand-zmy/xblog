@@ -4,8 +4,8 @@ import service.CommentService;
 import service.Impl.CommentServiceImpl;
 import bean.Comment;
 import org.junit.Test;
-import vo.CommentVo;
-import vo.PostCommentVo;
+import bean.vo.CommentVo;
+import bean.vo.PostCommentVo;
 
 import java.util.Date;
 import java.util.List;

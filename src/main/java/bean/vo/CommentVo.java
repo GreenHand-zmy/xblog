@@ -1,4 +1,4 @@
-package vo;
+package bean.vo;
 
 import bean.Comment;
 import bean.User;

@@ -1,11 +1,13 @@
 package controller;
 
+import bean.vo.PostVo;
 import dao.ChannelDao;
 import dao.Impl.ChannelDaoImpl;
 import dao.Impl.PostDaoImpl;
 import dao.Impl.UserDaoImpl;
 import dao.PostDao;
 import dao.UserDao;
+import org.apache.commons.beanutils.BeanUtils;
 import service.ChannelService;
 import service.CommentService;
 import service.Impl.ChannelServiceImpl;
@@ -19,7 +21,7 @@ import bean.Post;
 import bean.User;
 import utils.JsonUtil;
 import utils.ResultBean;
-import vo.CommentVo;
+import bean.vo.CommentVo;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -28,6 +30,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
@@ -264,11 +268,20 @@ public class PostsServlet extends HttpServlet {
         try {
             int limit = Integer.parseInt(req.getParameter("limit"));
             List<Post> postList = postsService.findNewPostsLimit3(limit);
+            List<PostVo> postVoList = new ArrayList<>();
+            // 构造为vo
+            for (Post post : postList) {
+                PostVo postVo = new PostVo();
+                BeanUtils.copyProperties(postVo, post);
+                postVoList.add(postVo);
+            }
             resp.setContentType("application/json;charset=utf-8");
             writer = resp.getWriter();
-            writer.write(JsonUtil.objectToJson(new ResultBean<>().success(postList)));
+            writer.write(JsonUtil.objectToJson(new ResultBean<>().success(postVoList)));
         } catch (RuntimeException e) {
             writer.write(JsonUtil.objectToJson(new ResultBean<>().fail(e.getMessage())));
+        } catch (IllegalAccessException | InvocationTargetException e) {
+            e.printStackTrace();
         }
     }
 
@@ -277,11 +290,21 @@ public class PostsServlet extends HttpServlet {
         try {
             int limit = Integer.parseInt(req.getParameter("limit"));
             List<Post> postList = postsService.findNewPostsLimit(limit);
+            List<PostVo> postVoList = new ArrayList<>();
+
+            // 构造为vo
+            for (Post post : postList) {
+                PostVo postVo = new PostVo();
+                BeanUtils.copyProperties(postVo, post);
+                postVoList.add(postVo);
+            }
             resp.setContentType("application/json;charset=utf-8");
             writer = resp.getWriter();
-            writer.write(JsonUtil.objectToJson(new ResultBean<>().success(postList)));
+            writer.write(JsonUtil.objectToJson(new ResultBean<>().success(postVoList)));
         } catch (RuntimeException e) {
             writer.write(JsonUtil.objectToJson(new ResultBean<>().fail(e.getMessage())));
+        } catch (IllegalAccessException | InvocationTargetException e) {
+            e.printStackTrace();
         }
     }
 }

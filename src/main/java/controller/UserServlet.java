@@ -14,7 +14,7 @@ import utils.JsonUtil;
 import utils.MD5Utils;
 import utils.ResultBean;
 import utils.StringUtil;
-import vo.PostCommentVo;
+import bean.vo.PostCommentVo;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
