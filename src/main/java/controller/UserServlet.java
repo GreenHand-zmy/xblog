@@ -208,7 +208,7 @@ public class UserServlet extends HttpServlet {
         user.setName(name);
         user.setUsername(username);
         userService.addUser(user);
-        resp.sendRedirect("WEB-INF/jsps/default/auth/login.jsp");
+        resp.sendRedirect("UserServlet?op=toLogin");
     }
 
     private void update(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
