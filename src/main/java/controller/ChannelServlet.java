@@ -45,7 +45,7 @@ public class ChannelServlet extends HttpServlet {
             req.setAttribute("orderBy", orderBy);
             req.setAttribute("pageBean", pageBean);
             req.setAttribute("totalPages", pageBean.getTotalPages());
-            req.getRequestDispatcher("jsps/default/channel/index.jsp").forward(req, resp);
+            req.getRequestDispatcher("WEB-INF/jsps/default/channel/index.jsp").forward(req, resp);
         } else if ("toChannelPageWithPageIndex".equals(op)) {
             Long channelId = null;
             // 获取频道编号
@@ -68,7 +68,7 @@ public class ChannelServlet extends HttpServlet {
             req.setAttribute("orderBy", orderBy);
             req.setAttribute("pageBean", pageBean);
             req.setAttribute("totalPages", pageBean.getTotalPages());
-            req.getRequestDispatcher("jsps/default/channel/index.jsp").forward(req, resp);
+            req.getRequestDispatcher("WEB-INF/jsps/default/channel/index.jsp").forward(req, resp);
         }
     }
 }

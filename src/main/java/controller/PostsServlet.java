@@ -68,7 +68,7 @@ public class PostsServlet extends HttpServlet {
             Long id = Long.parseLong(req.getParameter("id"));
             Post post = postDao.getPost(id);
             req.setAttribute("post", post);
-            req.getRequestDispatcher("jsps/default/channel/update.jsp").forward(req, resp);
+            req.getRequestDispatcher("WEB-INF/jsps/default/channel/update.jsp").forward(req, resp);
         } else if ("updatePost".equals(op)) {
             updatePost(req, resp);
         } else if ("updatePostFavors".equals(op)) {
@@ -78,7 +78,7 @@ public class PostsServlet extends HttpServlet {
         } else if ("updatePostComments".equals(op)) {
             updatePostComments(req, resp);
         } else if ("toAddPostPage".equals(op)) {
-            req.getRequestDispatcher("jsps/default/channel/editing.jsp").forward(req, resp);
+            req.getRequestDispatcher("WEB-INF/jsps/default/channel/editing.jsp").forward(req, resp);
         } else if ("addPost".equals(op)) {
             // 添加文章
             addPost(req, resp);
@@ -103,25 +103,25 @@ public class PostsServlet extends HttpServlet {
             long id = Integer.parseInt(req.getParameter("id"));
             Post post = postDao.getPost(id);
             req.setAttribute("post", post);
-            req.getRequestDispatcher("jsps/admin/post/update.jsp").forward(req, resp);
+            req.getRequestDispatcher("WEB-INF/jsps/admin/post/update.jsp").forward(req, resp);
         } else if ("toUpUserRootPage".equals(op)) {
             // 通过作者编号获取文章，改角色
             long id = Integer.parseInt(req.getParameter("userId"));
             User user = userDao.getUser(id);
             req.setAttribute("user", user);
-            req.getRequestDispatcher("jsps/admin/user/view.jsp").forward(req, resp);
+            req.getRequestDispatcher("WEB-INF/jsps/admin/user/view.jsp").forward(req, resp);
         } else if ("toUpUserPwdPage".equals(op)) {
             // 通过作者编号获取文章，改密码
             long id = Integer.parseInt(req.getParameter("userId"));
             User user = userDao.getUser(id);
             req.setAttribute("user", user);
-            req.getRequestDispatcher("jsps/admin/user/pwd.jsp").forward(req, resp);
+            req.getRequestDispatcher("WEB-INF/jsps/admin/user/pwd.jsp").forward(req, resp);
         } else if ("toUpChannelPage".equals(op)) {
             // 通过栏目编号获取文章
             long id = Integer.parseInt(req.getParameter("channelId"));
             Channel channel = channelDao.findById(id);
             req.setAttribute("channel", channel);
-            req.getRequestDispatcher("jsps/admin/channel/view.jsp").forward(req, resp);
+            req.getRequestDispatcher("WEB-INF/jsps/admin/channel/view.jsp").forward(req, resp);
         }
     }
 
@@ -130,7 +130,7 @@ public class PostsServlet extends HttpServlet {
         PrintWriter out = resp.getWriter();
         long id = Integer.parseInt(req.getParameter("id"));
         post = postsService.getPost(id);
-        resp.sendRedirect("jsps/default/auth/view.jsp");
+        resp.sendRedirect("WEB-INF/jsps/default/auth/view.jsp");
     }
 
     private void addPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -172,7 +172,7 @@ public class PostsServlet extends HttpServlet {
         post.setContent(content);
         // 提交到数据库中
         postsService.updatePost(post);
-        resp.sendRedirect("jsps/default/auth/view.jsp?id=" + post.getId());
+        resp.sendRedirect("WEB-INF/jsps/default/auth/view.jsp?id=" + post.getId());
     }
 
     private void updatePostViews(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -183,7 +183,7 @@ public class PostsServlet extends HttpServlet {
         int views = post.getViews() + 1;
         post.setViews(views);
         postsService.updatePost(post);
-        resp.sendRedirect("jsps/default/auth/view.jsp?id=" + post.getId());
+        resp.sendRedirect("WEB-INF/jsps/default/auth/view.jsp?id=" + post.getId());
     }
 
     private void updatePostComments(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -194,7 +194,7 @@ public class PostsServlet extends HttpServlet {
         int comments = post.getComments() + 1;
         post.setComments(comments);
         postsService.updatePost(post);
-        resp.sendRedirect("jsps/default/auth/view.jsp?id=" + post.getId());
+        resp.sendRedirect("WEB-INF/jsps/default/auth/view.jsp?id=" + post.getId());
     }
 
     private void updatePost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -256,7 +256,7 @@ public class PostsServlet extends HttpServlet {
         req.setAttribute("commentVoList", commentVoList);
 
         // 转发到展示页面
-        req.getRequestDispatcher("jsps/default/channel/view.jsp").forward(req, resp);
+        req.getRequestDispatcher("WEB-INF/jsps/default/channel/view.jsp").forward(req, resp);
     }
 
     private void getHostPosts(HttpServletRequest req, HttpServletResponse resp) throws IOException {

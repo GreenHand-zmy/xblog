@@ -17,16 +17,16 @@
         <div class="panel panel-default stacked">
             <div class="panel-heading">
                 <ul class="nav nav-pills account-tab">
-                    <li class="active"><a href="/UserServlet?op=toUpdate">基本信息</a></li>
-                    <li><a href="/UserServlet?op=toUpdateAvatar">修改头像</a></li>
-                    <li><a href="/UserServlet?op=toUpdatePassword">修改密码</a></li>
+                    <li class="active"><a href="${ctx}/UserServlet?op=toUpdate">基本信息</a></li>
+                    <li><a href="${ctx}/UserServlet?op=toUpdateAvatar">修改头像</a></li>
+                    <li><a href="${ctx}/UserServlet?op=toUpdatePassword">修改密码</a></li>
                 </ul>
             </div>
             <div class="panel-body">
                 <div id="message">
                 </div>
                 <div class="tab-pane active" id="profile">
-                    <form id="pf" action="/UserServlet?op=update&id=${sessionScope.user.id}" method="post" class="form-horizontal">
+                    <form id="pf" action="${ctx}/UserServlet?op=update&id=${sessionScope.user.id}" method="post" class="form-horizontal">
                         <div class="form-group">
                             <label class="control-label col-lg-3" for="nickname">昵称</label>
                             <div class="col-lg-4">

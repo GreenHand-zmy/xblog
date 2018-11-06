@@ -58,18 +58,18 @@ public class BgServlet extends HttpServlet {
         List<Comment> commentList = commentService.getAllComments();
         if ("comment".equals(op)) {
             req.setAttribute("commentList", commentList);
-            req.getRequestDispatcher("jsps/admin/comment/list.jsp").forward(req, resp);
+            req.getRequestDispatcher("WEB-INF/jsps/admin/comment/list.jsp").forward(req, resp);
         } else if ("channel".equals(op)) {
             req.setAttribute("channelList", channelList);
-            req.getRequestDispatcher("jsps/admin/channel/list.jsp").forward(req, resp);
+            req.getRequestDispatcher("WEB-INF/jsps/admin/channel/list.jsp").forward(req, resp);
         } else if ("posts".equals(op)) {
             req.setAttribute("postsList", postsList);
-            req.getRequestDispatcher("jsps/admin/post/list.jsp").forward(req, resp);
+            req.getRequestDispatcher("WEB-INF/jsps/admin/post/list.jsp").forward(req, resp);
         } else if ("user".equals(op)) {
             req.setAttribute("userList", userList);
-            req.getRequestDispatcher("jsps/admin/user/list.jsp").forward(req, resp);
+            req.getRequestDispatcher("WEB-INF/jsps/admin/user/list.jsp").forward(req, resp);
         } else if ("index".equals(op)) {
-            req.getRequestDispatcher("jsps/admin/index.jsp").forward(req, resp);
+            req.getRequestDispatcher("WEB-INF/jsps/admin/index.jsp").forward(req, resp);
         } else if ("updatePost".equals(op)) {
             long id = Integer.parseInt(req.getParameter("id"));
             Post post = postDao.getPost(id);
@@ -78,12 +78,12 @@ public class BgServlet extends HttpServlet {
             post.setTitle(title);
             post.setChannelId(channelId);
             postsService.updatePost(post);
-            req.getRequestDispatcher("jsps/admin/index.jsp").forward(req, resp);
+            req.getRequestDispatcher("WEB-INF/jsps/admin/index.jsp").forward(req, resp);
         } else if ("delPost".equals(op)) {
             long id = Integer.parseInt(req.getParameter("id"));
             Post post = postDao.getPost(id);
             post.setStatus(PostStatusConstant.DELETED_STATUS);
-            req.getRequestDispatcher("jsps/admin/index.jsp").forward(req, resp);
+            req.getRequestDispatcher("WEB-INF/jsps/admin/index.jsp").forward(req, resp);
         } else if ("updateChannel".equals(op)) {
             long id = Integer.parseInt(req.getParameter("id"));
             Channel channel = channelDao.findById(id);
@@ -92,7 +92,7 @@ public class BgServlet extends HttpServlet {
             channel.setName(name);
             channel.setKey(key);
             channelService.update(channel);
-            req.getRequestDispatcher("jsps/admin/index.jsp").forward(req, resp);
+            req.getRequestDispatcher("WEB-INF/jsps/admin/index.jsp").forward(req, resp);
         } else if ("delChannel".equals(op)) {
             long id = Integer.parseInt(req.getParameter("id"));
             Channel channel = channelDao.findById(id);
@@ -103,7 +103,7 @@ public class BgServlet extends HttpServlet {
             String password = req.getParameter("password");
             user.setPassword(password);
             userService.updateUser(user);
-            req.getRequestDispatcher("jsps/admin/index.jsp").forward(req, resp);
+            req.getRequestDispatcher("WEB-INF/jsps/admin/index.jsp").forward(req, resp);
         } else if ("delUser".equals(op)) {
             long id = Integer.parseInt(req.getParameter("id"));
             User user = userDao.getUser(id);
@@ -120,24 +120,24 @@ public class BgServlet extends HttpServlet {
             String name = req.getParameter("name");
             List<User> userList2 = userDao.getUsername(name);
             req.setAttribute("userList", userList2);
-            req.getRequestDispatcher("jsps/admin/user/list.jsp").forward(req, resp);
+            req.getRequestDispatcher("WEB-INF/jsps/admin/user/list.jsp").forward(req, resp);
         } else if ("getPost".equals(op)) {
             String title = req.getParameter("title");
             List<Post> postsList2 = postDao.getPostTitle(title);
             req.setAttribute("postsList", postsList2);
-            req.getRequestDispatcher("jsps/admin/post/list.jsp").forward(req, resp);
+            req.getRequestDispatcher("WEB-INF/jsps/admin/post/list.jsp").forward(req, resp);
         } else if ("getComment".equals(op)) {
             String content = req.getParameter("content");
             List<Comment> commentList2 = commentDao.getCommentContent(content);
             req.setAttribute("commentList", commentList2);
-            req.getRequestDispatcher("jsps/admin/comment/list.jsp").forward(req, resp);
+            req.getRequestDispatcher("WEB-INF/jsps/admin/comment/list.jsp").forward(req, resp);
         } else if ("toAdminPage".equals(op)) {
             User user = (User) req.getSession().getAttribute("user");
             if (!UserStatusConstant.ADMIN_STATUS.equals(user.getStatus())) {
                 resp.getWriter().print("<script>alert('您不是管理员用户,无权进入后台页面');history.go('-1');</script>");
                 return;
             }
-            req.getRequestDispatcher("jsps/admin/index.jsp").forward(req, resp);
+            req.getRequestDispatcher("WEB-INF/jsps/admin/index.jsp").forward(req, resp);
         } else if ("activeUser".equals(op)) {
             long id = Integer.parseInt(req.getParameter("id"));
             User user = userDao.getUser(id);
@@ -156,7 +156,7 @@ public class BgServlet extends HttpServlet {
 
             resp.sendRedirect("BgServlet?op=user");
         } else if ("toAddChannelPage".equals(op)) {
-            req.getRequestDispatcher("jsps/admin/channel/view.jsp").forward(req, resp);
+            req.getRequestDispatcher("WEB-INF/jsps/admin/channel/view.jsp").forward(req, resp);
         } else if ("addChannel".equals(op)) {
             // 获取频道必须参数
             String channelName = req.getParameter("name");

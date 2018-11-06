@@ -58,10 +58,10 @@ public class UserServlet extends HttpServlet {
             ajaxGetHotUser(req, resp);
         } else if ("toLogin".equals(op)) {
             //到登录页面
-            req.getRequestDispatcher("jsps/default/auth/login.jsp").forward(req, resp);
+            req.getRequestDispatcher("WEB-INF/jsps/default/auth/login.jsp").forward(req, resp);
         } else if ("toRegister".equals(op)) {
             //到注册页面
-            req.getRequestDispatcher("jsps/default/auth/register.jsp").forward(req, resp);
+            req.getRequestDispatcher("WEB-INF/jsps/default/auth/register.jsp").forward(req, resp);
         } else if ("toMyPage".equals(op)) {
             //到我的主页
             req.getRequestDispatcher("/UserServlet?op=toMyArticle").forward(req, resp);
@@ -71,7 +71,7 @@ public class UserServlet extends HttpServlet {
             List<Post> postList = postsService.getPostAuthorId(user.getId());
             postList.sort((post1, post2) -> post2.getCreated().compareTo(post1.getCreated()));
             req.setAttribute("postList", postList);
-            req.getRequestDispatcher("jsps/default/user/method_posts.jsp").forward(req, resp);
+            req.getRequestDispatcher("WEB-INF/jsps/default/user/method_posts.jsp").forward(req, resp);
         } else if ("toMyComment".equals(op)) {
             //到我的评论
             User user = (User) req.getSession().getAttribute("user");
@@ -81,17 +81,17 @@ public class UserServlet extends HttpServlet {
                     postCommentVo2.getComment().getCreated().compareTo(postCommentVo1.getComment().getCreated()));
 
             req.setAttribute("postCommentVoList", postCommentVoList);
-            req.getRequestDispatcher("jsps/default/user/method_comments.jsp").forward(req, resp);
+            req.getRequestDispatcher("WEB-INF/jsps/default/user/method_comments.jsp").forward(req, resp);
         } else if ("toUpdate".equals(op)) {
             //到编辑信息页面
-            req.getRequestDispatcher("jsps/default/user/profile.jsp").forward(req, resp);
+            req.getRequestDispatcher("WEB-INF/jsps/default/user/profile.jsp").forward(req, resp);
         } else if ("toUpdateAvatar".equals(op)) {
             //到编辑头像页面
 
-            req.getRequestDispatcher("jsps/default/user/avatar.jsp").forward(req, resp);
+            req.getRequestDispatcher("WEB-INF/jsps/default/user/avatar.jsp").forward(req, resp);
         } else if ("toUpdatePassword".equals(op)) {
             //到编辑密码页面
-            req.getRequestDispatcher("jsps/default/user/password.jsp").forward(req, resp);
+            req.getRequestDispatcher("WEB-INF/jsps/default/user/password.jsp").forward(req, resp);
         } else if ("toOtherUser".equals(op)) {
             //查看他人主页
             // 获取指定用户编号
@@ -107,7 +107,7 @@ public class UserServlet extends HttpServlet {
             req.setAttribute("postList", postList);
 
             // 转入展示页面
-            req.getRequestDispatcher("jsps/default/view/view.jsp").forward(req, resp);
+            req.getRequestDispatcher("WEB-INF/jsps/default/view/view.jsp").forward(req, resp);
         } else if ("showUserAvatar".equals(op)) {
             // 输出图片
             showUserAvatar(req, resp);
@@ -208,7 +208,7 @@ public class UserServlet extends HttpServlet {
         user.setName(name);
         user.setUsername(username);
         userService.addUser(user);
-        resp.sendRedirect("jsps/default/auth/login.jsp");
+        resp.sendRedirect("WEB-INF/jsps/default/auth/login.jsp");
     }
 
     private void update(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {

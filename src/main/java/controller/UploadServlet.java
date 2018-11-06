@@ -41,6 +41,6 @@ public class UploadServlet extends HttpServlet {
         part.write(paths + "/" + file);
         List<Post> postsList = postsService.getPostAuthorId(user.getId());
         req.setAttribute("postsList", postsList);
-        req.getRequestDispatcher("jsps/default/user/method_posts.jsp").forward(req, resp);
+        req.getRequestDispatcher("WEB-INF/jsps/default/user/method_posts.jsp").forward(req, resp);
     }
 }

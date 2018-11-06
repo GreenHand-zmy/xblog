@@ -39,19 +39,19 @@
 
         <ul class="list-group user-nav">
             <li class="list-group-item">
-                <a href="${base}/user?method=favors"><i class="icon icon-heart"></i> 我的喜欢</a>
+                <a href="${ctx}/user?method=favors"><i class="icon icon-heart"></i> 我的喜欢</a>
             </li>
             <li class="list-group-item">
-                <a href="${base}/user?method=follows"><i class="icon icon-user-following"></i> 我的关注</a>
+                <a href="${ctx}/user?method=follows"><i class="icon icon-user-following"></i> 我的关注</a>
             </li>
             <li class="list-group-item">
-                <a href="${base}/user?method=fans"><i class="icon icon-user-follow"></i> 我的粉丝</a>
+                <a href="${ctx}/user?method=fans"><i class="icon icon-user-follow"></i> 我的粉丝</a>
             </li>
         </ul>
 
         <ul class="list-group user-nav">
             <li class="list-group-item">
-                <a href="${base}/user?method=notifies">
+                <a href="${ctx}/user?method=notifies">
                     <i class="icon icon-envelope"></i> 通知
                 </a>
             </li>
