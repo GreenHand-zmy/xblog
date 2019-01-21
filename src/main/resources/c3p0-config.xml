@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<c3p0-config>
+  <named-config name="oracleSource">   
+    <property name="user">lisi</property>
+    <property name="password">a12345</property>
+    <property name="driverClass">oracle.jdbc.driver.OracleDriver</property>
+    <property name="jdbcUrl">jdbc:oracle:thin:@localhost:1521:orcl</property>
+ 
+    <!--初始化时获取三个连接，取值应在minPoolSize与maxPoolSize之间。Default: 3 -->
+    <property name="initialPoolSize">10</property>
+    <!--最大空闲时间,30秒内未使用则连接被丢弃。若为0则永不丢弃。Default: 0 --> 
+    <property name="maxIdleTime">30</property>
+    <!--连接池中保留的最大连接数。Default: 15 --> 
+    <property name="maxPoolSize">100</property>
+    <property name="minPoolSize">10</property>
+  </named-config>
+  
+  <default-config>
+    <property name="user">你的用户名</property>
+    <property name="password">你的密码</property>
+    <property name="driverClass">com.mysql.jdbc.Driver</property>
+    <property name="jdbcUrl">你的url</property>
+ 
+    <property name="initialPoolSize">10</property>
+    <property name="maxIdleTime">60</property>
+    <property name="maxPoolSize">200</property>
+    <property name="minPoolSize">10</property>
+  </default-config>
+  
+  <named-config name="sqlServerSource">
+    <property name="user">sa</property>
+    <property name="password">a12345</property>
+    <property name="driverClass">com.microsoft.sqlserver.jdbc.SQLServerDriver</property>
+    <property name="jdbcUrl">jdbc:sqlserver://localhost:1433;DatabaseName=myschool</property>
+ 
+    <property name="initialPoolSize">10</property>
+    <property name="maxIdleTime">30</property>
+    <property name="maxPoolSize">100</property>
+    <property name="minPoolSize">10</property>
+  </named-config>
+</c3p0-config>
